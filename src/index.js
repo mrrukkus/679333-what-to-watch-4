@@ -8,11 +8,16 @@ const promoMovieSettings = {
   year: 2014
 };
 
+const filmsCardSettings = {
+  titles: [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`]
+};
+
 ReactDOM.render(
     <App
       title={promoMovieSettings.title}
       genre={promoMovieSettings.genre}
       year={promoMovieSettings.year}
+      filmsTitles={filmsCardSettings.titles}
     />,
     document.querySelector(`#root`)
 );
