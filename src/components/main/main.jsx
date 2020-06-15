@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const FilmCard = (props) => {
-  const {filmTitle} = props;
+  const {filmTitle, onTitleClick} = props;
 
   return (
     <React.Fragment>
@@ -11,21 +11,21 @@ const FilmCard = (props) => {
           <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
         </div>
         <h3 className="small-movie-card__title">
-          <a className="small-movie-card__link" href="movie-page.html">{filmTitle}</a>
+          <a className="small-movie-card__link" href="movie-page.html" onClick={onTitleClick}>{filmTitle}</a>
         </h3>
       </article>
     </React.Fragment>
   );
 };
 
-const getCards = (titles) => {
+const getCards = (titles, onTitleClick) => {
   return (
-    titles.map((title, i) => <FilmCard key={title + i} filmTitle={title}></FilmCard>)
+    titles.map((title, i) => <FilmCard key={title + i} filmTitle={title} onTitleClick={onTitleClick}></FilmCard>)
   );
 };
 
 const Main = (props) => {
-  const {title, genre, year, filmsTitles} = props;
+  const {title, genre, year, filmsTitles, onTitleClick} = props;
 
   return (
     <React.Fragment>
@@ -122,7 +122,7 @@ const Main = (props) => {
           </ul>
 
           <div className="catalog__movies-list">
-            {getCards(filmsTitles)}
+            {getCards(filmsTitles, onTitleClick)}
           </div>
 
           <div className="catalog__more">
@@ -152,11 +152,13 @@ Main.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  filmsTitles: PropTypes.arrayOf(PropTypes.string).isRequired
+  filmsTitles: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onTitleClick: PropTypes.func.isRequired
 };
 
 FilmCard.propTypes = {
-  filmTitle: PropTypes.string.isRequired
+  filmTitle: PropTypes.string.isRequired,
+  onTitleClick: PropTypes.func.isRequired
 };
 
 export default Main;

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/app.jsx";
+import App from "./components/app/app.jsx";
 
 const promoMovieSettings = {
   title: `The Grand Budapest Hotel`,
@@ -8,7 +8,7 @@ const promoMovieSettings = {
   year: 2014
 };
 
-const filmsCardSettings = {
+export const filmsCardSettings = {
   titles: [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`]
 };
 
