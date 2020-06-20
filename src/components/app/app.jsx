@@ -1,13 +1,17 @@
 import React from "react";
-import Main from "../main/main";
+import Main from "../main/main.jsx";
 import PropTypes from "prop-types";
 
-
 const App = (props) => {
-  const {title, genre, year, filmsTitles} = props;
+  const {title, genre, year, filmsList} = props;
 
   return (
-    <Main title={title} genre={genre} year={year} filmsTitles={filmsTitles} onTitleClick={() => {}}/>
+    <Main
+      title={title}
+      genre={genre}
+      year={year}
+      filmsList={filmsList}
+      onTitleAction={() => {}}/>
   );
 };
 
@@ -15,7 +19,7 @@ App.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  filmsTitles: PropTypes.arrayOf(PropTypes.string).isRequired
+  filmsList: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default App;
