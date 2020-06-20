@@ -10,7 +10,7 @@ it(`Main renders correctly`, () => {
       genre={`Drama`}
       year={2014}
       filmsList={films}
-      onTitleAction={() => {}}
+      onCardAction={() => {}}
     />).toJSON();
 
   expect(tree).toMatchSnapshot();

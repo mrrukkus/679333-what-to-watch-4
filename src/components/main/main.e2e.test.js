@@ -18,7 +18,7 @@ describe(`Main component`, () => {
           genre={`Drama`}
           year={2014}
           filmsList={films}
-          onTitleAction={onTitleAction}
+          onCardAction={onTitleAction}
         />
     );
 

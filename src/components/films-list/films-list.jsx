@@ -2,19 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import FilmCard from "../film-card/film-card.jsx";
 
-const getCards = (films, onTitleAction) => {
+const getCards = (films, onCardAction) => {
   return (
-    films.map((film, i) => <FilmCard key={film.title + i} filmTitle={film.title} filmImageLink={film.img} onTitleAction={onTitleAction} ></FilmCard>)
+    films.map((film, i) => <FilmCard key={film.title + i} filmTitle={film.title} filmImageLink={film.img} onCardAction={onCardAction} ></FilmCard>)
   );
 };
 
 const FilmsList = (props) => {
-  const {filmsList, onTitleAction} = props;
+  const {filmsList, onCardAction} = props;
 
   return (
     <React.Fragment>
       <div className="catalog__movies-list">
-        {getCards(filmsList, onTitleAction)}
+        {getCards(filmsList, onCardAction)}
       </div>
     </React.Fragment>
   );
@@ -22,7 +22,7 @@ const FilmsList = (props) => {
 
 FilmsList.propTypes = {
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onTitleAction: PropTypes.func.isRequired
+  onCardAction: PropTypes.func.isRequired
 };
 
 export default FilmsList;

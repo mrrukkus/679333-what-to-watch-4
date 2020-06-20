@@ -18,17 +18,17 @@ describe(`Film card test`, () => {
           genre={`Drama`}
           year={2014}
           filmsList={films}
-          onTitleAction={onTitleAction}
+          onCardAction={onTitleAction}
         />
     );
 
-    const titleButtons = mainTemplate.find(`a.small-movie-card__link`);
+    const movieCards = mainTemplate.find(`article.small-movie-card`);
 
-    titleButtons.map((button) => {
-      button.simulate(`mouseover`, {preventDefault() {}});
+    movieCards.map((card) => {
+      card.simulate(`mouseover`, {preventDefault() {}});
     });
 
-    expect(onTitleAction.mock.calls.length).toBe(titleButtons.length);
+    expect(onTitleAction.mock.calls.length).toBe(movieCards.length);
   });
 });
 

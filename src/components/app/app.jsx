@@ -11,7 +11,7 @@ const App = (props) => {
       genre={genre}
       year={year}
       filmsList={filmsList}
-      onTitleAction={() => {}}/>
+      onCardAction={() => {}}/>
   );
 };
 

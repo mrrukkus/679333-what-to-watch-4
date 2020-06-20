@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import FilmsList from "../films-list/films-list.jsx";
 
 const Main = (props) => {
-  const {title, genre, year, filmsList, onTitleAction} = props;
+  const {title, genre, year, filmsList, onCardAction} = props;
 
   return (
     <React.Fragment>
@@ -99,7 +99,7 @@ const Main = (props) => {
             </li>
           </ul>
 
-          <FilmsList filmsList={filmsList} onTitleAction={onTitleAction} />
+          <FilmsList filmsList={filmsList} onCardAction={onCardAction} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -128,7 +128,7 @@ Main.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  onTitleAction: PropTypes.func.isRequired,
+  onCardAction: PropTypes.func.isRequired,
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
