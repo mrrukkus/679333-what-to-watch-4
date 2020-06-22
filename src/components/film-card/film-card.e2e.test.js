@@ -8,8 +8,8 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-describe(`Main component`, () => {
-  it(`Film Title should be pressed`, () => {
+describe(`Film card test`, () => {
+  it(`Film Title mouseover check`, () => {
     const onTitleAction = jest.fn();
 
     const mainTemplate = mount(
@@ -22,12 +22,14 @@ describe(`Main component`, () => {
         />
     );
 
-    const titleButtons = mainTemplate.find(`a.small-movie-card__link`);
+    const movieCards = mainTemplate.find(`article.small-movie-card`);
 
-    titleButtons.map((button) => {
-      button.simulate(`click`, {preventDefault() {}});
+    movieCards.map((card) => {
+      card.simulate(`mouseover`, {preventDefault() {}});
     });
 
-    expect(onTitleAction.mock.calls.length).toBe(titleButtons.length);
+    expect(onTitleAction.mock.calls.length).toBe(movieCards.length);
   });
 });
+
+
