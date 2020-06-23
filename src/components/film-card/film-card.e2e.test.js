@@ -10,7 +10,8 @@ Enzyme.configure({
 
 describe(`Film card test`, () => {
   it(`Film Title mouseover check`, () => {
-    const onTitleAction = jest.fn();
+    const onCardAction = jest.fn();
+    const onTitleAndImageAction = jest.fn();
 
     const mainTemplate = mount(
         <Main
@@ -18,18 +19,28 @@ describe(`Film card test`, () => {
           genre={`Drama`}
           year={2014}
           filmsList={films}
-          onCardAction={onTitleAction}
+          onCardAction={onCardAction}
+          openDetailsHandler={onTitleAndImageAction}
         />
     );
 
     const movieCards = mainTemplate.find(`article.small-movie-card`);
+    const movieCardsImages = mainTemplate.find(`small-movie-card__image`);
+    const movieCardsTitles = mainTemplate.find(`small-movie-card__title`);
 
     movieCards.map((card) => {
       card.simulate(`mouseover`, {preventDefault() {}});
     });
 
-    expect(onTitleAction.mock.calls.length).toBe(movieCards.length);
+    movieCardsImages.map((image) => {
+      image.simulate(`click`, {preventDefault() {}});
+    });
+
+    movieCardsTitles.map((title) => {
+      title.simulate(`click`, {preventDefault() {}});
+    });
+
+    expect(onCardAction.mock.calls.length).toBe(movieCards.length);
+    expect(onTitleAndImageAction.mock.calls.length).toBe(movieCardsImages.length + movieCardsTitles.length);
   });
 });
-
-

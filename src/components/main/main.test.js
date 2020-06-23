@@ -11,6 +11,7 @@ it(`Main renders correctly`, () => {
       year={2014}
       filmsList={films}
       onCardAction={() => {}}
+      openDetailsHandler={() => {}}
     />).toJSON();
 
   expect(tree).toMatchSnapshot();

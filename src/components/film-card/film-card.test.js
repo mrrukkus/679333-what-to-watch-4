@@ -8,6 +8,7 @@ it(`Film cards renders correctly`, () => {
       filmTitle={`Fantastic Beasts: The Crimes of Grindelwald`}
       filmImageLink={`img/fantastic-beasts-the-crimes-of-grindelwald.jpg`}
       onCardAction={() => {}}
+      onImageAndTitleClick={() => {}}
     />).toJSON();
 
   expect(card).toMatchSnapshot();

@@ -19,6 +19,7 @@ describe(`Main component`, () => {
           year={2014}
           filmsList={films}
           onCardAction={onTitleAction}
+          openDetailsHandler={() => {}}
         />
     );
 
