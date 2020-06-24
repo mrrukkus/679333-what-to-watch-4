@@ -6,10 +6,8 @@ import films from "../../mocks/films.js";
 it(`Main renders correctly`, () => {
   const tree = renderer
     .create(<Main
-      title={`The Grand Budapest Hotel`}
-      genre={`Drama`}
-      year={2014}
-      filmsList={films}
+      filmPromo={films.defaultFilm}
+      filmsList={films.filmsForCards}
       onCardAction={() => {}}
       openDetailsHandler={() => {}}
     />).toJSON();

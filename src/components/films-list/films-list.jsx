@@ -4,7 +4,7 @@ import FilmCard from "../film-card/film-card.jsx";
 
 const getCards = (films, onCardAction, openDetailsHandler) => {
   return (
-    films.map((film, i) => <FilmCard key={film.title + i} filmTitle={film.title} filmImageLink={film.img} onCardAction={onCardAction} onImageAndTitleClick={openDetailsHandler}></FilmCard>)
+    films.map((film, i) => <FilmCard key={film.title + i} id={i} film={film} onCardAction={onCardAction} onImageAndTitleClick={openDetailsHandler}></FilmCard>)
   );
 };
 

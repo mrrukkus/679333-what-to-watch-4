@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const FilmDetails = (props) => {
-  const {title, genre, year, filmBackground, poster, score, ratingLevel, ratingCount, paragraphs, director, starring} = props;
+  const {film} = props;
 
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={filmBackground} alt={title} />
+            <img src={film.filmBackground} alt={film.title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -32,10 +32,10 @@ const FilmDetails = (props) => {
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title">{film.title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
+                <span className="movie-card__genre">{film.genre}</span>
+                <span className="movie-card__year">{film.year}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -60,7 +60,7 @@ const FilmDetails = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={poster} alt={title + ` poster`} width="218" height="327" />
+              <img src={film.poster} alt={film.title + ` poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -79,23 +79,23 @@ const FilmDetails = (props) => {
               </nav>
 
               <div className="movie-rating">
-                <div className="movie-rating__score">{score}</div>
+                <div className="movie-rating__score">{film.score}</div>
                 <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{ratingLevel}</span>
-                  <span className="movie-rating__count">{ratingCount}</span>
+                  <span className="movie-rating__level">{film.ratingLevel}</span>
+                  <span className="movie-rating__count">{film.ratingCount}</span>
                 </p>
               </div>
 
               <div className="movie-card__text">
-                {paragraphs.map((paragraph, i) => {
+                {film.paragraphs.map((paragraph, i) => {
                   return (
                     <p key={i}>{paragraph}</p>
                   );
                 })}
 
-                <p className="movie-card__director"><strong>Director: {director}</strong></p>
+                <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
 
-                <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
+                <p className="movie-card__starring"><strong>Starring: {film.starring}</strong></p>
               </div>
             </div>
           </div>
@@ -164,17 +164,7 @@ const FilmDetails = (props) => {
 };
 
 FilmDetails.propTypes = {
-  title: (PropTypes.string.isRequired || PropTypes.number.isRequired),
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
-  filmBackground: PropTypes.string.isRequired,
-  poster: PropTypes.string.isRequired,
-  score: PropTypes.string.isRequired,
-  ratingLevel: PropTypes.string.isRequired,
-  ratingCount: PropTypes.number.isRequired,
-  paragraphs: PropTypes.arrayOf(PropTypes.string).isRequired,
-  director: PropTypes.string.isRequired,
-  starring: PropTypes.string.isRequired
+  film: PropTypes.object.isRequired
 };
 
 export default FilmDetails;

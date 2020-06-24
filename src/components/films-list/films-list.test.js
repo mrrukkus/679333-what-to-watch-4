@@ -6,7 +6,7 @@ import FilmsList from "../films-list/films-list.jsx";
 it(`Films list renders correctly`, () => {
   const list = renderer
     .create(<FilmsList
-      filmsList={films}
+      filmsList={films.filmsForCards}
       onCardAction={() => {}}
       openDetailsHandler={() => {}}
     />).toJSON();
