@@ -17,7 +17,7 @@ describe(`Main component`, () => {
           filmPromo={films.defaultFilm}
           filmsList={films.filmsForCards}
           onCardAction={onTitleAction}
-          openDetailsHandler={() => {}}
+          onImageAndTitleClick={() => {}}
         />
     );
 

@@ -30,7 +30,7 @@ class App extends React.PureComponent {
           onCardAction={(evt) => {
             evt.preventDefault();
           }}
-          openDetailsHandler={this._handler}
+          onImageAndTitleClick={this._handler}
         />
       );
     }

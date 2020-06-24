@@ -9,7 +9,7 @@ it(`Main renders correctly`, () => {
       filmPromo={films.defaultFilm}
       filmsList={films.filmsForCards}
       onCardAction={() => {}}
-      openDetailsHandler={() => {}}
+      onImageAndTitleClick={() => {}}
     />).toJSON();
 
   expect(tree).toMatchSnapshot();

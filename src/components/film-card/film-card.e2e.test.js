@@ -18,7 +18,7 @@ describe(`Film card test`, () => {
           filmPromo={films.defaultFilm}
           filmsList={films.filmsForCards}
           onCardAction={onCardAction}
-          openDetailsHandler={onTitleAndImageAction}
+          onImageAndTitleClick={onTitleAndImageAction}
         />
     );
 

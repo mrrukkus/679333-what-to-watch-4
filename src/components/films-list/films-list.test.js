@@ -8,7 +8,7 @@ it(`Films list renders correctly`, () => {
     .create(<FilmsList
       filmsList={films.filmsForCards}
       onCardAction={() => {}}
-      openDetailsHandler={() => {}}
+      onImageAndTitleClick={() => {}}
     />).toJSON();
 
   expect(list).toMatchSnapshot();
