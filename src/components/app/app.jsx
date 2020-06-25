@@ -12,7 +12,6 @@ class App extends React.PureComponent {
       filmIdToRenderDetails: -1
     };
     this._handler = this._handler.bind(this);
-    this._films = this.props.films;
   }
 
   _handler(filmId) {
@@ -25,8 +24,7 @@ class App extends React.PureComponent {
     if (filmIdToRenderDetails === -1) {
       return (
         <Main
-          filmPromo={this._films.defaultFilm}
-          filmsList={this._films.filmsForCards}
+          filmsList={this.props.films}
           onCardAction={(evt) => {
             evt.preventDefault();
           }}
@@ -35,9 +33,7 @@ class App extends React.PureComponent {
       );
     }
 
-    const filmToRenderDetails = Object.assign({}, this._films.defaultFilm);
-
-    filmToRenderDetails.title = this._films.filmsForCards[this.state.filmIdToRenderDetails].title;
+    const filmToRenderDetails = this.props.films[this.state.filmIdToRenderDetails];
 
     return (
       <FilmDetails
@@ -55,7 +51,7 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/film-details">
             <FilmDetails
-              film={this._films.defaultFilm}
+              film={this.props.films[1]}
             />
           </Route>
         </Switch>
@@ -65,7 +61,7 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  films: PropTypes.object.isRequired
+  films: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default App;

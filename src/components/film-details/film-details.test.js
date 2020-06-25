@@ -7,7 +7,7 @@ import films from "../../mocks/films.js";
 it(`Details renders correctly`, () => {
   const details = renderer
     .create(<FilmDetails
-      film={films.defaultFilm}
+      film={films[1]}
     />).toJSON();
 
   expect(details).toMatchSnapshot();

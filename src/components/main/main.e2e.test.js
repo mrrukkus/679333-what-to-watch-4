@@ -14,8 +14,7 @@ describe(`Main component`, () => {
 
     const mainTemplate = mount(
         <Main
-          filmPromo={films.defaultFilm}
-          filmsList={films.filmsForCards}
+          filmsList={films}
           onCardAction={onTitleAction}
           onImageAndTitleClick={() => {}}
         />

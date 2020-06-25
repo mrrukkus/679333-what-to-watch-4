@@ -6,8 +6,7 @@ import films from "../../mocks/films.js";
 it(`Main renders correctly`, () => {
   const tree = renderer
     .create(<Main
-      filmPromo={films.defaultFilm}
-      filmsList={films.filmsForCards}
+      filmsList={films}
       onCardAction={() => {}}
       onImageAndTitleClick={() => {}}
     />).toJSON();

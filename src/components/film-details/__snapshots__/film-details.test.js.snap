@@ -12,7 +12,7 @@ Array [
         className="movie-card__bg"
       >
         <img
-          alt="The Grand Budapest Hotel"
+          alt="Bohemian Rhapsody"
           src="img/bg-the-grand-budapest-hotel.jpg"
         />
       </div>
@@ -72,7 +72,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            The Grand Budapest Hotel
+            Bohemian Rhapsody
           </h2>
           <p
             className="movie-card__meta"
@@ -145,7 +145,7 @@ Array [
           className="movie-card__poster movie-card__poster--big"
         >
           <img
-            alt="The Grand Budapest Hotel poster"
+            alt="Bohemian Rhapsody poster"
             height="327"
             src="img/the-grand-budapest-hotel-poster.jpg"
             width="218"
