@@ -6,10 +6,7 @@ import films from "../../mocks/films.js";
 it(`App renders correctly`, () => {
   const tree = renderer
     .create(<App
-      title={`The Grand Budapest Hotel`}
-      genre={`Drama`}
-      year={2014}
-      filmsList={films}
+      films={films}
       onTitleAction={() => {}}
     />).toJSON();
 

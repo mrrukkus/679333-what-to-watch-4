@@ -6,11 +6,9 @@ import films from "../../mocks/films.js";
 it(`Main renders correctly`, () => {
   const tree = renderer
     .create(<Main
-      title={`The Grand Budapest Hotel`}
-      genre={`Drama`}
-      year={2014}
       filmsList={films}
       onCardAction={() => {}}
+      onImageAndTitleClick={() => {}}
     />).toJSON();
 
   expect(tree).toMatchSnapshot();

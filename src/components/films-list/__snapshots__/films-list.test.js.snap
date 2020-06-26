@@ -10,6 +10,7 @@ exports[`Films list renders correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Fantastic Beasts: The Crimes of Grindelwald"
@@ -20,6 +21,7 @@ exports[`Films list renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      onClick={[Function]}
     >
       <a
         className="small-movie-card__link"
@@ -36,6 +38,7 @@ exports[`Films list renders correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Bohemian Rhapsody"
@@ -46,6 +49,7 @@ exports[`Films list renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      onClick={[Function]}
     >
       <a
         className="small-movie-card__link"
@@ -62,6 +66,7 @@ exports[`Films list renders correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Macbeth"
@@ -72,6 +77,7 @@ exports[`Films list renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      onClick={[Function]}
     >
       <a
         className="small-movie-card__link"
@@ -88,6 +94,7 @@ exports[`Films list renders correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Aviator"
@@ -98,6 +105,7 @@ exports[`Films list renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      onClick={[Function]}
     >
       <a
         className="small-movie-card__link"
@@ -114,6 +122,7 @@ exports[`Films list renders correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="We need to talk about Kevin"
@@ -124,6 +133,7 @@ exports[`Films list renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      onClick={[Function]}
     >
       <a
         className="small-movie-card__link"
@@ -140,6 +150,7 @@ exports[`Films list renders correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="What We Do in the Shadows"
@@ -150,6 +161,7 @@ exports[`Films list renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      onClick={[Function]}
     >
       <a
         className="small-movie-card__link"
@@ -166,6 +178,7 @@ exports[`Films list renders correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Revenant"
@@ -176,6 +189,7 @@ exports[`Films list renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      onClick={[Function]}
     >
       <a
         className="small-movie-card__link"
@@ -192,6 +206,7 @@ exports[`Films list renders correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Johnny English"
@@ -202,6 +217,7 @@ exports[`Films list renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      onClick={[Function]}
     >
       <a
         className="small-movie-card__link"

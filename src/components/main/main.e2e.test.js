@@ -14,11 +14,9 @@ describe(`Main component`, () => {
 
     const mainTemplate = mount(
         <Main
-          title={`The Grand Budapest Hotel`}
-          genre={`Drama`}
-          year={2014}
           filmsList={films}
           onCardAction={onTitleAction}
+          onImageAndTitleClick={() => {}}
         />
     );
 
