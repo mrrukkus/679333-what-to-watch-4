@@ -21,13 +21,9 @@ describe(`Film card test`, () => {
         />
     );
 
-    const movieCards = mainTemplate.find(`article.small-movie-card`);
     const movieCardsImages = mainTemplate.find(`small-movie-card__image`);
     const movieCardsTitles = mainTemplate.find(`small-movie-card__title`);
 
-    movieCards.map((card) => {
-      card.simulate(`mouseover`, {preventDefault() {}});
-    });
 
     movieCardsImages.map((image) => {
       image.simulate(`click`, {preventDefault() {}});
@@ -37,7 +33,6 @@ describe(`Film card test`, () => {
       title.simulate(`click`, {preventDefault() {}});
     });
 
-    expect(onCardAction.mock.calls.length).toBe(movieCards.length);
     expect(onTitleAndImageAction.mock.calls.length).toBe(movieCardsImages.length + movieCardsTitles.length);
   });
 });
