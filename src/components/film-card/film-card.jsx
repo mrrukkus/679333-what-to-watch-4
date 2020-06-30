@@ -1,22 +1,57 @@
 import React from "react";
 import PropTypes from "prop-types";
+import VideoPlayer from "../video-player/video-player.jsx";
 
-const FilmCard = (props) => {
-  const {film, id, onCardAction, onImageAndTitleClick} = props;
+export default class FilmCard extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  return (
-    <React.Fragment>
-      <article className="small-movie-card catalog__movies-card" onMouseOver={onCardAction}>
-        <div className="small-movie-card__image" onClick={() => onImageAndTitleClick(id)}>
-          <img src={film.img} alt={film.title} width="280" height="175"/>
-        </div>
-        <h3 className="small-movie-card__title" onClick={() => onImageAndTitleClick(id)}>
-          <a className="small-movie-card__link" href="movie-page.html" onClick={onCardAction}>{film.title}</a>
-        </h3>
-      </article>
-    </React.Fragment>
-  );
-};
+    this.state = {
+      isMouseOvered: false,
+      isPlayingCard: false
+    };
+
+    this._lastTimeout = null;
+  }
+
+  render() {
+    const renderContentOfCard = () => {
+      return (
+        this.state.isMouseOvered ?
+          <VideoPlayer isPlaying={true} muted={true} src={this.props.film.preview} poster={this.props.film.img} playAndPauseHandler={() => {}} />
+          :
+          <img src={this.props.film.img} alt={this.props.film.title} width="280" height="175" />
+      );
+    };
+
+    return (
+      <React.Fragment>
+        <article className="small-movie-card catalog__movies-card" onMouseOver={() => {
+          this._lastTimeout = setTimeout(() => {
+            this.setState({isMouseOvered: true});
+          }, 1000);
+        }}
+        onClick={() => {
+          this.props.onImageAndTitleClick(this.props.id);
+        }}
+        onMouseOut={() => {
+          clearTimeout(this._lastTimeout);
+          this.setState({isMouseOvered: false});
+        }}>
+          <div className="small-movie-card__image">
+            {renderContentOfCard()}
+          </div>
+          <h3 className="small-movie-card__title" onClick={() => {
+            this.props.onImageAndTitleClick(this.props.id);
+            clearTimeout(this._lastTimeout);
+          }}>
+            <a className="small-movie-card__link" href="movie-page.html" onClick={this.props.onCardAction}>{this.props.film.title}</a>
+          </h3>
+        </article>
+      </React.Fragment>
+    );
+  }
+}
 
 FilmCard.propTypes = {
   film: PropTypes.object.isRequired,
@@ -24,5 +59,3 @@ FilmCard.propTypes = {
   onCardAction: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired
 };
-
-export default FilmCard;

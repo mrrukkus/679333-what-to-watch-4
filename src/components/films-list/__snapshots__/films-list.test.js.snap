@@ -6,11 +6,12 @@ exports[`Films list renders correctly 1`] = `
 >
   <article
     className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
-      onClick={[Function]}
     >
       <img
         alt="Fantastic Beasts: The Crimes of Grindelwald"
@@ -34,11 +35,12 @@ exports[`Films list renders correctly 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
-      onClick={[Function]}
     >
       <img
         alt="Bohemian Rhapsody"
@@ -62,11 +64,12 @@ exports[`Films list renders correctly 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
-      onClick={[Function]}
     >
       <img
         alt="Macbeth"
@@ -90,11 +93,12 @@ exports[`Films list renders correctly 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
-      onClick={[Function]}
     >
       <img
         alt="Aviator"
@@ -118,11 +122,12 @@ exports[`Films list renders correctly 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
-      onClick={[Function]}
     >
       <img
         alt="We need to talk about Kevin"
@@ -146,11 +151,12 @@ exports[`Films list renders correctly 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
-      onClick={[Function]}
     >
       <img
         alt="What We Do in the Shadows"
@@ -174,11 +180,12 @@ exports[`Films list renders correctly 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
-      onClick={[Function]}
     >
       <img
         alt="Revenant"
@@ -202,11 +209,12 @@ exports[`Films list renders correctly 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
-      onClick={[Function]}
     >
       <img
         alt="Johnny English"
