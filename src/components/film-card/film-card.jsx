@@ -41,7 +41,10 @@ export default class FilmCard extends React.PureComponent {
           <div className="small-movie-card__image">
             {renderContentOfCard()}
           </div>
-          <h3 className="small-movie-card__title" onClick={() => this.props.onImageAndTitleClick(this.props.id)}>
+          <h3 className="small-movie-card__title" onClick={() => {
+            this.props.onImageAndTitleClick(this.props.id);
+            clearTimeout(this._lastTimeout);
+            }}>
             <a className="small-movie-card__link" href="movie-page.html" onClick={this.props.onCardAction}>{this.props.film.title}</a>
           </h3>
         </article>
