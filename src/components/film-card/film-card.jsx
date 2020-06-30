@@ -10,13 +10,15 @@ export default class FilmCard extends React.PureComponent {
       isMouseOvered: false,
       isPlayingCard: false
     };
+
+    this._lastTimeout = null;
   }
 
   render() {
     const renderContentOfCard = () => {
       return (
         this.state.isMouseOvered ?
-          <VideoPlayer isPlaying={false} muted={true} src={this.props.film.preview} poster={this.props.film.img} playAndPauseHandler={() => {}} />
+          <VideoPlayer isPlaying={true} muted={true} src={this.props.film.preview} poster={this.props.film.img} playAndPauseHandler={() => {}} />
           :
           <img src={this.props.film.img} alt={this.props.film.title} width="280" height="175" />
       );
@@ -25,12 +27,15 @@ export default class FilmCard extends React.PureComponent {
     return (
       <React.Fragment>
         <article className="small-movie-card catalog__movies-card" onMouseOver={() => {
-          this.setState({isMouseOvered: true});
+          this._lastTimeout = setTimeout(() => {
+            this.setState({isMouseOvered: true});
+          }, 1000);
         }}
         onClick={() => {
           this.props.onImageAndTitleClick(this.props.id);
         }}
         onMouseOut={() => {
+          clearTimeout(this._lastTimeout);
           this.setState({isMouseOvered: false});
         }}>
           <div className="small-movie-card__image">

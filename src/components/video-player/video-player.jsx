@@ -11,8 +11,6 @@ export default class VideoPlayer extends PureComponent {
       isPlaying: this.props.isPlaying,
       isLoading: true
     };
-
-    this._lastTimeout = null;
   }
 
   componentDidMount() {
@@ -22,10 +20,6 @@ export default class VideoPlayer extends PureComponent {
     video.src = src;
     video.poster = poster;
     video.muted = muted;
-
-    this._lastTimeout = setTimeout(() => {
-      this.setState({isPlaying: true});
-    }, 1000);
 
     video.oncanplaythrough = () => {
       this.setState({
