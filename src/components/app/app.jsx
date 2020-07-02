@@ -12,6 +12,7 @@ class App extends React.PureComponent {
       filmIdToRenderDetails: -1
     };
     this._handler = this._handler.bind(this);
+    this._filmsListForRenderFilmDetails = null;
   }
 
   _handler(filmId) {
@@ -33,11 +34,22 @@ class App extends React.PureComponent {
       );
     }
 
-    const filmToRenderDetails = this.props.films[this.state.filmIdToRenderDetails];
+    if (this._filmsListForRenderFilmDetails === null) {
+      this._filmsListForRenderFilmDetails = this.props.films.concat();
+    }
+
+    const filmToRenderDetails = this._filmsListForRenderFilmDetails[this.state.filmIdToRenderDetails];
+
+    this._filmsListForRenderFilmDetails = this.props.films.filter((movie) => movie.genre === filmToRenderDetails.genre);
 
     return (
       <FilmDetails
         film={filmToRenderDetails}
+        onCardAction={(evt) => {
+          evt.preventDefault();
+        }}
+        onImageAndTitleClick={this._handler}
+        filmsList={this._filmsListForRenderFilmDetails}
       />
     );
   }
@@ -52,6 +64,11 @@ class App extends React.PureComponent {
           <Route exact path="/film-details">
             <FilmDetails
               film={this.props.films[1]}
+              onCardAction={(evt) => {
+                evt.preventDefault();
+              }}
+              onImageAndTitleClick={this._handler}
+              filmsList={this.props.films}
             />
           </Route>
         </Switch>

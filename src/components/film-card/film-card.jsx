@@ -33,6 +33,7 @@ export default class FilmCard extends React.PureComponent {
         }}
         onClick={() => {
           this.props.onImageAndTitleClick(this.props.id);
+          clearTimeout(this._lastTimeout);
         }}
         onMouseOut={() => {
           clearTimeout(this._lastTimeout);
@@ -42,8 +43,8 @@ export default class FilmCard extends React.PureComponent {
             {renderContentOfCard()}
           </div>
           <h3 className="small-movie-card__title" onClick={() => {
-            this.props.onImageAndTitleClick(this.props.id);
             clearTimeout(this._lastTimeout);
+            this.props.onImageAndTitleClick(this.props.id);
           }}>
             <a className="small-movie-card__link" href="movie-page.html" onClick={this.props.onCardAction}>{this.props.film.title}</a>
           </h3>
