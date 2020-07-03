@@ -34,13 +34,7 @@ class App extends React.PureComponent {
       );
     }
 
-    if (this._filmsListForRenderFilmDetails === null) {
-      this._filmsListForRenderFilmDetails = this.props.films.concat();
-    }
-
-    const filmToRenderDetails = this._filmsListForRenderFilmDetails[this.state.filmIdToRenderDetails];
-
-    this._filmsListForRenderFilmDetails = this.props.films.filter((movie) => movie.genre === filmToRenderDetails.genre);
+    const filmToRenderDetails = this.props.films[this.state.filmIdToRenderDetails];
 
     return (
       <FilmDetails
@@ -49,7 +43,7 @@ class App extends React.PureComponent {
           evt.preventDefault();
         }}
         onImageAndTitleClick={this._handler}
-        filmsList={this._filmsListForRenderFilmDetails}
+        filmsList={this.props.films}
       />
     );
   }

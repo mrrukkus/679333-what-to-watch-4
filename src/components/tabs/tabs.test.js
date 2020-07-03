@@ -7,7 +7,7 @@ describe(`Tabs renders correctly`, () => {
   it(`Overview tab renders correctly`, () => {
     const overview = renderer
       .create(<Tabs
-        defaultOpenedTab={`Overview`}
+        defaultActiveTab={`Overview`}
         film={films[1]}
         onTabAction={() => {}}
       />).toJSON();
@@ -18,7 +18,7 @@ describe(`Tabs renders correctly`, () => {
   it(`Details tab renders correctly`, () => {
     const details = renderer
       .create(<Tabs
-        defaultOpenedTab={`Details`}
+        defaultActiveTab={`Details`}
         film={films[1]}
         onTabAction={() => {}}
       />).toJSON();
@@ -29,7 +29,7 @@ describe(`Tabs renders correctly`, () => {
   it(`Reviews tab renders correctly`, () => {
     const reviews = renderer
       .create(<Tabs
-        defaultOpenedTab={`Reviews`}
+        defaultActiveTab={`Reviews`}
         film={films[1]}
         onTabAction={() => {}}
       />).toJSON();

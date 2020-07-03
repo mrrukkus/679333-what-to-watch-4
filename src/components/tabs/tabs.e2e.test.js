@@ -14,7 +14,7 @@ describe(`Tabs component`, () => {
 
     const tabsTemplate = mount(
         <Tabs
-          defaultOpenedTab={`Overview`}
+          defaultActiveTab={`Overview`}
           film={films[1]}
           onTabAction={onTabAction}
         />

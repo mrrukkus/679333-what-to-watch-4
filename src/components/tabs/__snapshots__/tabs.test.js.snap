@@ -9,7 +9,6 @@ exports[`Tabs renders correctly Details tab renders correctly 1`] = `
   >
     <ul
       className="movie-nav__list"
-      onClick={[Function]}
     >
       <li
         className="movie-nav__item "
@@ -140,7 +139,6 @@ exports[`Tabs renders correctly Overview tab renders correctly 1`] = `
   >
     <ul
       className="movie-nav__list"
-      onClick={[Function]}
     >
       <li
         className="movie-nav__item movie-nav__item--active"
@@ -239,7 +237,6 @@ exports[`Tabs renders correctly Reviews tab renders correctly 1`] = `
   >
     <ul
       className="movie-nav__list"
-      onClick={[Function]}
     >
       <li
         className="movie-nav__item "

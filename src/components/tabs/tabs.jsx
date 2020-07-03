@@ -1,25 +1,33 @@
 import React, {PureComponent, Fragment} from "react";
 import PropTypes from "prop-types";
-const TabsTitles = [`Overview`, `Details`, `Reviews`];
+
+const tabsTitlesMap = {
+  overview: `Overview`,
+  details: `Details`,
+  reviews: `Reviews`
+};
 
 export default class Tabs extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      isOpenedTab: this.props.defaultOpenedTab
+      activeTab: this.props.defaultActiveTab
     };
   }
 
   _renderTabsTitles() {
     return (
-      TabsTitles.map((title, i) => {
+      Object.values(tabsTitlesMap).map((title, i) => {
         return (
           <li key={i} className={`movie-nav__item ${
-            (this.state.isOpenedTab === title) ?
+            (this.state.activeTab === title) ?
               `movie-nav__item--active` : ``
           }`}>
-            <a href="#" className="movie-nav__link" onClick={this.props.onTabAction}>{title}</a>
+            <a href="#" className="movie-nav__link" onClick={(evt) => {
+              this.setState({activeTab: evt.target.textContent});
+              this.props.onTabAction(evt);
+            }}>{title}</a>
           </li>
         );
       })
@@ -27,8 +35,8 @@ export default class Tabs extends PureComponent {
   }
 
   _renderTabContent() {
-    switch (this.state.isOpenedTab) {
-      case (`Overview`):
+    switch (this.state.activeTab) {
+      case (tabsTitlesMap.overview):
         return (
           <Fragment>
             <div className="movie-rating">
@@ -52,7 +60,7 @@ export default class Tabs extends PureComponent {
             </div>
           </Fragment>
         );
-      case (`Details`):
+      case (tabsTitlesMap.details):
         return (
           <Fragment>
             <div className="movie-card__text movie-card__row">
@@ -86,7 +94,7 @@ export default class Tabs extends PureComponent {
             </div>
           </Fragment>
         );
-      case (`Reviews`):
+      case (tabsTitlesMap.reviews):
         return (
           <Fragment>
             <div className="movie-card__reviews movie-card__row">
@@ -182,12 +190,7 @@ export default class Tabs extends PureComponent {
       <Fragment>
         <div className="movie-card__desc">
           <nav className="movie-nav movie-card__nav">
-            <ul className="movie-nav__list" onClick={(evt) => {
-              if (evt.target.tagName !== `A`) {
-                return;
-              }
-              this.setState({isOpenedTab: evt.target.textContent});
-            }}>
+            <ul className="movie-nav__list">
               {this._renderTabsTitles()}
             </ul>
           </nav>
@@ -199,7 +202,7 @@ export default class Tabs extends PureComponent {
 }
 
 Tabs.propTypes = {
-  defaultOpenedTab: PropTypes.string.isRequired,
+  defaultActiveTab: PropTypes.string.isRequired,
   film: PropTypes.object.isRequired,
   onTabAction: PropTypes.func.isRequired
 };
