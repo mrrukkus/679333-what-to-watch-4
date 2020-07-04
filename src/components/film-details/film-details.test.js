@@ -8,6 +8,9 @@ it(`Details renders correctly`, () => {
   const details = renderer
     .create(<FilmDetails
       film={films[1]}
+      onCardAction={() => {}}
+      onImageAndTitleClick={() => {}}
+      filmsList={films}
     />).toJSON();
 
   expect(details).toMatchSnapshot();

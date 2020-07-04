@@ -19,9 +19,9 @@ class App extends React.PureComponent {
   }
 
   _renderMain() {
-    const {filmIdToRenderDetails} = this.state;
+    const filmToRenderDetails = this.props.films[this.state.filmIdToRenderDetails];
 
-    if (filmIdToRenderDetails === -1) {
+    if (!filmToRenderDetails) {
       return (
         <Main
           filmsList={this.props.films}
@@ -33,11 +33,14 @@ class App extends React.PureComponent {
       );
     }
 
-    const filmToRenderDetails = this.props.films[this.state.filmIdToRenderDetails];
-
     return (
       <FilmDetails
         film={filmToRenderDetails}
+        onCardAction={(evt) => {
+          evt.preventDefault();
+        }}
+        onImageAndTitleClick={this._handler}
+        filmsList={this.props.films}
       />
     );
   }
@@ -52,6 +55,11 @@ class App extends React.PureComponent {
           <Route exact path="/film-details">
             <FilmDetails
               film={this.props.films[1]}
+              onCardAction={(evt) => {
+                evt.preventDefault();
+              }}
+              onImageAndTitleClick={this._handler}
+              filmsList={this.props.films}
             />
           </Route>
         </Switch>

@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FilmCard from "../film-card/film-card.jsx";
+import films from "../../mocks/films.js";
 
-const getCards = (films, onCardAction, onImageAndTitleClick) => {
+const getCards = (movies, onCardAction, onImageAndTitleClick) => {
   return (
-    films.map((film, i) =>
+    movies.map((movie, i) =>
       <FilmCard
-        key={film.title + i}
-        id={i}
-        film={film}
+        key={movie.title + i}
+        id={films.indexOf(movie)}
+        film={movie}
         onCardAction={onCardAction}
         onImageAndTitleClick={onImageAndTitleClick}>
       </FilmCard>
