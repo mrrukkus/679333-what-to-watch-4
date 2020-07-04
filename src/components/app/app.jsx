@@ -12,7 +12,6 @@ class App extends React.PureComponent {
       filmIdToRenderDetails: -1
     };
     this._handler = this._handler.bind(this);
-    this._filmsListForRenderFilmDetails = null;
   }
 
   _handler(filmId) {
@@ -20,9 +19,9 @@ class App extends React.PureComponent {
   }
 
   _renderMain() {
-    const {filmIdToRenderDetails} = this.state;
+    const filmToRenderDetails = this.props.films[this.state.filmIdToRenderDetails];
 
-    if (filmIdToRenderDetails === -1) {
+    if (!filmToRenderDetails) {
       return (
         <Main
           filmsList={this.props.films}
@@ -33,8 +32,6 @@ class App extends React.PureComponent {
         />
       );
     }
-
-    const filmToRenderDetails = this.props.films[this.state.filmIdToRenderDetails];
 
     return (
       <FilmDetails

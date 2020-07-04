@@ -1,10 +1,10 @@
 import React, {PureComponent, Fragment} from "react";
 import PropTypes from "prop-types";
 
-const tabsTitlesMap = {
-  overview: `Overview`,
-  details: `Details`,
-  reviews: `Reviews`
+const TabsTitlesMap = {
+  OVERVIEW: `Overview`,
+  DETAILS: `Details`,
+  REVIEWS: `Reviews`
 };
 
 export default class Tabs extends PureComponent {
@@ -18,14 +18,14 @@ export default class Tabs extends PureComponent {
 
   _renderTabsTitles() {
     return (
-      Object.values(tabsTitlesMap).map((title, i) => {
+      Object.values(TabsTitlesMap).map((title, i) => {
         return (
           <li key={i} className={`movie-nav__item ${
             (this.state.activeTab === title) ?
               `movie-nav__item--active` : ``
           }`}>
             <a href="#" className="movie-nav__link" onClick={(evt) => {
-              this.setState({activeTab: evt.target.textContent});
+              this.setState({activeTab: title});
               this.props.onTabAction(evt);
             }}>{title}</a>
           </li>
@@ -36,7 +36,7 @@ export default class Tabs extends PureComponent {
 
   _renderTabContent() {
     switch (this.state.activeTab) {
-      case (tabsTitlesMap.overview):
+      case (TabsTitlesMap.OVERVIEW):
         return (
           <Fragment>
             <div className="movie-rating">
@@ -60,7 +60,7 @@ export default class Tabs extends PureComponent {
             </div>
           </Fragment>
         );
-      case (tabsTitlesMap.details):
+      case (TabsTitlesMap.DETAILS):
         return (
           <Fragment>
             <div className="movie-card__text movie-card__row">
@@ -94,7 +94,7 @@ export default class Tabs extends PureComponent {
             </div>
           </Fragment>
         );
-      case (tabsTitlesMap.reviews):
+      case (TabsTitlesMap.REVIEWS):
         return (
           <Fragment>
             <div className="movie-card__reviews movie-card__row">
