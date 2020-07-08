@@ -6,6 +6,7 @@ import FilmsList from "../films-list/films-list.jsx";
 it(`Films list renders correctly`, () => {
   const list = renderer
     .create(<FilmsList
+      genre={`All genres`}
       filmsList={films}
       onCardAction={() => {}}
       onImageAndTitleClick={() => {}}
