@@ -3,7 +3,8 @@ import {reducer, ActionType} from "./reducer.js";
 
 it(`Reducer should return default state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    genre: `Drama`,
+    genre: `All genres`,
+    filmIdToRenderDetails: -1,
     films
   });
 });
@@ -11,9 +12,10 @@ it(`Reducer should return default state`, () => {
 it(`Reducer should return state with new genre`, () => {
   expect(reducer(void 0, {
     type: ActionType.FILTER_CHANGE,
-    genre: `All genres`
+    genre: `Drama`
   })).toEqual({
-    genre: `All genres`,
+    genre: `Drama`,
+    filmIdToRenderDetails: -1,
     films
   });
 });
@@ -23,19 +25,20 @@ it(`Reducer should return state with default genre and new film`, () => {
     type: ActionType.GET_FILMS_FILTERED_BY_GENRE,
     films: films[0]
   })).toEqual({
-    genre: `Drama`,
+    genre: `All genres`,
+    filmIdToRenderDetails: -1,
     films: films[0]
   });
 });
 
 it(`Reducer should return state with new genre and film`, () => {
   expect(reducer({
-    genre: `All genres`
+    genre: `Drama`
   }, {
     type: ActionType.GET_FILMS_FILTERED_BY_GENRE,
     films: films[0]
   })).toEqual({
-    genre: `All genres`,
+    genre: `Drama`,
     films: films[0]
   });
 });

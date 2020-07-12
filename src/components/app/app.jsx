@@ -1,34 +1,30 @@
-import React from "react";
-import Main from "../main/main.jsx";
-import FilmDetails from "../film-details/film-details.jsx";
 import PropTypes from "prop-types";
+import React from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {connect} from "react-redux";
+import FilmDetails from "../film-details/film-details.jsx";
+import Main from "../main/main.jsx";
+import films from "../../mocks/films.js";
+import {ActionCreator} from "../../reducer.js";
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      filmIdToRenderDetails: -1
-    };
-    this._handler = this._handler.bind(this);
-  }
-
-  _handler(filmId) {
-    this.setState({filmIdToRenderDetails: filmId});
   }
 
   _renderMain() {
-    const filmToRenderDetails = this.props.films[this.state.filmIdToRenderDetails];
+    const filmToRenderDetails = films[this.props.filmIdToRenderDetails];
 
     if (!filmToRenderDetails) {
       return (
         <Main
+          genre={this.props.genre}
+          onGenreClick={this.props.onGenreClick}
           filmsList={this.props.films}
           onCardAction={(evt) => {
             evt.preventDefault();
           }}
-          onImageAndTitleClick={this._handler}
+          onImageAndTitleClick={this.props.onImageAndTitleClick}
         />
       );
     }
@@ -39,7 +35,7 @@ class App extends React.PureComponent {
         onCardAction={(evt) => {
           evt.preventDefault();
         }}
-        onImageAndTitleClick={this._handler}
+        onImageAndTitleClick={this.props.onImageAndTitleClick}
         filmsList={this.props.films}
       />
     );
@@ -54,12 +50,12 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/film-details">
             <FilmDetails
-              film={this.props.films[1]}
+              film={films[1]}
               onCardAction={(evt) => {
                 evt.preventDefault();
               }}
-              onImageAndTitleClick={this._handler}
-              filmsList={this.props.films}
+              onImageAndTitleClick={this.props.onImageAndTitleClick}
+              filmsList={films}
             />
           </Route>
         </Switch>
@@ -69,7 +65,28 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.object).isRequired
+  genre: PropTypes.string.isRequired,
+  films: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filmIdToRenderDetails: PropTypes.number.isRequired,
+  onImageAndTitleClick: PropTypes.func.isRequired,
+  onGenreClick: PropTypes.func.isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  genre: state.genre,
+  films: state.films,
+  filmIdToRenderDetails: state.filmIdToRenderDetails
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onImageAndTitleClick(filmId) {
+    dispatch(ActionCreator.showDetails(filmId));
+  },
+  onGenreClick(genre, movies) {
+    dispatch(ActionCreator.filterChange(genre));
+    dispatch(ActionCreator.getFilmsFilteredByGenre(genre, movies));
+  }
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

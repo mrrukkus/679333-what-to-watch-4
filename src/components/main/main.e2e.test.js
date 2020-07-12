@@ -14,6 +14,8 @@ describe(`Main component`, () => {
 
     const mainTemplate = mount(
         <Main
+          onGenreClick={() => {}}
+          genre={`All genres`}
           filmsList={films}
           onCardAction={onTitleAction}
           onImageAndTitleClick={() => {}}

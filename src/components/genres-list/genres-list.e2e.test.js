@@ -13,8 +13,7 @@ it(`Genre buttons click check`, () => {
   const genresListTemplate = mount(
       <GenresList
         genre={`All genres`}
-        onGenreClick={() => {}}
-        onGenreAction={clickAction}
+        onGenreClick={clickAction}
       />
   );
 

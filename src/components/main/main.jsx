@@ -4,21 +4,14 @@ import FilmsList from "../films-list/films-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 
 export default class Main extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentFilmsGenre: `All genres`
-    };
-
-    this._changeGenreHandler = this._changeGenreHandler.bind(this);
-  }
-
-  _changeGenreHandler(genre) {
-    this.setState({currentFilmsGenre: genre});
-  }
-
   render() {
+    const {
+      genre,
+      onGenreClick,
+      filmsList,
+      onCardAction,
+      onImageAndTitleClick
+    } = this.props;
     return (
       <React.Fragment>
         <section className="movie-card">
@@ -81,18 +74,15 @@ export default class Main extends React.PureComponent {
             <h2 className="catalog__title visually-hidden">Catalog</h2>
 
             <GenresList
-              genre={this.state.currentFilmsGenre}
-              onGenreClick={this._changeGenreHandler}
-              onGenreAction={(evt) => {
-                evt.preventDefault();
-              }}
+              genre={genre}
+              onGenreClick={onGenreClick}
             />
 
             <FilmsList
-              genre={this.state.currentFilmsGenre}
-              filmsList={this.props.filmsList}
-              onCardAction={this.props.onCardAction}
-              onImageAndTitleClick={this.props.onImageAndTitleClick}
+              genre={genre}
+              filmsList={filmsList}
+              onCardAction={onCardAction}
+              onImageAndTitleClick={onImageAndTitleClick}
             />
 
             <div className="catalog__more">
@@ -120,6 +110,8 @@ export default class Main extends React.PureComponent {
 }
 
 Main.propTypes = {
+  genre: PropTypes.string.isRequired,
+  onGenreClick: PropTypes.func.isRequired,
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   onCardAction: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired
