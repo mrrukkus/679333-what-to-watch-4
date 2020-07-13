@@ -106,7 +106,7 @@ const Main = (props) => {
       </div>
     </React.Fragment>
   );
-}
+};
 
 Main.propTypes = {
   genre: PropTypes.string.isRequired,

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FilmCard from "../film-card/film-card.jsx";
-import films from "../../mocks/films.js";
 
 const getCards = (movies, onCardAction, onImageAndTitleClick) => {
   return (
@@ -34,7 +33,7 @@ const FilmsList = (props) => {
       </div>
     </React.Fragment>
   );
-}
+};
 
 FilmsList.propTypes = {
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,

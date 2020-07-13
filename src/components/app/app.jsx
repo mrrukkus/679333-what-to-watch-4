@@ -49,7 +49,7 @@ const App = (props) => {
         filmsList={filmsList}
       />
     );
-  }
+  };
 
   return (
     <BrowserRouter>
@@ -70,7 +70,7 @@ const App = (props) => {
       </Switch>
     </BrowserRouter>
   );
-}
+};
 
 App.propTypes = {
   genre: PropTypes.string.isRequired,
