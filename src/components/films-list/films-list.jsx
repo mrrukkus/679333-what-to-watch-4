@@ -8,7 +8,7 @@ const getCards = (movies, onCardAction, onImageAndTitleClick) => {
     movies.map((movie, i) =>
       <FilmCard
         key={movie.title + i}
-        id={films.indexOf(movie)}
+        id={i}
         film={movie}
         onCardAction={onCardAction}
         onImageAndTitleClick={onImageAndTitleClick}>
@@ -17,25 +17,23 @@ const getCards = (movies, onCardAction, onImageAndTitleClick) => {
   );
 };
 
-export default class FilmsList extends React.PureComponent {
-  render() {
-    const {
-      filmsList,
-      onCardAction,
-      onImageAndTitleClick
-    } = this.props;
-    return (
-      <React.Fragment>
-        <div className="catalog__movies-list">
-          {getCards(
-              filmsList,
-              onCardAction,
-              onImageAndTitleClick
-          )}
-        </div>
-      </React.Fragment>
-    );
-  }
+const FilmsList = (props) => {
+  const {
+    filmsList,
+    onCardAction,
+    onImageAndTitleClick
+  } = props;
+  return (
+    <React.Fragment>
+      <div className="catalog__movies-list">
+        {getCards(
+            filmsList,
+            onCardAction,
+            onImageAndTitleClick
+        )}
+      </div>
+    </React.Fragment>
+  );
 }
 
 FilmsList.propTypes = {
@@ -43,3 +41,5 @@ FilmsList.propTypes = {
   onCardAction: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired
 };
+
+export default FilmsList;

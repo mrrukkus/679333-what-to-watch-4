@@ -1,6 +1,5 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
-import films from "../../mocks/films.js";
 
 const GenresListMap = {
   ALL_GENRES: `All genres`,
@@ -15,14 +14,15 @@ const GenresListMap = {
   THRILLERS: `Thrillers`
 };
 
+const genresList = Object.values(GenresListMap);
+
 const getGenres = (currentGenre, onGenreClick) => {
-  const genresList = Object.values(GenresListMap);
 
   return (genresList.map((genre, i) =>
     <li key={i} className={`catalog__genres-item${(currentGenre === genre) ? ` catalog__genres-item--active` : ``}`}>
       <a href="#" className="catalog__genres-link" onClick={(evt) => {
         evt.preventDefault();
-        onGenreClick(genre, films);
+        onGenreClick(genre);
       }}>
         {genre}
       </a>

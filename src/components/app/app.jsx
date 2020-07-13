@@ -7,24 +7,34 @@ import Main from "../main/main.jsx";
 import films from "../../mocks/films.js";
 import {ActionCreator} from "../../reducer.js";
 
-class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const getFilteredFilmsList = (genre, filmsList) => {
+  if (genre !== `All genres`) {
+    return filmsList.filter((film) => film.genre === genre);
   }
 
-  _renderMain() {
-    const filmToRenderDetails = films[this.props.filmIdToRenderDetails];
+  return filmsList;
+};
 
+const App = (props) => {
+  const {
+    genre,
+    filmsList,
+    filmToRenderDetails,
+    onImageAndTitleClick,
+    onGenreClick,
+  } = props;
+
+  const _renderMain = () => {
     if (!filmToRenderDetails) {
       return (
         <Main
-          genre={this.props.genre}
-          onGenreClick={this.props.onGenreClick}
-          filmsList={this.props.films}
+          genre={genre}
+          onGenreClick={onGenreClick}
+          filmsList={filmsList}
           onCardAction={(evt) => {
             evt.preventDefault();
           }}
-          onImageAndTitleClick={this.props.onImageAndTitleClick}
+          onImageAndTitleClick={onImageAndTitleClick}
         />
       );
     }
@@ -35,56 +45,53 @@ class App extends React.PureComponent {
         onCardAction={(evt) => {
           evt.preventDefault();
         }}
-        onImageAndTitleClick={this.props.onImageAndTitleClick}
-        filmsList={this.props.films}
+        onImageAndTitleClick={onImageAndTitleClick}
+        filmsList={filmsList}
       />
     );
   }
 
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            {this._renderMain()}
-          </Route>
-          <Route exact path="/film-details">
-            <FilmDetails
-              film={films[1]}
-              onCardAction={(evt) => {
-                evt.preventDefault();
-              }}
-              onImageAndTitleClick={this.props.onImageAndTitleClick}
-              filmsList={films}
-            />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          {_renderMain()}
+        </Route>
+        <Route exact path="/film-details">
+          <FilmDetails
+            film={films[1]}
+            onCardAction={(evt) => {
+              evt.preventDefault();
+            }}
+            onImageAndTitleClick={onImageAndTitleClick}
+            filmsList={films}
+          />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 App.propTypes = {
   genre: PropTypes.string.isRequired,
-  films: PropTypes.arrayOf(PropTypes.object).isRequired,
-  filmIdToRenderDetails: PropTypes.number.isRequired,
+  filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filmToRenderDetails: PropTypes.object,
   onImageAndTitleClick: PropTypes.func.isRequired,
   onGenreClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   genre: state.genre,
-  films: state.films,
-  filmIdToRenderDetails: state.filmIdToRenderDetails
+  filmsList: getFilteredFilmsList(state.genre, state.films),
+  filmToRenderDetails: state.filmToRenderDetails
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onImageAndTitleClick(filmId) {
-    dispatch(ActionCreator.showDetails(filmId));
+  onImageAndTitleClick(film) {
+    dispatch(ActionCreator.showDetails(film));
   },
-  onGenreClick(genre, movies) {
+  onGenreClick(genre) {
     dispatch(ActionCreator.filterChange(genre));
-    dispatch(ActionCreator.getFilmsFilteredByGenre(genre, movies));
   }
 });
 
