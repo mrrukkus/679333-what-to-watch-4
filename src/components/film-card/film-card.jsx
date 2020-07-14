@@ -7,7 +7,6 @@ export default class FilmCard extends React.PureComponent {
     super(props);
 
     this.state = {
-      isMouseOvered: false,
       isPlayingCard: false
     };
 
