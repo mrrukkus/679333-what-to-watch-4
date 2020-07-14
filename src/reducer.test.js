@@ -5,6 +5,7 @@ it(`Reducer should return default state`, () => {
   expect(reducer(void 0, {})).toEqual({
     genre: `All genres`,
     filmToRenderDetails: null,
+    currentFilmsCardsCount: 8,
     films
   });
 });
@@ -16,6 +17,7 @@ it(`Reducer should return state with new genre`, () => {
   })).toEqual({
     genre: `Drama`,
     filmToRenderDetails: null,
+    currentFilmsCardsCount: 8,
     films
   });
 });
@@ -23,10 +25,11 @@ it(`Reducer should return state with new genre`, () => {
 it(`Reducer should return state with default genre and new film details`, () => {
   expect(reducer(void 0, {
     type: ActionType.SHOW_DETAILS,
-    filmToRenderDetails: films[0]
+    filmToRenderDetails: films[0],
   })).toEqual({
     genre: `All genres`,
     filmToRenderDetails: films[0],
+    currentFilmsCardsCount: 8,
     films
   });
 });

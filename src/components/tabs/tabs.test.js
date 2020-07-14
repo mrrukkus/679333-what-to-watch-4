@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Tabs from "../tabs/tabs.jsx";
+import Tabs from "./tabs.jsx";
 import films from "../../mocks/films.js";
 
 describe(`Tabs renders correctly`, () => {

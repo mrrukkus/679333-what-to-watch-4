@@ -7,7 +7,7 @@ it(`Films list renders correctly`, () => {
   const list = renderer
     .create(<FilmsList
       genre={`All genres`}
-      filmsList={films}
+      filmsList={films.slice(0, 8)}
       onCardAction={() => {}}
       onImageAndTitleClick={() => {}}
     />).toJSON();

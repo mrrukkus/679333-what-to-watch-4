@@ -14,6 +14,7 @@ it(`Genre buttons click check`, () => {
       <GenresList
         genre={`All genres`}
         onGenreClick={clickAction}
+        onShowMoreClick={() => {}}
       />
   );
 

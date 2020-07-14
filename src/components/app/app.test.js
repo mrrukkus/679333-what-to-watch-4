@@ -11,6 +11,7 @@ it(`App renders correctly`, () => {
   const store = mockStore({
     genre: `All genres`,
     filmIdToRenderDetails: -1,
+    currentFilmsCardsCount: 8,
     films
   });
 
@@ -20,6 +21,7 @@ it(`App renders correctly`, () => {
           <App
             onImageAndTitleClick={() => {}}
             onGenreClick={() => {}}
+            onShowMoreClick={() => {}}
           />
         </Provider>
     ).toJSON();

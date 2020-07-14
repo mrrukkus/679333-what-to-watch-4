@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import FilmDetails from "../film-details/film-details.jsx";
+import FilmDetails from "./film-details.jsx";
 import films from "../../mocks/films.js";
 
 
@@ -10,7 +10,7 @@ it(`Details renders correctly`, () => {
       film={films[1]}
       onCardAction={() => {}}
       onImageAndTitleClick={() => {}}
-      filmsList={films}
+      filmsList={films.slice(0, 4)}
     />).toJSON();
 
   expect(details).toMatchSnapshot();

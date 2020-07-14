@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import FilmsList from "../films-list/films-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
+import ShowMore from "../show-more/show-more.jsx";
 
 const Main = (props) => {
   const {
@@ -9,7 +10,9 @@ const Main = (props) => {
     onGenreClick,
     filmsList,
     onCardAction,
-    onImageAndTitleClick
+    onImageAndTitleClick,
+    onShowMoreClick,
+    currentFilmsCardsCount
   } = props;
 
   return (
@@ -76,18 +79,25 @@ const Main = (props) => {
           <GenresList
             genre={genre}
             onGenreClick={onGenreClick}
+            onShowMoreClick={onShowMoreClick}
           />
 
           <FilmsList
             genre={genre}
-            filmsList={filmsList}
+            filmsList={filmsList.slice(0, currentFilmsCardsCount)}
             onCardAction={onCardAction}
             onImageAndTitleClick={onImageAndTitleClick}
           />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {currentFilmsCardsCount >= filmsList.length ?
+            ``
+            :
+            <ShowMore
+              onShowMoreClick={onShowMoreClick}
+              currentFilmsCardsCount={currentFilmsCardsCount}
+              filmsListCount={filmsList.length}
+            />
+          }
         </section>
 
         <footer className="page-footer">
@@ -113,7 +123,9 @@ Main.propTypes = {
   onGenreClick: PropTypes.func.isRequired,
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   onCardAction: PropTypes.func.isRequired,
-  onImageAndTitleClick: PropTypes.func.isRequired
+  onImageAndTitleClick: PropTypes.func.isRequired,
+  onShowMoreClick: PropTypes.func.isRequired,
+  currentFilmsCardsCount: PropTypes.number.isRequired
 };
 
 export default Main;

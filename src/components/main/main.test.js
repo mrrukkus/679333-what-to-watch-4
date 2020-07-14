@@ -11,6 +11,8 @@ it(`Main renders correctly`, () => {
       filmsList={films}
       onCardAction={() => {}}
       onImageAndTitleClick={() => {}}
+      onShowMoreClick={() => {}}
+      currentFilmsCardsCount={8}
     />).toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -19,6 +19,8 @@ describe(`Main component`, () => {
           filmsList={films}
           onCardAction={onTitleAction}
           onImageAndTitleClick={() => {}}
+          onShowMoreClick={() => {}}
+          currentFilmsCardsCount={8}
         />
     );
 

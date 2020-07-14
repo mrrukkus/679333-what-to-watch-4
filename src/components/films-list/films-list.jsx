@@ -22,6 +22,7 @@ const FilmsList = (props) => {
     onCardAction,
     onImageAndTitleClick
   } = props;
+
   return (
     <React.Fragment>
       <div className="catalog__movies-list">

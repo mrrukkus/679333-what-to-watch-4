@@ -1,15 +1,18 @@
 import films from "./mocks/films.js";
-import {extend} from "./utils.js";
+import {extend, DEFAULT_CARDS_COUNT} from "./utils.js";
+
 
 const initialState = {
   genre: `All genres`,
   filmToRenderDetails: null,
+  currentFilmsCardsCount: DEFAULT_CARDS_COUNT,
   films
 };
 
 const ActionType = {
   FILTER_CHANGE: `FILTER_CHANGE`,
-  SHOW_DETAILS: `SHOW_DETAILS`
+  SHOW_DETAILS: `SHOW_DETAILS`,
+  CHANGE_CARDS_COUNT: `CHANGE_CARDS_COUNT`
 };
 
 const ActionCreator = {
@@ -22,6 +25,11 @@ const ActionCreator = {
     type: ActionType.SHOW_DETAILS,
     filmToRenderDetails: film
   }),
+
+  changeCardsCount: (count) => ({
+    type: ActionType.CHANGE_CARDS_COUNT,
+    currentFilmsCardsCount: count
+  })
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +41,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.SHOW_DETAILS:
       return extend(state, {
         filmToRenderDetails: action.filmToRenderDetails
+      });
+    case ActionType.CHANGE_CARDS_COUNT:
+      return extend(state, {
+        currentFilmsCardsCount: action.currentFilmsCardsCount
       });
   }
 

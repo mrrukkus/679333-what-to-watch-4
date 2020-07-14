@@ -20,8 +20,10 @@ const App = (props) => {
     genre,
     filmsList,
     filmToRenderDetails,
+    currentFilmsCardsCount,
     onImageAndTitleClick,
     onGenreClick,
+    onShowMoreClick,
   } = props;
 
   const _renderMain = () => {
@@ -35,6 +37,8 @@ const App = (props) => {
             evt.preventDefault();
           }}
           onImageAndTitleClick={onImageAndTitleClick}
+          onShowMoreClick={onShowMoreClick}
+          currentFilmsCardsCount={currentFilmsCardsCount}
         />
       );
     }
@@ -77,12 +81,15 @@ App.propTypes = {
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   filmToRenderDetails: PropTypes.object,
   onImageAndTitleClick: PropTypes.func.isRequired,
-  onGenreClick: PropTypes.func.isRequired
+  onGenreClick: PropTypes.func.isRequired,
+  onShowMoreClick: PropTypes.func.isRequired,
+  currentFilmsCardsCount: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state) => ({
   genre: state.genre,
   filmsList: getFilteredFilmsList(state.genre, state.films),
+  currentFilmsCardsCount: state.currentFilmsCardsCount,
   filmToRenderDetails: state.filmToRenderDetails
 });
 
@@ -92,6 +99,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onGenreClick(genre) {
     dispatch(ActionCreator.filterChange(genre));
+  },
+  onShowMoreClick(count) {
+    dispatch(ActionCreator.changeCardsCount(count));
   }
 });
 

@@ -20,6 +20,8 @@ describe(`Film card test`, () => {
           onGenreClick={() => {}}
           onCardAction={onCardAction}
           onImageAndTitleClick={onTitleAndImageAction}
+          onShowMoreClick={() => {}}
+          currentFilmsCardsCount={8}
         />
     );
 
