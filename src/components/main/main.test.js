@@ -6,6 +6,8 @@ import films from "../../mocks/films.js";
 it(`Main renders correctly`, () => {
   const tree = renderer
     .create(<Main
+      onGenreClick={() => {}}
+      genre={`All genres`}
       filmsList={films}
       onCardAction={() => {}}
       onImageAndTitleClick={() => {}}

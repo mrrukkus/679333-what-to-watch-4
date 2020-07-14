@@ -15,7 +15,9 @@ describe(`Film card test`, () => {
 
     const mainTemplate = mount(
         <Main
+          genre={`All genres`}
           filmsList={films}
+          onGenreClick={() => {}}
           onCardAction={onCardAction}
           onImageAndTitleClick={onTitleAndImageAction}
         />

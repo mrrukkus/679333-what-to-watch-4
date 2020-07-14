@@ -108,7 +108,7 @@ exports[`Tabs renders correctly Details tab renders correctly 1`] = `
         <span
           className="movie-card__details-value"
         >
-          Drama
+          Dramas
         </span>
       </p>
       <p

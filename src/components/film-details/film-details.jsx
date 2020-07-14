@@ -75,7 +75,12 @@ const FilmDetails = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList filmsList={filteredFilms}onCardAction={onCardAction} onImageAndTitleClick={onImageAndTitleClick}/>
+          <FilmsList
+            genre={film.genre}
+            filmsList={filteredFilms}
+            onCardAction={onCardAction}
+            onImageAndTitleClick={onImageAndTitleClick}
+          />
         </section>
 
         <footer className="page-footer">
