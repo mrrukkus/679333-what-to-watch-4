@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {INCREASER_CARDS_COUNT} from "../../utils.js";
 import {calculateNewCardsCount} from "../../reducer.js";
 
-
 const ShowMore = (props) => {
   const {
     onShowMoreClick,
