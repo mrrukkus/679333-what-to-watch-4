@@ -1,19 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-const INCREASER_CARDS_COUNT = 8;
-
-const calculateNewCardsCount = (currentCardsCount, increaser, filmsCount) => {
-  let newCardsCount = currentCardsCount + increaser;
-
-  if (filmsCount < newCardsCount) {
-    newCardsCount = currentCardsCount + (filmsCount - currentCardsCount);
-
-    return newCardsCount;
-  }
-
-  return newCardsCount;
-};
+import {INCREASER_CARDS_COUNT} from "../../utils.js";
+import {calculateNewCardsCount} from "../../reducer.js";
 
 
 const ShowMore = (props) => {

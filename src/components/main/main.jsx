@@ -89,15 +89,13 @@ const Main = (props) => {
             onImageAndTitleClick={onImageAndTitleClick}
           />
 
-          {currentFilmsCardsCount >= filmsList.length ?
-            ``
-            :
+          {currentFilmsCardsCount < filmsList.length && (
             <ShowMore
               onShowMoreClick={onShowMoreClick}
               currentFilmsCardsCount={currentFilmsCardsCount}
               filmsListCount={filmsList.length}
             />
-          }
+          )}
         </section>
 
         <footer className="page-footer">

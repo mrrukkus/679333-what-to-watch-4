@@ -9,6 +9,18 @@ const initialState = {
   films
 };
 
+const calculateNewCardsCount = (currentCardsCount, increaser, filmsCount) => {
+  let newCardsCount = currentCardsCount + increaser;
+
+  if (filmsCount < newCardsCount) {
+    newCardsCount = currentCardsCount + (filmsCount - currentCardsCount);
+
+    return newCardsCount;
+  }
+
+  return newCardsCount;
+};
+
 const ActionType = {
   FILTER_CHANGE: `FILTER_CHANGE`,
   SHOW_DETAILS: `SHOW_DETAILS`,
@@ -51,4 +63,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionType, ActionCreator};
+export {reducer, calculateNewCardsCount, ActionType, ActionCreator};
