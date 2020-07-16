@@ -6,6 +6,10 @@ import FilmDetails from "../film-details/film-details.jsx";
 import Main from "../main/main.jsx";
 import films from "../../mocks/films.js";
 import {ActionCreator} from "../../reducer.js";
+import {MORE_LIKE_THIS_CARDS_COUNT} from "../../utils.js";
+import {INCREASER_CARDS_COUNT} from "../../utils.js";
+import {calculateNewCardsCount} from "../../reducer.js";
+
 
 const getFilteredFilmsList = (genre, filmsList) => {
   if (genre !== `All genres`) {
@@ -19,8 +23,10 @@ const App = (props) => {
   const {
     genre,
     filmsList,
-    filmToRenderDetails,
+    filmsListMoreLikeThis,
     currentFilmsCardsCount,
+    nextFilmsCardsCount,
+    filmToRenderDetails,
     onImageAndTitleClick,
     onGenreClick,
     onShowMoreClick,
@@ -33,6 +39,7 @@ const App = (props) => {
           genre={genre}
           onGenreClick={onGenreClick}
           filmsList={filmsList}
+          nextFilmsCardsCount={nextFilmsCardsCount}
           onCardAction={(evt) => {
             evt.preventDefault();
           }}
@@ -50,7 +57,7 @@ const App = (props) => {
           evt.preventDefault();
         }}
         onImageAndTitleClick={onImageAndTitleClick}
-        filmsList={filmsList}
+        filmsList={filmsListMoreLikeThis}
       />
     );
   };
@@ -68,7 +75,7 @@ const App = (props) => {
               evt.preventDefault();
             }}
             onImageAndTitleClick={onImageAndTitleClick}
-            filmsList={films}
+            filmsList={getFilteredFilmsList(films[1].genre, films)}
           />
         </Route>
       </Switch>
@@ -79,18 +86,28 @@ const App = (props) => {
 App.propTypes = {
   genre: PropTypes.string.isRequired,
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filmsListMoreLikeThis: PropTypes.arrayOf(PropTypes.object),
+
+  currentFilmsCardsCount: PropTypes.number.isRequired,
+  nextFilmsCardsCount: PropTypes.number.isRequired,
+
   filmToRenderDetails: PropTypes.object,
+
   onImageAndTitleClick: PropTypes.func.isRequired,
   onGenreClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,
-  currentFilmsCardsCount: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state) => ({
   genre: state.genre,
-  filmsList: getFilteredFilmsList(state.genre, state.films),
+  filmsList: getFilteredFilmsList(state.genre, state.films).slice(0, state.currentFilmsCardsCount),
+
+  filmsListMoreLikeThis: getFilteredFilmsList(state.filmToRenderDetails ? state.filmToRenderDetails.genre : `All genres`, state.films).slice(0, MORE_LIKE_THIS_CARDS_COUNT),
+
   currentFilmsCardsCount: state.currentFilmsCardsCount,
-  filmToRenderDetails: state.filmToRenderDetails
+  nextFilmsCardsCount: calculateNewCardsCount(state.currentFilmsCardsCount, INCREASER_CARDS_COUNT, getFilteredFilmsList(state.genre, state.films).length),
+
+  filmToRenderDetails: state.filmToRenderDetails,
 });
 
 const mapDispatchToProps = (dispatch) => ({

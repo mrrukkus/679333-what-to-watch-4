@@ -9,10 +9,11 @@ const Main = (props) => {
     genre,
     onGenreClick,
     filmsList,
+    currentFilmsCardsCount,
+    nextFilmsCardsCount,
     onCardAction,
     onImageAndTitleClick,
     onShowMoreClick,
-    currentFilmsCardsCount
   } = props;
 
   return (
@@ -84,16 +85,15 @@ const Main = (props) => {
 
           <FilmsList
             genre={genre}
-            filmsList={filmsList.slice(0, currentFilmsCardsCount)}
+            filmsList={filmsList}
             onCardAction={onCardAction}
             onImageAndTitleClick={onImageAndTitleClick}
           />
 
-          {currentFilmsCardsCount < filmsList.length && (
+          {currentFilmsCardsCount < nextFilmsCardsCount && (
             <ShowMore
               onShowMoreClick={onShowMoreClick}
-              currentFilmsCardsCount={currentFilmsCardsCount}
-              filmsListCount={filmsList.length}
+              nextFilmsCardsCount={nextFilmsCardsCount}
             />
           )}
         </section>
@@ -118,12 +118,13 @@ const Main = (props) => {
 
 Main.propTypes = {
   genre: PropTypes.string.isRequired,
-  onGenreClick: PropTypes.func.isRequired,
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentFilmsCardsCount: PropTypes.number.isRequired,
+  nextFilmsCardsCount: PropTypes.number.isRequired,
+  onGenreClick: PropTypes.func.isRequired,
   onCardAction: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,
-  currentFilmsCardsCount: PropTypes.number.isRequired
 };
 
 export default Main;

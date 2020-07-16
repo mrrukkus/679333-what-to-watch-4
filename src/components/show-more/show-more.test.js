@@ -6,8 +6,7 @@ it(`Show more button renders correctly`, () => {
   const showMoreButton = renderer
     .create(<ShowMore
       onShowMoreClick={() => {}}
-      currentFilmsCardsCount={8}
-      filmsListCount={20}
+      nextFilmsCardsCount={16}
     />).toJSON();
 
   expect(showMoreButton).toMatchSnapshot();

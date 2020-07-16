@@ -8,11 +8,12 @@ it(`Main renders correctly`, () => {
     .create(<Main
       onGenreClick={() => {}}
       genre={`All genres`}
-      filmsList={films}
+      filmsList={films.slice(0, 8)}
       onCardAction={() => {}}
       onImageAndTitleClick={() => {}}
       onShowMoreClick={() => {}}
       currentFilmsCardsCount={8}
+      nextFilmsCardsCount={16}
     />).toJSON();
 
   expect(tree).toMatchSnapshot();

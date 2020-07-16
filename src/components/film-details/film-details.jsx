@@ -2,12 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import FilmsList from "../films-list/films-list.jsx";
-import {MORE_LIKE_THIS_CARDS_COUNT} from "../../utils.js";
 
 const FilmDetails = (props) => {
   const {film, onCardAction, onImageAndTitleClick, filmsList} = props;
-
-  const filteredFilms = filmsList.filter((movie) => movie.genre === film.genre);
 
   return (
     <React.Fragment>
@@ -78,7 +75,7 @@ const FilmDetails = (props) => {
           <h2 className="catalog__title">More like this</h2>
           <FilmsList
             genre={film.genre}
-            filmsList={filteredFilms.slice(0, MORE_LIKE_THIS_CARDS_COUNT)}
+            filmsList={filmsList}
             onCardAction={onCardAction}
             onImageAndTitleClick={onImageAndTitleClick}
           />
