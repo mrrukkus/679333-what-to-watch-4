@@ -86,7 +86,6 @@ const App = (props) => {
 App.propTypes = {
   genre: PropTypes.string.isRequired,
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  filmsListMoreLikeThis: PropTypes.arrayOf(PropTypes.object),
 
   currentFilmsCardsCount: PropTypes.number.isRequired,
   nextFilmsCardsCount: PropTypes.number.isRequired,
