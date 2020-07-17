@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
+import {MORE_LIKE_THIS_CARDS_COUNT} from "../../utils.js";
 
 export default class FilmCard extends React.PureComponent {
   constructor(props) {
@@ -32,6 +33,8 @@ export default class FilmCard extends React.PureComponent {
         }}
         onClick={() => {
           this.props.onImageAndTitleClick(this.props.film);
+          this.props.onGenreClick(this.props.film.genre);
+          this.props.onShowMoreClick(MORE_LIKE_THIS_CARDS_COUNT);
           clearTimeout(this._lastTimeout);
         }}
         onMouseOut={() => {
@@ -46,6 +49,8 @@ export default class FilmCard extends React.PureComponent {
               this.props.onCardAction(evt);
               clearTimeout(this._lastTimeout);
               this.props.onImageAndTitleClick(this.props.film);
+              this.props.onGenreClick(this.props.film.genre);
+              this.props.onShowMoreClick(MORE_LIKE_THIS_CARDS_COUNT);
             }}>{this.props.film.title}</a>
           </h3>
         </article>
@@ -58,5 +63,7 @@ FilmCard.propTypes = {
   film: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
   onCardAction: PropTypes.func.isRequired,
-  onImageAndTitleClick: PropTypes.func.isRequired
+  onImageAndTitleClick: PropTypes.func.isRequired,
+  onGenreClick: PropTypes.func.isRequired,
+  onShowMoreClick: PropTypes.func.isRequired,
 };

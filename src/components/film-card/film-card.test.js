@@ -12,6 +12,8 @@ it(`Film card renders correctly`, () => {
       id={1}
       onCardAction={() => {}}
       onImageAndTitleClick={() => {}}
+      onShowMoreClick={() => {}}
+      onGenreClick={() => {}}
     />).toJSON();
 
   expect(card).toMatchSnapshot();

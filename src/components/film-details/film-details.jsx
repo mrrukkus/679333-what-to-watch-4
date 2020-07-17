@@ -2,9 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import FilmsList from "../films-list/films-list.jsx";
+import {connect} from "react-redux";
+import {getFilteredFilmsList} from "../app/app.jsx";
+
 
 const FilmDetails = (props) => {
-  const {film, onCardAction, onImageAndTitleClick, filmsList} = props;
+  const {film, onCardAction, onImageAndTitleClick, filmsList, onShowMoreClick, onGenreClick
+  } = props;
 
   return (
     <React.Fragment>
@@ -78,6 +82,8 @@ const FilmDetails = (props) => {
             filmsList={filmsList}
             onCardAction={onCardAction}
             onImageAndTitleClick={onImageAndTitleClick}
+            onShowMoreClick={onShowMoreClick}
+            onGenreClick={onGenreClick}
           />
         </section>
 
@@ -101,9 +107,16 @@ const FilmDetails = (props) => {
 
 FilmDetails.propTypes = {
   film: PropTypes.object.isRequired,
+  filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   onCardAction: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
-  filmsList: PropTypes.arrayOf(PropTypes.object).isRequired
+  onShowMoreClick: PropTypes.func.isRequired,
+  onGenreClick: PropTypes.func.isRequired,
 };
 
-export default FilmDetails;
+const mapStateToProps = (state) => ({
+  filmsList: getFilteredFilmsList(state.genre, state.films).slice(0, state.currentFilmsCardsCount),
+});
+
+export {FilmDetails};
+export default connect(mapStateToProps)(FilmDetails);

@@ -17,11 +17,12 @@ describe(`Film card test`, () => {
         <Main
           genre={`All genres`}
           filmsList={films}
-          onGenreClick={() => {}}
+          currentFilmsCardsCount={8}
+          nextFilmsCardsCount={16}
           onCardAction={onCardAction}
           onImageAndTitleClick={onTitleAndImageAction}
+          onGenreClick={() => {}}
           onShowMoreClick={() => {}}
-          currentFilmsCardsCount={8}
         />
     );
 

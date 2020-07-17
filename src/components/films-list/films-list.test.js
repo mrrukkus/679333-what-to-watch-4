@@ -10,6 +10,8 @@ it(`Films list renders correctly`, () => {
       filmsList={films.slice(0, 8)}
       onCardAction={() => {}}
       onImageAndTitleClick={() => {}}
+      onShowMoreClick={() => {}}
+      onGenreClick={() => {}}
     />).toJSON();
 
   expect(list).toMatchSnapshot();

@@ -15,6 +15,7 @@ it(`Show more button should be pressed`, () => {
         onShowMoreClick={onButtonAction}
         currentFilmsCardsCount={8}
         filmsListCount={20}
+        nextFilmsCardsCount={16}
       />
   );
 

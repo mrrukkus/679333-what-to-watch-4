@@ -14,13 +14,14 @@ describe(`Main component`, () => {
 
     const mainTemplate = mount(
         <Main
-          onGenreClick={() => {}}
           genre={`All genres`}
           filmsList={films}
+          currentFilmsCardsCount={8}
+          nextFilmsCardsCount={16}
           onCardAction={onTitleAction}
+          onGenreClick={() => {}}
           onImageAndTitleClick={() => {}}
           onShowMoreClick={() => {}}
-          currentFilmsCardsCount={8}
         />
     );
 

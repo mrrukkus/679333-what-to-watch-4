@@ -1,17 +1,33 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import FilmDetails from "./film-details.jsx";
 import films from "../../mocks/films.js";
 
+const mockStore = configureStore([]);
 
 it(`Details renders correctly`, () => {
+  const store = mockStore({
+    genre: `All genres`,
+    filmIdToRenderDetails: -1,
+    currentFilmsCardsCount: 4,
+    films
+  });
+
   const details = renderer
-    .create(<FilmDetails
-      film={films[1]}
-      onCardAction={() => {}}
-      onImageAndTitleClick={() => {}}
-      filmsList={films.slice(0, 4)}
-    />).toJSON();
+    .create(
+        <Provider store={store}>
+          <FilmDetails
+            film={films[1]}
+            filmsList={films.slice(0, 4)}
+            onCardAction={() => {}}
+            onImageAndTitleClick={() => {}}
+            onShowMoreClick={() => {}}
+            onGenreClick={() => {}}
+          />
+        </Provider>
+    ).toJSON();
 
   expect(details).toMatchSnapshot();
 });

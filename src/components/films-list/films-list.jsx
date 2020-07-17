@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import FilmCard from "../film-card/film-card.jsx";
 
-const getCards = (movies, onCardAction, onImageAndTitleClick) => {
+const getCards = (movies, onCardAction, onImageAndTitleClick, onGenreClick, onShowMoreClick) => {
   return (
     movies.map((movie, i) =>
       <FilmCard
@@ -10,7 +10,9 @@ const getCards = (movies, onCardAction, onImageAndTitleClick) => {
         id={i}
         film={movie}
         onCardAction={onCardAction}
-        onImageAndTitleClick={onImageAndTitleClick}>
+        onImageAndTitleClick={onImageAndTitleClick}
+        onGenreClick={onGenreClick}
+        onShowMoreClick={onShowMoreClick}>
       </FilmCard>
     )
   );
@@ -20,7 +22,9 @@ const FilmsList = (props) => {
   const {
     filmsList,
     onCardAction,
-    onImageAndTitleClick
+    onImageAndTitleClick,
+    onGenreClick,
+    onShowMoreClick
   } = props;
 
   return (
@@ -29,7 +33,9 @@ const FilmsList = (props) => {
         {getCards(
             filmsList,
             onCardAction,
-            onImageAndTitleClick
+            onImageAndTitleClick,
+            onGenreClick,
+            onShowMoreClick
         )}
       </div>
     </React.Fragment>
@@ -39,7 +45,9 @@ const FilmsList = (props) => {
 FilmsList.propTypes = {
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   onCardAction: PropTypes.func.isRequired,
-  onImageAndTitleClick: PropTypes.func.isRequired
+  onImageAndTitleClick: PropTypes.func.isRequired,
+  onGenreClick: PropTypes.func.isRequired,
+  onShowMoreClick: PropTypes.func.isRequired,
 };
 
 export default FilmsList;

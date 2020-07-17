@@ -5,8 +5,8 @@ import ShowMore from "./show-more.jsx";
 it(`Show more button renders correctly`, () => {
   const showMoreButton = renderer
     .create(<ShowMore
-      onShowMoreClick={() => {}}
       nextFilmsCardsCount={16}
+      onShowMoreClick={() => {}}
     />).toJSON();
 
   expect(showMoreButton).toMatchSnapshot();

@@ -6,7 +6,6 @@ import FilmDetails from "../film-details/film-details.jsx";
 import Main from "../main/main.jsx";
 import films from "../../mocks/films.js";
 import {ActionCreator} from "../../reducer.js";
-import {MORE_LIKE_THIS_CARDS_COUNT} from "../../utils.js";
 import {INCREASER_CARDS_COUNT} from "../../utils.js";
 import {calculateNewCardsCount} from "../../reducer.js";
 
@@ -23,7 +22,6 @@ const App = (props) => {
   const {
     genre,
     filmsList,
-    filmsListMoreLikeThis,
     currentFilmsCardsCount,
     nextFilmsCardsCount,
     filmToRenderDetails,
@@ -37,15 +35,15 @@ const App = (props) => {
       return (
         <Main
           genre={genre}
-          onGenreClick={onGenreClick}
           filmsList={filmsList}
           nextFilmsCardsCount={nextFilmsCardsCount}
-          onCardAction={(evt) => {
-            evt.preventDefault();
-          }}
+          onGenreClick={onGenreClick}
           onImageAndTitleClick={onImageAndTitleClick}
           onShowMoreClick={onShowMoreClick}
           currentFilmsCardsCount={currentFilmsCardsCount}
+          onCardAction={(evt) => {
+            evt.preventDefault();
+          }}
         />
       );
     }
@@ -53,11 +51,12 @@ const App = (props) => {
     return (
       <FilmDetails
         film={filmToRenderDetails}
+        onGenreClick={onGenreClick}
+        onImageAndTitleClick={onImageAndTitleClick}
+        onShowMoreClick={onShowMoreClick}
         onCardAction={(evt) => {
           evt.preventDefault();
         }}
-        onImageAndTitleClick={onImageAndTitleClick}
-        filmsList={filmsListMoreLikeThis}
       />
     );
   };
@@ -71,11 +70,12 @@ const App = (props) => {
         <Route exact path="/film-details">
           <FilmDetails
             film={films[1]}
+            onImageAndTitleClick={onImageAndTitleClick}
+            onShowMoreClick={onShowMoreClick}
+            onGenreClick={onGenreClick}
             onCardAction={(evt) => {
               evt.preventDefault();
             }}
-            onImageAndTitleClick={onImageAndTitleClick}
-            filmsList={getFilteredFilmsList(films[1].genre, films)}
           />
         </Route>
       </Switch>
@@ -102,8 +102,6 @@ const mapStateToProps = (state) => ({
   genre: state.genre,
   filmsList: getFilteredFilmsList(state.genre, state.films).slice(0, state.currentFilmsCardsCount),
 
-  filmsListMoreLikeThis: getFilteredFilmsList(state.filmToRenderDetails ? state.filmToRenderDetails.genre : `All genres`, state.films).slice(0, MORE_LIKE_THIS_CARDS_COUNT),
-
   currentFilmsCardsCount: state.currentFilmsCardsCount,
   nextFilmsCardsCount: calculateNewCardsCount(state.currentFilmsCardsCount, INCREASER_CARDS_COUNT, getFilteredFilmsList(state.genre, state.films).length),
 
@@ -122,5 +120,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {App};
+export {App, getFilteredFilmsList};
 export default connect(mapStateToProps, mapDispatchToProps)(App);

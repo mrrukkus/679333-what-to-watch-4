@@ -7,10 +7,10 @@ import ShowMore from "../show-more/show-more.jsx";
 const Main = (props) => {
   const {
     genre,
-    onGenreClick,
     filmsList,
     currentFilmsCardsCount,
     nextFilmsCardsCount,
+    onGenreClick,
     onCardAction,
     onImageAndTitleClick,
     onShowMoreClick,
@@ -87,7 +87,9 @@ const Main = (props) => {
             genre={genre}
             filmsList={filmsList}
             onCardAction={onCardAction}
+            onGenreClick={onGenreClick}
             onImageAndTitleClick={onImageAndTitleClick}
+            onShowMoreClick={onShowMoreClick}
           />
 
           {currentFilmsCardsCount < nextFilmsCardsCount && (
