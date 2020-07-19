@@ -25,8 +25,9 @@ export default class Tabs extends PureComponent {
               `movie-nav__item--active` : ``
           }`}>
             <a href="#" className="movie-nav__link" onClick={(evt) => {
+              evt.preventDefault();
               this.setState({activeTab: title});
-              this.props.onTabAction(evt);
+              this.props.onTabAction();
             }}>{title}</a>
           </li>
         );

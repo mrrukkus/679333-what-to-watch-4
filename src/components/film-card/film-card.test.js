@@ -10,7 +10,6 @@ it(`Film card renders correctly`, () => {
         title: `Fantastic Beasts: The Crimes of Grindelwald`
       }}
       id={1}
-      onCardAction={() => {}}
       onImageAndTitleClick={() => {}}
       onShowMoreClick={() => {}}
       onGenreClick={() => {}}

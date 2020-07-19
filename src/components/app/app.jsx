@@ -5,23 +5,13 @@ import {connect} from "react-redux";
 import FilmDetails from "../film-details/film-details.jsx";
 import Main from "../main/main.jsx";
 import films from "../../mocks/films.js";
-import {ActionCreator} from "../../reducer.js";
 import {INCREASER_CARDS_COUNT} from "../../utils.js";
-import {calculateNewCardsCount} from "../../reducer.js";
+import {calculateNewCardsCount, ActionCreator, getFilteredFilmsList} from "../../reducer.js";
 
-
-const getFilteredFilmsList = (genre, filmsList) => {
-  if (genre !== `All genres`) {
-    return filmsList.filter((film) => film.genre === genre);
-  }
-
-  return filmsList;
-};
 
 const App = (props) => {
   const {
     genre,
-    filmsList,
     currentFilmsCardsCount,
     nextFilmsCardsCount,
     filmToRenderDetails,
@@ -35,15 +25,11 @@ const App = (props) => {
       return (
         <Main
           genre={genre}
-          filmsList={filmsList}
           nextFilmsCardsCount={nextFilmsCardsCount}
           onGenreClick={onGenreClick}
           onImageAndTitleClick={onImageAndTitleClick}
           onShowMoreClick={onShowMoreClick}
           currentFilmsCardsCount={currentFilmsCardsCount}
-          onCardAction={(evt) => {
-            evt.preventDefault();
-          }}
         />
       );
     }
@@ -54,9 +40,6 @@ const App = (props) => {
         onGenreClick={onGenreClick}
         onImageAndTitleClick={onImageAndTitleClick}
         onShowMoreClick={onShowMoreClick}
-        onCardAction={(evt) => {
-          evt.preventDefault();
-        }}
       />
     );
   };
@@ -73,9 +56,6 @@ const App = (props) => {
             onImageAndTitleClick={onImageAndTitleClick}
             onShowMoreClick={onShowMoreClick}
             onGenreClick={onGenreClick}
-            onCardAction={(evt) => {
-              evt.preventDefault();
-            }}
           />
         </Route>
       </Switch>
@@ -85,7 +65,6 @@ const App = (props) => {
 
 App.propTypes = {
   genre: PropTypes.string.isRequired,
-  filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
 
   currentFilmsCardsCount: PropTypes.number.isRequired,
   nextFilmsCardsCount: PropTypes.number.isRequired,
@@ -99,7 +78,6 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   genre: state.genre,
-  filmsList: getFilteredFilmsList(state.genre, state.films).slice(0, state.currentFilmsCardsCount),
 
   currentFilmsCardsCount: state.currentFilmsCardsCount,
   nextFilmsCardsCount: calculateNewCardsCount(state.currentFilmsCardsCount, INCREASER_CARDS_COUNT, getFilteredFilmsList(state.genre, state.films).length),

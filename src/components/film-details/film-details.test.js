@@ -11,7 +11,7 @@ it(`Details renders correctly`, () => {
   const store = mockStore({
     genre: `All genres`,
     filmIdToRenderDetails: -1,
-    currentFilmsCardsCount: 4,
+    currentFilmsCardsCount: 8,
     films
   });
 
@@ -21,7 +21,6 @@ it(`Details renders correctly`, () => {
           <FilmDetails
             film={films[1]}
             filmsList={films.slice(0, 4)}
-            onCardAction={() => {}}
             onImageAndTitleClick={() => {}}
             onShowMoreClick={() => {}}
             onGenreClick={() => {}}

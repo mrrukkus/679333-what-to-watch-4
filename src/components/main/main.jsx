@@ -1,17 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FilmsList from "../films-list/films-list.jsx";
+import {FilmsListOnMain} from "../films-list/films-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 
 const Main = (props) => {
   const {
     genre,
-    filmsList,
     currentFilmsCardsCount,
     nextFilmsCardsCount,
     onGenreClick,
-    onCardAction,
     onImageAndTitleClick,
     onShowMoreClick,
   } = props;
@@ -83,10 +81,8 @@ const Main = (props) => {
             onShowMoreClick={onShowMoreClick}
           />
 
-          <FilmsList
+          <FilmsListOnMain
             genre={genre}
-            filmsList={filmsList}
-            onCardAction={onCardAction}
             onGenreClick={onGenreClick}
             onImageAndTitleClick={onImageAndTitleClick}
             onShowMoreClick={onShowMoreClick}
@@ -120,11 +116,9 @@ const Main = (props) => {
 
 Main.propTypes = {
   genre: PropTypes.string.isRequired,
-  filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentFilmsCardsCount: PropTypes.number.isRequired,
   nextFilmsCardsCount: PropTypes.number.isRequired,
   onGenreClick: PropTypes.func.isRequired,
-  onCardAction: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,
 };

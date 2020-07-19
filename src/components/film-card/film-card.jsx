@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
-import {MORE_LIKE_THIS_CARDS_COUNT} from "../../utils.js";
 
 export default class FilmCard extends React.PureComponent {
   constructor(props) {
@@ -12,6 +11,13 @@ export default class FilmCard extends React.PureComponent {
     };
 
     this._lastTimeout = null;
+    this._renderDetailsHandler = this._renderDetailsHandler.bind(this);
+  }
+
+  _renderDetailsHandler(evt) {
+    evt.preventDefault();
+    this.props.onImageAndTitleClick(this.props.film);
+    clearTimeout(this._lastTimeout);
   }
 
   render() {
@@ -31,11 +37,8 @@ export default class FilmCard extends React.PureComponent {
             this.setState({isMouseOvered: true});
           }, 1000);
         }}
-        onClick={() => {
-          this.props.onImageAndTitleClick(this.props.film);
-          this.props.onGenreClick(this.props.film.genre);
-          this.props.onShowMoreClick(MORE_LIKE_THIS_CARDS_COUNT);
-          clearTimeout(this._lastTimeout);
+        onClick={(evt) => {
+          this._renderDetailsHandler(evt);
         }}
         onMouseOut={() => {
           clearTimeout(this._lastTimeout);
@@ -46,11 +49,7 @@ export default class FilmCard extends React.PureComponent {
           </div>
           <h3 className="small-movie-card__title">
             <a className="small-movie-card__link" href="movie-page.html" onClick={(evt) => {
-              this.props.onCardAction(evt);
-              clearTimeout(this._lastTimeout);
-              this.props.onImageAndTitleClick(this.props.film);
-              this.props.onGenreClick(this.props.film.genre);
-              this.props.onShowMoreClick(MORE_LIKE_THIS_CARDS_COUNT);
+              this._renderDetailsHandler(evt);
             }}>{this.props.film.title}</a>
           </h3>
         </article>
@@ -62,7 +61,6 @@ export default class FilmCard extends React.PureComponent {
 FilmCard.propTypes = {
   film: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
-  onCardAction: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
   onGenreClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,

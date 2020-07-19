@@ -29,7 +29,7 @@ it(`Reducer should return state with default genre and new film details`, () => 
   })).toEqual({
     genre: `All genres`,
     filmToRenderDetails: films[0],
-    currentFilmsCardsCount: 8,
+    currentFilmsCardsCount: 4,
     films
   });
 });
@@ -43,5 +43,6 @@ it(`Reducer should return state with new genre and film`, () => {
   })).toEqual({
     genre: `Drama`,
     filmToRenderDetails: films[0],
+    currentFilmsCardsCount: 4
   });
 });
