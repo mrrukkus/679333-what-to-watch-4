@@ -67,10 +67,8 @@ export default class VideoPlayer extends PureComponent {
 
     if (this.state.isPlaying) {
       video.play();
-      this.props.playAndPauseHandler();
     } else {
       video.pause();
-      this.props.playAndPauseHandler();
     }
   }
 }
@@ -80,5 +78,4 @@ VideoPlayer.propTypes = {
   muted: PropTypes.bool.isRequired,
   src: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
-  playAndPauseHandler: PropTypes.func.isRequired,
 };
