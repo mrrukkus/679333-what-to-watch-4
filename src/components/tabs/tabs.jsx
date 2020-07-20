@@ -14,6 +14,14 @@ export default class Tabs extends PureComponent {
     this.state = {
       activeTab: this.props.defaultActiveTab
     };
+
+    this._changeTabHandler = this._changeTabHandler.bind(this);
+  }
+
+  _changeTabHandler(evt, title) {
+    evt.preventDefault();
+    this.setState({activeTab: title});
+    this.props.onTabAction();
   }
 
   _renderTabsTitles() {
@@ -24,10 +32,8 @@ export default class Tabs extends PureComponent {
             (this.state.activeTab === title) ?
               `movie-nav__item--active` : ``
           }`}>
-            <a href="#" className="movie-nav__link" onClick={(evt) => {
-              this.setState({activeTab: title});
-              this.props.onTabAction(evt);
-            }}>{title}</a>
+            <a href="#" className="movie-nav__link" onClick={
+              (evt) => this._changeTabHandler(evt, title)}>{title}</a>
           </li>
         );
       })

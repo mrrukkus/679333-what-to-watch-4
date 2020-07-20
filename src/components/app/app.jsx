@@ -5,23 +5,19 @@ import {connect} from "react-redux";
 import FilmDetails from "../film-details/film-details.jsx";
 import Main from "../main/main.jsx";
 import films from "../../mocks/films.js";
-import {ActionCreator} from "../../reducer.js";
+import {INCREASER_CARDS_COUNT} from "../../utils.js";
+import {calculateNewCardsCount, ActionCreator, getFilteredFilmsList} from "../../reducer.js";
 
-const getFilteredFilmsList = (genre, filmsList) => {
-  if (genre !== `All genres`) {
-    return filmsList.filter((film) => film.genre === genre);
-  }
-
-  return filmsList;
-};
 
 const App = (props) => {
   const {
     genre,
-    filmsList,
+    currentFilmsCardsCount,
+    nextFilmsCardsCount,
     filmToRenderDetails,
     onImageAndTitleClick,
     onGenreClick,
+    onShowMoreClick,
   } = props;
 
   const _renderMain = () => {
@@ -29,12 +25,11 @@ const App = (props) => {
       return (
         <Main
           genre={genre}
+          nextFilmsCardsCount={nextFilmsCardsCount}
           onGenreClick={onGenreClick}
-          filmsList={filmsList}
-          onCardAction={(evt) => {
-            evt.preventDefault();
-          }}
           onImageAndTitleClick={onImageAndTitleClick}
+          onShowMoreClick={onShowMoreClick}
+          currentFilmsCardsCount={currentFilmsCardsCount}
         />
       );
     }
@@ -42,11 +37,9 @@ const App = (props) => {
     return (
       <FilmDetails
         film={filmToRenderDetails}
-        onCardAction={(evt) => {
-          evt.preventDefault();
-        }}
+        onGenreClick={onGenreClick}
         onImageAndTitleClick={onImageAndTitleClick}
-        filmsList={filmsList}
+        onShowMoreClick={onShowMoreClick}
       />
     );
   };
@@ -60,11 +53,9 @@ const App = (props) => {
         <Route exact path="/film-details">
           <FilmDetails
             film={films[1]}
-            onCardAction={(evt) => {
-              evt.preventDefault();
-            }}
             onImageAndTitleClick={onImageAndTitleClick}
-            filmsList={films}
+            onShowMoreClick={onShowMoreClick}
+            onGenreClick={onGenreClick}
           />
         </Route>
       </Switch>
@@ -74,16 +65,24 @@ const App = (props) => {
 
 App.propTypes = {
   genre: PropTypes.string.isRequired,
-  filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+
+  currentFilmsCardsCount: PropTypes.number.isRequired,
+  nextFilmsCardsCount: PropTypes.number.isRequired,
+
   filmToRenderDetails: PropTypes.object,
+
   onImageAndTitleClick: PropTypes.func.isRequired,
-  onGenreClick: PropTypes.func.isRequired
+  onGenreClick: PropTypes.func.isRequired,
+  onShowMoreClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   genre: state.genre,
-  filmsList: getFilteredFilmsList(state.genre, state.films),
-  filmToRenderDetails: state.filmToRenderDetails
+
+  currentFilmsCardsCount: state.currentFilmsCardsCount,
+  nextFilmsCardsCount: calculateNewCardsCount(state.currentFilmsCardsCount, INCREASER_CARDS_COUNT, getFilteredFilmsList(state.genre, state.films).length),
+
+  filmToRenderDetails: state.filmToRenderDetails,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -92,8 +91,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onGenreClick(genre) {
     dispatch(ActionCreator.filterChange(genre));
+  },
+  onShowMoreClick(count) {
+    dispatch(ActionCreator.changeCardsCount(count));
   }
 });
 
-export {App};
+export {App, getFilteredFilmsList};
 export default connect(mapStateToProps, mapDispatchToProps)(App);

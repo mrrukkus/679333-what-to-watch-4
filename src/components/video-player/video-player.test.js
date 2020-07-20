@@ -11,7 +11,6 @@ it(`Video-player renders correctly`, () => {
       muted={true}
       src={src}
       poster={`some poster src`}
-      playAndPauseHandler={() => {}}
     ></VideoPlayer>, {
       createNodeMock: () => {
         return {};

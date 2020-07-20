@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
-import FilmsList from "../films-list/films-list.jsx";
+import {FilmsListOnDetails} from "../films-list/films-list.jsx";
 
 const FilmDetails = (props) => {
-  const {film, onCardAction, onImageAndTitleClick, filmsList} = props;
-
-  const filteredFilms = filmsList.filter((movie) => movie.genre === film.genre);
+  const {film, onImageAndTitleClick, onShowMoreClick, onGenreClick
+  } = props;
 
   return (
     <React.Fragment>
@@ -67,7 +66,7 @@ const FilmDetails = (props) => {
               <img src={film.poster} alt={film.title + ` poster`} width="218" height="327" />
             </div>
 
-            <Tabs defaultActiveTab={`Overview`} film={film} onTabAction={onCardAction}/>
+            <Tabs defaultActiveTab={`Overview`} film={film} onTabAction={() => {}}/>
           </div>
         </div>
       </section>
@@ -75,11 +74,10 @@ const FilmDetails = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList
-            genre={film.genre}
-            filmsList={filteredFilms}
-            onCardAction={onCardAction}
+          <FilmsListOnDetails
             onImageAndTitleClick={onImageAndTitleClick}
+            onShowMoreClick={onShowMoreClick}
+            onGenreClick={onGenreClick}
           />
         </section>
 
@@ -103,9 +101,9 @@ const FilmDetails = (props) => {
 
 FilmDetails.propTypes = {
   film: PropTypes.object.isRequired,
-  onCardAction: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
-  filmsList: PropTypes.arrayOf(PropTypes.object).isRequired
+  onShowMoreClick: PropTypes.func.isRequired,
+  onGenreClick: PropTypes.func.isRequired,
 };
 
 export default FilmDetails;

@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import FilmCard from "../film-card/film-card.jsx";
+import FilmCard from "./film-card.jsx";
 
 it(`Film card renders correctly`, () => {
   const card = renderer
@@ -10,8 +10,9 @@ it(`Film card renders correctly`, () => {
         title: `Fantastic Beasts: The Crimes of Grindelwald`
       }}
       id={1}
-      onCardAction={() => {}}
       onImageAndTitleClick={() => {}}
+      onShowMoreClick={() => {}}
+      onGenreClick={() => {}}
     />).toJSON();
 
   expect(card).toMatchSnapshot();

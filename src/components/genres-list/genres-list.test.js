@@ -8,6 +8,7 @@ it(`Genres List renders correctly`, () => {
       genre={`All genres`}
       onGenreClick={() => {}}
       onGenreAction={() => {}}
+      onShowMoreClick={() => {}}
     />).toJSON();
 
   expect(genresList).toMatchSnapshot();
