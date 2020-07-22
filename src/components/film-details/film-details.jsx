@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
+import withActiveTabs from "../../hocs/with-active-tabs/with-active-tabs.js";
 import {FilmsListOnDetails} from "../films-list/films-list.jsx";
 
+const TabsWrapped = withActiveTabs(Tabs);
+
 const FilmDetails = (props) => {
-  const {film, onImageAndTitleClick, onShowMoreClick, onGenreClick
-  } = props;
+  const {film, onImageAndTitleClick} = props;
 
   return (
     <React.Fragment>
@@ -66,7 +68,7 @@ const FilmDetails = (props) => {
               <img src={film.poster} alt={film.title + ` poster`} width="218" height="327" />
             </div>
 
-            <Tabs defaultActiveTab={`Overview`} film={film} onTabAction={() => {}}/>
+            <TabsWrapped defaultActiveTab={`Overview`} film={film} onTabAction={() => {}}/>
           </div>
         </div>
       </section>
@@ -76,8 +78,6 @@ const FilmDetails = (props) => {
           <h2 className="catalog__title">More like this</h2>
           <FilmsListOnDetails
             onImageAndTitleClick={onImageAndTitleClick}
-            onShowMoreClick={onShowMoreClick}
-            onGenreClick={onGenreClick}
           />
         </section>
 
@@ -102,8 +102,6 @@ const FilmDetails = (props) => {
 FilmDetails.propTypes = {
   film: PropTypes.object.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
-  onShowMoreClick: PropTypes.func.isRequired,
-  onGenreClick: PropTypes.func.isRequired,
 };
 
 export default FilmDetails;

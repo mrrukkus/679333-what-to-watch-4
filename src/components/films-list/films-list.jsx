@@ -1,22 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FilmCard from "../film-card/film-card.jsx";
+import withVideoCard from "../../hocs/with-video-card/with-video-card.js";
 import {getFilteredFilmsList} from "../../reducer.js";
 import {connect} from "react-redux";
 import {MORE_LIKE_THIS_CARDS_COUNT} from "../../utils.js";
 
+const FilmCardWrapped = withVideoCard(FilmCard);
 
-const getCards = (movies, onImageAndTitleClick, onGenreClick, onShowMoreClick) => {
+const getCards = (movies, onImageAndTitleClick) => {
   return (
     movies.map((movie, i) =>
-      <FilmCard
+      <FilmCardWrapped
         key={movie.title + i}
         id={i}
         film={movie}
         onImageAndTitleClick={onImageAndTitleClick}
-        onGenreClick={onGenreClick}
-        onShowMoreClick={onShowMoreClick}>
-      </FilmCard>
+      />
     )
   );
 };
@@ -25,19 +25,12 @@ const FilmsList = (props) => {
   const {
     filmsList,
     onImageAndTitleClick,
-    onGenreClick,
-    onShowMoreClick
   } = props;
 
   return (
     <React.Fragment>
       <div className="catalog__movies-list">
-        {getCards(
-            filmsList,
-            onImageAndTitleClick,
-            onGenreClick,
-            onShowMoreClick
-        )}
+        {getCards(filmsList, onImageAndTitleClick)}
       </div>
     </React.Fragment>
   );
@@ -46,11 +39,10 @@ const FilmsList = (props) => {
 FilmsList.propTypes = {
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
-  onGenreClick: PropTypes.func.isRequired,
-  onShowMoreClick: PropTypes.func.isRequired,
 };
 
 const mapStateToPropsOnMain = (state) => ({
+  genre: state.genre,
   filmsList: getFilteredFilmsList(state.genre, state.films).slice(0, state.currentFilmsCardsCount)
 });
 

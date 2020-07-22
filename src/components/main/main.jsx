@@ -6,9 +6,6 @@ import ShowMore from "../show-more/show-more.jsx";
 
 const Main = (props) => {
   const {
-    genre,
-    currentFilmsCardsCount,
-    nextFilmsCardsCount,
     onGenreClick,
     onImageAndTitleClick,
     onShowMoreClick,
@@ -76,24 +73,18 @@ const Main = (props) => {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenresList
-            genre={genre}
             onGenreClick={onGenreClick}
             onShowMoreClick={onShowMoreClick}
           />
 
           <FilmsListOnMain
-            genre={genre}
-            onGenreClick={onGenreClick}
             onImageAndTitleClick={onImageAndTitleClick}
+          />
+
+          <ShowMore
             onShowMoreClick={onShowMoreClick}
           />
 
-          {currentFilmsCardsCount < nextFilmsCardsCount && (
-            <ShowMore
-              onShowMoreClick={onShowMoreClick}
-              nextFilmsCardsCount={nextFilmsCardsCount}
-            />
-          )}
         </section>
 
         <footer className="page-footer">
@@ -115,9 +106,6 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  genre: PropTypes.string.isRequired,
-  currentFilmsCardsCount: PropTypes.number.isRequired,
-  nextFilmsCardsCount: PropTypes.number.isRequired,
   onGenreClick: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,

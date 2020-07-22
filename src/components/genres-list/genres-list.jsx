@@ -1,6 +1,7 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import {DEFAULT_CARDS_COUNT} from "../../utils.js";
+import {connect} from "react-redux";
 
 const GenresListMap = {
   ALL_GENRES: `All genres`,
@@ -56,4 +57,9 @@ GenresList.propTypes = {
   onShowMoreClick: PropTypes.func.isRequired
 };
 
-export default GenresList;
+const mapStateToProps = (state) => ({
+  genre: state.genre
+});
+
+export {GenresList};
+export default connect(mapStateToProps)(GenresList);
