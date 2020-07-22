@@ -1,4 +1,4 @@
-import React from "react";
+import React, {createRef} from "react";
 import renderer from "react-test-renderer";
 import VideoPlayer from "../video-player/video-player.jsx";
 
@@ -11,6 +11,7 @@ it(`Video-player renders correctly`, () => {
       muted={true}
       src={src}
       poster={`some poster src`}
+      videoRef={createRef()}
     ></VideoPlayer>, {
       createNodeMock: () => {
         return {};

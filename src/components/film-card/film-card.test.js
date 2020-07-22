@@ -10,9 +10,10 @@ it(`Film card renders correctly`, () => {
         title: `Fantastic Beasts: The Crimes of Grindelwald`
       }}
       id={1}
-      onImageAndTitleClick={() => {}}
-      onShowMoreClick={() => {}}
-      onGenreClick={() => {}}
+      isMouseOvered={false}
+      onCardMouseOver={() => {}}
+      onCardMouseOut={() => {}}
+      onCardClick={() => {}}
     />).toJSON();
 
   expect(card).toMatchSnapshot();

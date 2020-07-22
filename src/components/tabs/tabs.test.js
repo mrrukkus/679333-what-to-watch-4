@@ -7,9 +7,9 @@ describe(`Tabs renders correctly`, () => {
   it(`Overview tab renders correctly`, () => {
     const overview = renderer
       .create(<Tabs
-        defaultActiveTab={`Overview`}
+        activeTab={`Overview`}
         film={films[1]}
-        onTabAction={() => {}}
+        onTabChange={() => {}}
       />).toJSON();
 
     expect(overview).toMatchSnapshot();
@@ -18,9 +18,9 @@ describe(`Tabs renders correctly`, () => {
   it(`Details tab renders correctly`, () => {
     const details = renderer
       .create(<Tabs
-        defaultActiveTab={`Details`}
+        activeTab={`Details`}
         film={films[1]}
-        onTabAction={() => {}}
+        onTabChange={() => {}}
       />).toJSON();
 
     expect(details).toMatchSnapshot();
@@ -29,9 +29,9 @@ describe(`Tabs renders correctly`, () => {
   it(`Reviews tab renders correctly`, () => {
     const reviews = renderer
       .create(<Tabs
-        defaultActiveTab={`Reviews`}
+        activeTab={`Reviews`}
         film={films[1]}
-        onTabAction={() => {}}
+        onTabChange={() => {}}
       />).toJSON();
 
     expect(reviews).toMatchSnapshot();
