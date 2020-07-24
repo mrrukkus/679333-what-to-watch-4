@@ -9,6 +9,8 @@ const Main = (props) => {
     onGenreClick,
     onImageAndTitleClick,
     onShowMoreClick,
+    previewFilm,
+    onPlayClick
   } = props;
 
   return (
@@ -39,18 +41,20 @@ const Main = (props) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={previewFilm.img} alt={previewFilm.title} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="movie-card__title">{previewFilm.title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">Drama</span>
-                <span className="movie-card__year">2014</span>
+                <span className="movie-card__genre">{previewFilm.genre}</span>
+                <span className="movie-card__year">{previewFilm.year}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => {
+                  onPlayClick(previewFilm);
+                }}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -106,9 +110,12 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
+  previewFilm: PropTypes.object.isRequired,
+
   onGenreClick: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,
+  onPlayClick: PropTypes.func.isRequired,
 };
 
 export default Main;

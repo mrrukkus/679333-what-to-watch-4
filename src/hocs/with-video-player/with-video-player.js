@@ -12,6 +12,8 @@ const withVideoPlayer = (Component) => {
         isPlaying: this.props.isPlaying,
         isLoading: true
       };
+
+      this._onPlayAndPauseClick = this._onPlayAndPauseClick.bind(this);
     }
 
     componentDidMount() {
@@ -36,7 +38,7 @@ const withVideoPlayer = (Component) => {
 
       video.ontimeupdate = () => {
         this.setState({
-          progress: video.currentTime
+          progress: Math.floor(video.currentTime)
         });
       };
     }
@@ -63,11 +65,17 @@ const withVideoPlayer = (Component) => {
       }
     }
 
+    _onPlayAndPauseClick() {
+      this.setState({isPlaying: !this.state.isPlaying});
+    }
+
     render() {
       return (
         <Component
           {...this.props}
           videoRef={this._videoRef}
+          isPlaying={this.state.isPlaying}
+          onPlayAndPauseClick={this._onPlayAndPauseClick}
         />
       );
     }
@@ -78,6 +86,7 @@ const withVideoPlayer = (Component) => {
     muted: PropTypes.bool.isRequired,
     src: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
+    onExitFilmClick: PropTypes.func
   };
 
   return WithVideoPlayer;

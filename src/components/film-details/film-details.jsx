@@ -7,7 +7,7 @@ import {FilmsListOnDetails} from "../films-list/films-list.jsx";
 const TabsWrapped = withActiveTabs(Tabs);
 
 const FilmDetails = (props) => {
-  const {film, onImageAndTitleClick} = props;
+  const {film, onImageAndTitleClick, onPlayClick} = props;
 
   return (
     <React.Fragment>
@@ -44,7 +44,9 @@ const FilmDetails = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => {
+                  onPlayClick(film);
+                }}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -102,6 +104,7 @@ const FilmDetails = (props) => {
 FilmDetails.propTypes = {
   film: PropTypes.object.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
+  onPlayClick: PropTypes.func.isRequired
 };
 
 export default FilmDetails;

@@ -26,12 +26,14 @@ describe(`Film card test`, () => {
     const mainTemplate = mount(
         <Provider store={store}>
           <Main
+            previewFilm={films[1]}
             genre={`All genres`}
             currentFilmsCardsCount={8}
             nextFilmsCardsCount={16}
             onGenreClick={() => {}}
             onImageAndTitleClick={onTitleAndImageAction}
             onShowMoreClick={() => {}}
+            onPlayClick={() => {}}
           />
         </Provider>
     );

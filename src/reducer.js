@@ -4,6 +4,7 @@ import {extend, DEFAULT_CARDS_COUNT, MORE_LIKE_THIS_CARDS_COUNT} from "./utils.j
 const initialState = {
   genre: `All genres`,
   filmToRenderDetails: null,
+  filmToPlay: null,
   currentFilmsCardsCount: DEFAULT_CARDS_COUNT,
   films
 };
@@ -31,7 +32,9 @@ const calculateNewCardsCount = (currentCardsCount, increaser, filmsCount) => {
 const ActionType = {
   FILTER_CHANGE: `FILTER_CHANGE`,
   SHOW_DETAILS: `SHOW_DETAILS`,
-  CHANGE_CARDS_COUNT: `CHANGE_CARDS_COUNT`
+  CHANGE_CARDS_COUNT: `CHANGE_CARDS_COUNT`,
+  PLAY_FILM: `PLAY_FILM`,
+  EXIT_FILM: `EXIT_FILM`
 };
 
 const ActionCreator = {
@@ -48,6 +51,16 @@ const ActionCreator = {
   changeCardsCount: (count) => ({
     type: ActionType.CHANGE_CARDS_COUNT,
     currentFilmsCardsCount: count
+  }),
+
+  playFilm: (film) => ({
+    type: ActionType.PLAY_FILM,
+    filmToPlay: film
+  }),
+
+  exitFilm: () => ({
+    type: ActionType.EXIT_FILM,
+    filmToPlay: null
   })
 };
 
@@ -65,6 +78,14 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CARDS_COUNT:
       return extend(state, {
         currentFilmsCardsCount: action.currentFilmsCardsCount
+      });
+    case ActionType.PLAY_FILM:
+      return extend(state, {
+        filmToPlay: action.filmToPlay,
+      });
+    case ActionType.EXIT_FILM:
+      return extend(state, {
+        filmToPlay: action.exitFilm
       });
   }
 

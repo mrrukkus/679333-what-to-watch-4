@@ -1,12 +1,15 @@
 import React, {createRef} from "react";
 import renderer from "react-test-renderer";
-import VideoPlayer from "../video-player/video-player.jsx";
+import VideoPlayerFilm from "../video-player-film/video-player-film.jsx";
 
 it(`Video-player renders correctly`, () => {
   const player = renderer
-    .create(<VideoPlayer
+    .create(<VideoPlayerFilm
       videoRef={createRef()}
-    ></VideoPlayer>, {
+      isPlaying={true}
+      onPlayAndPauseClick={() => {}}
+      onExitFilmClick={() => {}}
+    ></VideoPlayerFilm>, {
       createNodeMock: () => {
         return {};
       }
