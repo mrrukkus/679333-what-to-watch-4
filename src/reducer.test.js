@@ -6,6 +6,7 @@ it(`Reducer should return default state`, () => {
     genre: `All genres`,
     filmToRenderDetails: null,
     currentFilmsCardsCount: 8,
+    filmToPlay: null,
     films
   });
 });
@@ -18,6 +19,7 @@ it(`Reducer should return state with new genre`, () => {
     genre: `Drama`,
     filmToRenderDetails: null,
     currentFilmsCardsCount: 8,
+    filmToPlay: null,
     films
   });
 });
@@ -30,6 +32,7 @@ it(`Reducer should return state with default genre and new film details`, () => 
     genre: `All genres`,
     filmToRenderDetails: films[0],
     currentFilmsCardsCount: 4,
+    filmToPlay: null,
     films
   });
 });

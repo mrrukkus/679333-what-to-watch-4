@@ -24,6 +24,7 @@ it(`Details renders correctly`, () => {
             onImageAndTitleClick={() => {}}
             onShowMoreClick={() => {}}
             onGenreClick={() => {}}
+            onPlayClick={() => {}}
           />
         </Provider>
     ).toJSON();
