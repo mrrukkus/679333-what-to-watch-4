@@ -2,22 +2,22 @@ import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import {DEFAULT_CARDS_COUNT} from "../../utils.js";
 import {connect} from "react-redux";
+import {getGenre} from "../../reducer/films/selectors.js";
 
 const GenresListMap = {
   ALL_GENRES: `All genres`,
-  COMEDIES: `Comedies`,
+  COMEDY: `Comedy`,
   CRIME: `Crime`,
   DOCUMENTARY: `Documentary`,
-  DRAMAS: `Dramas`,
-  HORROR: `Horror`,
-  KIDS_AND_FAMILY: `Kids & Family`,
+  DRAMA: `Drama`,
   ROMANCE: `Romance`,
-  SCI_FI: `Sci-Fi`,
-  THRILLERS: `Thrillers`
+  THRILLER: `Thriller`,
+  ADVENTURE: `Adventure`,
+  FANTASY: `Fantasy`,
+  ACTION: `Action`
 };
 
 const genresList = Object.values(GenresListMap);
-
 
 const getGenres = (currentGenre, onGenreClick, onShowMoreClick) => {
   const genreClickHandler = (evt, genre) => {
@@ -58,7 +58,7 @@ GenresList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  genre: state.genre
+  genre: getGenre(state)
 });
 
 export {GenresList};

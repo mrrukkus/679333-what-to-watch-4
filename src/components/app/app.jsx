@@ -4,10 +4,12 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import FilmDetails from "../film-details/film-details.jsx";
 import Main from "../main/main.jsx";
-import films from "../../mocks/films.js";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/films/films.js";
 import VideoPlayerFilm from "../video-player-film/video-player-film.jsx";
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.js";
+import {getFilmToRenderDetails, getFilmToPlay} from "../../reducer/films/selectors.js";
+import {getPreviewFilm} from "../../reducer/data/selectors.js";
+
 
 const VideoPlayerWrapped = withVideoPlayer(VideoPlayerFilm);
 
@@ -59,7 +61,7 @@ const App = (props) => {
         </Route>
         <Route exact path="/film-details">
           <FilmDetails
-            film={films[1]}
+            film={previewFilm}
             onImageAndTitleClick={onImageAndTitleClick}
             onPlayClick={onPlayClick}
           />
@@ -72,7 +74,7 @@ const App = (props) => {
 App.propTypes = {
   filmToRenderDetails: PropTypes.object,
   filmToPlay: PropTypes.object,
-  previewFilm: PropTypes.object.isRequired,
+  previewFilm: PropTypes.object,
   onImageAndTitleClick: PropTypes.func.isRequired,
   onGenreClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,
@@ -81,9 +83,9 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filmToRenderDetails: state.filmToRenderDetails,
-  previewFilm: state.films[1],
-  filmToPlay: state.filmToPlay
+  filmToRenderDetails: getFilmToRenderDetails(state),
+  previewFilm: getPreviewFilm(state),
+  filmToPlay: getFilmToPlay(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

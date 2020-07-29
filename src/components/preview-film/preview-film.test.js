@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import App from "../app/app";
+import PreviewFilm from "./preview-film.jsx";
 
 const filmsMock = [
   {
@@ -41,10 +41,9 @@ const filmsMock = [
   },
 ];
 
-
 const mockStore = configureStore([]);
 
-it(`App renders correctly`, () => {
+it(`Preview films renders correctly`, () => {
   const store = mockStore({
     "DATA": {
       authorizationStatus: `NO_AUTH`,
@@ -59,16 +58,15 @@ it(`App renders correctly`, () => {
     }
   });
 
-  const tree = renderer
+  const preview = renderer
     .create(
         <Provider store={store}>
-          <App
-            onImageAndTitleClick={() => {}}
-            onGenreClick={() => {}}
-            onShowMoreClick={() => {}}
+          <PreviewFilm
+            previewFilm={filmsMock[0]}
+            onPlayClick={() => {}}
           />
         </Provider>
     ).toJSON();
 
-  expect(tree).toMatchSnapshot();
+  expect(preview).toMatchSnapshot();
 });
