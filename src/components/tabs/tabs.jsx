@@ -1,5 +1,6 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
+import {getRatingLevel, getFormattedTime} from "../../utils.js";
 
 const TabsTitlesMap = {
   OVERVIEW: `Overview`,
@@ -37,21 +38,17 @@ const Tabs = (props) => {
             <div className="movie-rating">
               <div className="movie-rating__score">{film.score}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">{film.ratingLevel}</span>
+                <span className="movie-rating__level">{getRatingLevel(film.ratingLevel)}</span>
                 <span className="movie-rating__count">{film.ratingCount}</span>
               </p>
             </div>
 
             <div className="movie-card__text">
-              {film.paragraphs.map((paragraph, i) => {
-                return (
-                  <p key={i}>{paragraph}</p>
-                );
-              })}
+              {film.paragraphs}
 
               <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
 
-              <p className="movie-card__starring"><strong>Starring: {film.starring} and other</strong></p>
+              <p className="movie-card__starring"><strong>Starring: {film.starring.join(`, `)} and other</strong></p>
             </div>
           </Fragment>
         );
@@ -75,7 +72,7 @@ const Tabs = (props) => {
               <div className="movie-card__text-col">
                 <p className="movie-card__details-item">
                   <strong className="movie-card__details-name">Run Time</strong>
-                  <span className="movie-card__details-value">{film.runTime}</span>
+                  <span className="movie-card__details-value">{getFormattedTime(film.runTime)}</span>
                 </p>
                 <p className="movie-card__details-item">
                   <strong className="movie-card__details-name">Genre</strong>

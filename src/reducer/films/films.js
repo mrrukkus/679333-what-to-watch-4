@@ -1,13 +1,4 @@
-import films from "./mocks/films.js";
-import {extend, DEFAULT_CARDS_COUNT, MORE_LIKE_THIS_CARDS_COUNT} from "./utils.js";
-
-const initialState = {
-  genre: `All genres`,
-  filmToRenderDetails: null,
-  filmToPlay: null,
-  currentFilmsCardsCount: DEFAULT_CARDS_COUNT,
-  films
-};
+import {extend, DEFAULT_CARDS_COUNT, MORE_LIKE_THIS_CARDS_COUNT} from "../../utils.js";
 
 const getFilteredFilmsList = (genre, filmsList) => {
   if (genre !== `All genres`) {
@@ -29,12 +20,19 @@ const calculateNewCardsCount = (currentCardsCount, increaser, filmsCount) => {
   return newCardsCount;
 };
 
+const initialState = {
+  genre: `All genres`,
+  filmToRenderDetails: null,
+  filmToPlay: null,
+  currentFilmsCardsCount: DEFAULT_CARDS_COUNT,
+};
+
 const ActionType = {
   FILTER_CHANGE: `FILTER_CHANGE`,
   SHOW_DETAILS: `SHOW_DETAILS`,
   CHANGE_CARDS_COUNT: `CHANGE_CARDS_COUNT`,
   PLAY_FILM: `PLAY_FILM`,
-  EXIT_FILM: `EXIT_FILM`
+  EXIT_FILM: `EXIT_FILM`,
 };
 
 const ActionCreator = {
@@ -61,7 +59,7 @@ const ActionCreator = {
   exitFilm: () => ({
     type: ActionType.EXIT_FILM,
     filmToPlay: null
-  })
+  }),
 };
 
 const reducer = (state = initialState, action) => {
@@ -88,7 +86,6 @@ const reducer = (state = initialState, action) => {
         filmToPlay: action.exitFilm
       });
   }
-
   return state;
 };
 

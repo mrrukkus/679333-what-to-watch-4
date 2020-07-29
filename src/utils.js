@@ -19,3 +19,29 @@ export const getTimeLeft = (duration, currentTime) => {
   }
   return hours + `:` + minutes + `:` + seconds;
 };
+
+export const getFormattedTime = (time) => {
+  const hours = Math.floor(time / 60);
+  const minutes = time % 60;
+  return `${hours}h ${minutes}m`;
+};
+
+const RatingMap = {
+  0: `Bad`,
+  3: `Normal`,
+  5: `Good`,
+  8: `Very good`,
+  10: `Awesome`
+};
+
+export const getRatingLevel = (ratingValue) => {
+  let lowerRate = 0;
+  for (let rating of Object.keys(RatingMap)) {
+    if (rating < ratingValue) {
+      lowerRate = rating;
+    }
+  }
+  return RatingMap[lowerRate];
+};
+
+

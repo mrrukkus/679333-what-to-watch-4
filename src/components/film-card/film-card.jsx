@@ -11,7 +11,7 @@ const FilmCard = (props) => {
     isMouseOvered,
     onCardMouseOver,
     onCardMouseOut,
-    onCardClick
+    onCardClick,
   } = props;
 
   const renderContentOfCard = () => {

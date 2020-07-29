@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {INCREASER_CARDS_COUNT} from "../../utils.js";
-import {calculateNewCardsCount, getFilteredFilmsList} from "../../reducer.js";
-
+import {calculateNewCardsCount, getFilteredFilmsList} from "../../reducer/films/films.js";
+import {getGenre, getCurrentFilmsCardsCount} from "../../reducer/films/selectors.js";
+import {getFilmsList} from "../../reducer/data/selectors.js";
 
 const ShowMore = (props) => {
   const {
@@ -33,8 +34,8 @@ ShowMore.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentFilmsCardsCount: state.currentFilmsCardsCount,
-  nextFilmsCardsCount: calculateNewCardsCount(state.currentFilmsCardsCount, INCREASER_CARDS_COUNT, getFilteredFilmsList(state.genre, state.films).length),
+  currentFilmsCardsCount: getCurrentFilmsCardsCount(state),
+  nextFilmsCardsCount: calculateNewCardsCount(getCurrentFilmsCardsCount(state), INCREASER_CARDS_COUNT, getFilteredFilmsList(getGenre(state), getFilmsList(state)).length),
 });
 
 export {ShowMore};

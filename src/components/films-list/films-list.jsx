@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import FilmCard from "../film-card/film-card.jsx";
 import withVideoCard from "../../hocs/with-video-card/with-video-card.js";
-import {getFilteredFilmsList} from "../../reducer.js";
-import {connect} from "react-redux";
+import {getFilteredFilmsList} from "../../reducer/films/films.js";
+import {getGenre, getCurrentFilmsCardsCount, getFilmToRenderDetails} from "../../reducer/films/selectors.js";
+import {getFilmsList} from "../../reducer/data/selectors.js";
 import {MORE_LIKE_THIS_CARDS_COUNT} from "../../utils.js";
 
 const FilmCardWrapped = withVideoCard(FilmCard);
@@ -42,12 +44,12 @@ FilmsList.propTypes = {
 };
 
 const mapStateToPropsOnMain = (state) => ({
-  genre: state.genre,
-  filmsList: getFilteredFilmsList(state.genre, state.films).slice(0, state.currentFilmsCardsCount)
+  genre: getGenre(state),
+  filmsList: getFilmsList(state).slice(0, getCurrentFilmsCardsCount(state)),
 });
 
 const mapStateToPropsOnDetails = (state) => ({
-  filmsList: getFilteredFilmsList(state.filmToRenderDetails && state.filmToRenderDetails.genre, state.films).slice(0, MORE_LIKE_THIS_CARDS_COUNT)
+  filmsList: getFilteredFilmsList(getFilmToRenderDetails(state) && getFilmToRenderDetails(state).genre, getFilmsList(state)).slice(0, MORE_LIKE_THIS_CARDS_COUNT)
 });
 
 const FilmsListOnMain = connect(mapStateToPropsOnMain)(FilmsList);

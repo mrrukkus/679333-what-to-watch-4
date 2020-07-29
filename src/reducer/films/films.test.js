@@ -1,9 +1,4 @@
-import React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import Main from "../main/main";
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
+import {reducer, ActionType, ActionCreator} from "./films.js";
 
 const filmsMock = [
   {
@@ -40,51 +35,71 @@ const filmsMock = [
   },
 ];
 
-Enzyme.configure({
-  adapter: new Adapter(),
+it(`Reducer should return default state`, () => {
+  expect(reducer(void 0, {})).toEqual({
+    genre: `All genres`,
+    filmToRenderDetails: null,
+    currentFilmsCardsCount: 8,
+    filmToPlay: null,
+  });
 });
 
-const mockStore = configureStore([]);
+it(`Reducer should return state with new genre`, () => {
+  expect(reducer(void 0, {
+    type: ActionType.FILTER_CHANGE,
+    genre: `Drama`
+  })).toEqual({
+    genre: `Drama`,
+    filmToRenderDetails: null,
+    currentFilmsCardsCount: 8,
+    filmToPlay: null,
+  });
+});
 
-describe(`Main component`, () => {
-  it(`Film Title should be pressed`, () => {
-    const onTitleAction = jest.fn();
+it(`Reducer should return state with default genre and new film details`, () => {
+  expect(reducer(void 0, {
+    type: ActionType.SHOW_DETAILS,
+    filmToRenderDetails: filmsMock[0],
+  })).toEqual({
+    genre: `All genres`,
+    filmToRenderDetails: filmsMock[0],
+    currentFilmsCardsCount: 4,
+    filmToPlay: null,
+  });
+});
 
-    const store = mockStore({
-      "DATA": {
-        authorizationStatus: `NO_AUTH`,
-        films: filmsMock,
-        previewFilm: filmsMock[0]
-      },
-      "FILMS": {
-        genre: `All genres`,
-        filmToRenderDetails: null,
-        filmToPlay: null,
-        currentFilmsCardsCount: 8,
-      }
+it(`Reducer should return state with new genre and film`, () => {
+  expect(reducer({
+    genre: `Drama`
+  }, {
+    type: ActionType.SHOW_DETAILS,
+    filmToRenderDetails: filmsMock[0]
+  })).toEqual({
+    genre: `Drama`,
+    filmToRenderDetails: filmsMock[0],
+    currentFilmsCardsCount: 4
+  });
+});
+
+describe(`Action creators works correctly`, () => {
+  it(`Action creator for change genre returns correct genre`, () => {
+    expect(ActionCreator.filterChange(`Drama`)).toEqual({
+      type: ActionType.FILTER_CHANGE,
+      genre: `Drama`
     });
+  });
 
-    const mainTemplate = mount(
-        <Provider store={store}>
-          <Main
-            previewFilm={filmsMock[1]}
-            genre={`All genres`}
-            currentFilmsCardsCount={8}
-            nextFilmsCardsCount={16}
-            onGenreClick={() => {}}
-            onImageAndTitleClick={onTitleAction}
-            onShowMoreClick={() => {}}
-            onPlayClick={() => {}}
-          />
-        </Provider>
-    );
-
-    const titleButtons = mainTemplate.find(`a.small-movie-card__link`);
-
-    titleButtons.map((button) => {
-      button.simulate(`click`, {preventDefault() {}});
+  it(`Action creator for closing film player returns null for filmToPlay`, () => {
+    expect(ActionCreator.exitFilm()).toEqual({
+      type: ActionType.EXIT_FILM,
+      filmToPlay: null,
     });
+  });
 
-    expect(onTitleAction.mock.calls.length).toBe(titleButtons.length * 2);
+  it(`Action creator changes cards count correctly`, () => {
+    expect(ActionCreator.changeCardsCount(15)).toEqual({
+      type: ActionType.CHANGE_CARDS_COUNT,
+      currentFilmsCardsCount: 15
+    });
   });
 });
