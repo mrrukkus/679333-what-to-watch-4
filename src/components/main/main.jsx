@@ -7,10 +7,11 @@ import ShowMore from "../show-more/show-more.jsx";
 
 const Main = (props) => {
   const {
+    previewFilm,
+    authorizationStatus,
     onGenreClick,
     onImageAndTitleClick,
     onShowMoreClick,
-    previewFilm,
     onPlayClick
   } = props;
 
@@ -19,6 +20,7 @@ const Main = (props) => {
       {previewFilm ?
         <PreviewFilm
           previewFilm={previewFilm}
+          authorizationStatus={authorizationStatus}
           onPlayClick={onPlayClick}
         /> :
         null
@@ -63,6 +65,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   previewFilm: PropTypes.object,
+  authorizationStatus: PropTypes.string.isRequired,
 
   onGenreClick: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,

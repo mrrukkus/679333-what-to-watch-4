@@ -165,7 +165,6 @@ const mockStore = configureStore([]);
 it(`Show more button renders correctly`, () => {
   const store = mockStore({
     "DATA": {
-      authorizationStatus: `NO_AUTH`,
       films: filmsMock,
       previewFilm: filmsMock[0]
     },
@@ -174,7 +173,10 @@ it(`Show more button renders correctly`, () => {
       filmToRenderDetails: null,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
-    }
+    },
+    "USER": {
+      authorizationStatus: `AUTH`,
+    },
   });
 
   const showMoreButton = renderer

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const PreviewFilm = (props) => {
   const {
     previewFilm,
+    authorizationStatus,
     onPlayClick
   } = props;
 
@@ -26,9 +27,13 @@ const PreviewFilm = (props) => {
           </div>
 
           <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
+            {authorizationStatus === `NO_AUTH` ?
+              <a href="sign-in.html" className="user-block__link">Sign in</a>
+              :
+              <div className="user-block__avatar">
+                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              </div>
+            }
           </div>
         </header>
 
@@ -71,6 +76,7 @@ const PreviewFilm = (props) => {
 
 PreviewFilm.propTypes = {
   previewFilm: PropTypes.object,
+  authorizationStatus: PropTypes.string.isRequired,
   onPlayClick: PropTypes.func.isRequired
 };
 

@@ -187,7 +187,6 @@ Enzyme.configure({
 it(`Show more button should be pressed`, () => {
   const store = mockStore({
     "DATA": {
-      authorizationStatus: `NO_AUTH`,
       films: filmsMock,
       previewFilm: filmsMock[0]
     },
@@ -196,7 +195,10 @@ it(`Show more button should be pressed`, () => {
       filmToRenderDetails: null,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
-    }
+    },
+    "USER": {
+      authorizationStatus: `AUTH`,
+    },
   });
 
   const onButtonAction = jest.fn();

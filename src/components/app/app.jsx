@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
+import SignIn from "../sign-in/sign-in.jsx";
 import FilmDetails from "../film-details/film-details.jsx";
 import Main from "../main/main.jsx";
 import {ActionCreator} from "../../reducer/films/films.js";
@@ -9,13 +10,16 @@ import VideoPlayerFilm from "../video-player-film/video-player-film.jsx";
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.js";
 import {getFilmToRenderDetails, getFilmToPlay} from "../../reducer/films/selectors.js";
 import {getPreviewFilm} from "../../reducer/data/selectors.js";
-
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
 
 const VideoPlayerWrapped = withVideoPlayer(VideoPlayerFilm);
 
 const App = (props) => {
   const {
     filmToRenderDetails,
+    authorizationStatus,
+    login,
     previewFilm,
     filmToPlay,
     onImageAndTitleClick,
@@ -26,6 +30,14 @@ const App = (props) => {
   } = props;
 
   const _renderMain = () => {
+    if (authorizationStatus === `NO_AUTH`) {
+      return (
+        <SignIn
+          onSubmit={login}
+        />
+      );
+    }
+
     if (filmToPlay) {
       return (
         <VideoPlayerWrapped isPlaying={true} muted={false} src={filmToPlay.preview} poster={filmToPlay.img} onExitFilmClick={onExitFilmClick}/>
@@ -44,6 +56,7 @@ const App = (props) => {
 
     return (
       <Main
+        authorizationStatus={authorizationStatus}
         previewFilm={previewFilm}
         onGenreClick={onGenreClick}
         onImageAndTitleClick={onImageAndTitleClick}
@@ -72,6 +85,8 @@ const App = (props) => {
 };
 
 App.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
   filmToRenderDetails: PropTypes.object,
   filmToPlay: PropTypes.object,
   previewFilm: PropTypes.object,
@@ -83,12 +98,16 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
   filmToRenderDetails: getFilmToRenderDetails(state),
   previewFilm: getPreviewFilm(state),
   filmToPlay: getFilmToPlay(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
   onImageAndTitleClick(film) {
     dispatch(ActionCreator.showDetails(film));
   },
@@ -103,7 +122,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onExitFilmClick() {
     dispatch(ActionCreator.exitFilm());
-  }
+  },
 });
 
 export {App};

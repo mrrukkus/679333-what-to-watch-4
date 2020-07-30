@@ -52,7 +52,6 @@ Enzyme.configure({
 it(`Genre buttons click check`, () => {
   const store = mockStore({
     "DATA": {
-      authorizationStatus: `NO_AUTH`,
       films: filmsMock,
       previewFilm: filmsMock[0]
     },
@@ -61,7 +60,10 @@ it(`Genre buttons click check`, () => {
       filmToRenderDetails: null,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
-    }
+    },
+    "USER": {
+      authorizationStatus: `AUTH`,
+    },
   });
 
   const clickAction = jest.fn();

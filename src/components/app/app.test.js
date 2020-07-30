@@ -47,7 +47,6 @@ const mockStore = configureStore([]);
 it(`App renders correctly`, () => {
   const store = mockStore({
     "DATA": {
-      authorizationStatus: `NO_AUTH`,
       films: filmsMock,
       previewFilm: filmsMock[0]
     },
@@ -56,7 +55,10 @@ it(`App renders correctly`, () => {
       filmToRenderDetails: null,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
-    }
+    },
+    "USER": {
+      authorizationStatus: `AUTH`,
+    },
   });
 
   const tree = renderer

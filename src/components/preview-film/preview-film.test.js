@@ -46,7 +46,6 @@ const mockStore = configureStore([]);
 it(`Preview films renders correctly`, () => {
   const store = mockStore({
     "DATA": {
-      authorizationStatus: `NO_AUTH`,
       films: filmsMock,
       previewFilm: filmsMock[0]
     },
@@ -55,13 +54,17 @@ it(`Preview films renders correctly`, () => {
       filmToRenderDetails: null,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
-    }
+    },
+    "USER": {
+      authorizationStatus: `AUTH`,
+    },
   });
 
   const preview = renderer
     .create(
         <Provider store={store}>
           <PreviewFilm
+            authorizationStatus={`AUTH`}
             previewFilm={filmsMock[0]}
             onPlayClick={() => {}}
           />

@@ -5,31 +5,17 @@ const returnAdaptedFilms = (films) => {
   return films.map((film) => createFilm(film));
 };
 
-const AuthorizationStatus = {
-  AUTH: `AUTH`,
-  NO_AUTH: `NO_AUTH`
-};
-
 const initialState = {
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
   films: [],
   previewFilm: {}
 };
 
 const ActionType = {
-  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_PROMO: `LOAD_PROMO`
 };
 
 const ActionCreator = {
-  requireAuthorization: (stats) => {
-    return {
-      type: ActionType.REQUIRED_AUTHORIZATION,
-      status: stats
-    };
-  },
-
   loadFilms: (movies) => {
     return {
       type: ActionType.LOAD_FILMS,
@@ -62,10 +48,6 @@ const Operation = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return Object.assign({}, state, {
-        authorizationStatus: action.status
-      });
     case ActionType.LOAD_FILMS:
       return extend(state, {
         films: action.films
@@ -78,4 +60,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionType, ActionCreator, Operation, AuthorizationStatus};
+export {reducer, ActionType, ActionCreator, Operation};
