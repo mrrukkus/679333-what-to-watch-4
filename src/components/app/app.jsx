@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 
 import SignIn from "../sign-in/sign-in.jsx";
@@ -31,14 +31,6 @@ const App = (props) => {
   } = props;
 
   const _renderMain = () => {
-    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      return (
-        <SignIn
-          onSubmit={login}
-        />
-      );
-    }
-
     if (filmToPlay) {
       return (
         <VideoPlayerWrapped isPlaying={true} muted={false} src={filmToPlay.preview} poster={filmToPlay.img} onExitFilmClick={onExitFilmClick}/>
@@ -79,9 +71,12 @@ const App = (props) => {
           />
         </Route>
         <Route exact path="/sign-in">
-          <SignIn
-            onSubmit={login}
-          />
+          {authorizationStatus === AuthorizationStatus.NO_AUTH ?
+            <SignIn
+              onSubmit={login}
+            /> :
+            <Redirect to={`/`}/>
+          }
         </Route>
       </Switch>
     </BrowserRouter>
