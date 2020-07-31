@@ -103,7 +103,7 @@ exports[`Sign in template renders correctly 1`] = `
     >
       <a
         className="logo__link logo__link--light"
-        href="/main.html"
+        href="/"
         onClick={[Function]}
       >
         <span

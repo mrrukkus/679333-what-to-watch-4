@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
@@ -35,7 +36,7 @@ const PreviewFilm = (props) => {
 
           <div className="user-block">
             {authorizationStatus === AuthorizationStatus.NO_AUTH ?
-              <a href="sign-in.html" className="user-block__link">Sign in</a>
+              <Link to={`/sign-in`} className="user-block__link">Sign in</Link>
               :
               <div className="user-block__avatar">
                 <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
