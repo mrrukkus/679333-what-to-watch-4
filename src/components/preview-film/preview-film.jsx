@@ -1,5 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {getPreviewFilm} from "../../reducer/data/selectors.js";
+import {ActionCreator} from "../../reducer/films/films.js";
+
 
 const PreviewFilm = (props) => {
   const {
@@ -27,7 +34,7 @@ const PreviewFilm = (props) => {
           </div>
 
           <div className="user-block">
-            {authorizationStatus === `NO_AUTH` ?
+            {authorizationStatus === AuthorizationStatus.NO_AUTH ?
               <a href="sign-in.html" className="user-block__link">Sign in</a>
               :
               <div className="user-block__avatar">
@@ -80,4 +87,15 @@ PreviewFilm.propTypes = {
   onPlayClick: PropTypes.func.isRequired
 };
 
-export default PreviewFilm;
+const mapStateToProps = (state) => ({
+  previewFilm: getPreviewFilm(state),
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onPlayClick(film) {
+    dispatch(ActionCreator.playFilm(film));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PreviewFilm);

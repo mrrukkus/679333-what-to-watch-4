@@ -2,7 +2,11 @@ import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import {StaticRouter} from "react-router-dom";
+
 import SignIn from "./sign-in.jsx";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+
 
 const filmsMock = [
   {
@@ -57,17 +61,19 @@ it(`Sign in template renders correctly`, () => {
       currentFilmsCardsCount: 8,
     },
     "USER": {
-      authorizationStatus: `NO_AUTH`,
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
     },
   });
 
   const signIn = renderer
     .create(
-        <Provider store={store}>
-          <SignIn
-            onSubmit={() => {}}
-          />
-        </Provider>
+        <StaticRouter>
+          <Provider store={store}>
+            <SignIn
+              onSubmit={() => {}}
+            />
+          </Provider>
+        </StaticRouter>
     ).toJSON();
 
   expect(signIn).toMatchSnapshot();

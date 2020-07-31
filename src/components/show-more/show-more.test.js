@@ -3,6 +3,8 @@ import renderer from "react-test-renderer";
 import ShowMore from "./show-more.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+
 
 const filmsMock = [
   {
@@ -175,7 +177,7 @@ it(`Show more button renders correctly`, () => {
       currentFilmsCardsCount: 8,
     },
     "USER": {
-      authorizationStatus: `AUTH`,
+      authorizationStatus: AuthorizationStatus.AUTH,
     },
   });
 

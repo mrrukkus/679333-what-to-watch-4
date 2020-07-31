@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import App from "../app/app";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const filmsMock = [
   {
@@ -57,7 +58,7 @@ it(`App renders correctly`, () => {
       currentFilmsCardsCount: 8,
     },
     "USER": {
-      authorizationStatus: `AUTH`,
+      authorizationStatus: AuthorizationStatus.AUTH,
     },
   });
 

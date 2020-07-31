@@ -4,6 +4,8 @@ import Adapter from "enzyme-adapter-react-16";
 import GenresList from "./genres-list.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+
 
 const filmsMock = [
   {
@@ -62,7 +64,7 @@ it(`Genre buttons click check`, () => {
       currentFilmsCardsCount: 8,
     },
     "USER": {
-      authorizationStatus: `AUTH`,
+      authorizationStatus: AuthorizationStatus.AUTH,
     },
   });
 

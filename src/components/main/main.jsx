@@ -8,23 +8,14 @@ import ShowMore from "../show-more/show-more.jsx";
 const Main = (props) => {
   const {
     previewFilm,
-    authorizationStatus,
     onGenreClick,
     onImageAndTitleClick,
     onShowMoreClick,
-    onPlayClick
   } = props;
 
   return (
     <React.Fragment>
-      {previewFilm ?
-        <PreviewFilm
-          previewFilm={previewFilm}
-          authorizationStatus={authorizationStatus}
-          onPlayClick={onPlayClick}
-        /> :
-        null
-      }
+      {previewFilm ? <PreviewFilm/> : null}
 
       <div className="page-content">
         <section className="catalog">
@@ -65,12 +56,10 @@ const Main = (props) => {
 
 Main.propTypes = {
   previewFilm: PropTypes.object,
-  authorizationStatus: PropTypes.string.isRequired,
 
   onGenreClick: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
 };
 
 export default Main;

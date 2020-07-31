@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
+
 import SignIn from "../sign-in/sign-in.jsx";
 import FilmDetails from "../film-details/film-details.jsx";
 import Main from "../main/main.jsx";
@@ -11,7 +12,7 @@ import withVideoPlayer from "../../hocs/with-video-player/with-video-player.js";
 import {getFilmToRenderDetails, getFilmToPlay} from "../../reducer/films/selectors.js";
 import {getPreviewFilm} from "../../reducer/data/selectors.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
 
 const VideoPlayerWrapped = withVideoPlayer(VideoPlayerFilm);
 
@@ -30,7 +31,7 @@ const App = (props) => {
   } = props;
 
   const _renderMain = () => {
-    if (authorizationStatus === `NO_AUTH`) {
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
       return (
         <SignIn
           onSubmit={login}
@@ -56,12 +57,10 @@ const App = (props) => {
 
     return (
       <Main
-        authorizationStatus={authorizationStatus}
         previewFilm={previewFilm}
         onGenreClick={onGenreClick}
         onImageAndTitleClick={onImageAndTitleClick}
         onShowMoreClick={onShowMoreClick}
-        onPlayClick={onPlayClick}
       />
     );
   };
@@ -77,6 +76,11 @@ const App = (props) => {
             film={previewFilm}
             onImageAndTitleClick={onImageAndTitleClick}
             onPlayClick={onPlayClick}
+          />
+        </Route>
+        <Route exact path="/sign-in">
+          <SignIn
+            onSubmit={login}
           />
         </Route>
       </Switch>

@@ -3,6 +3,8 @@ import renderer from "react-test-renderer";
 import GenresList from "./genres-list.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+
 
 const mockStore = configureStore([]);
 
@@ -57,7 +59,7 @@ it(`Genres List renders correctly`, () => {
       currentFilmsCardsCount: 8,
     },
     "USER": {
-      authorizationStatus: `AUTH`,
+      authorizationStatus: AuthorizationStatus.AUTH,
     },
   });
 

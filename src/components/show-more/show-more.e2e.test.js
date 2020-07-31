@@ -4,6 +4,8 @@ import Adapter from "enzyme-adapter-react-16";
 import ShowMore from "./show-more.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+
 
 const filmsMock = [
   {
@@ -197,7 +199,7 @@ it(`Show more button should be pressed`, () => {
       currentFilmsCardsCount: 8,
     },
     "USER": {
-      authorizationStatus: `AUTH`,
+      authorizationStatus: AuthorizationStatus.AUTH,
     },
   });
 
