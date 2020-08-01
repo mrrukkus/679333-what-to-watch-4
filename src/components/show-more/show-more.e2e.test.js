@@ -4,6 +4,8 @@ import Adapter from "enzyme-adapter-react-16";
 import ShowMore from "./show-more.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+
 
 const filmsMock = [
   {
@@ -187,7 +189,6 @@ Enzyme.configure({
 it(`Show more button should be pressed`, () => {
   const store = mockStore({
     "DATA": {
-      authorizationStatus: `NO_AUTH`,
       films: filmsMock,
       previewFilm: filmsMock[0]
     },
@@ -196,7 +197,10 @@ it(`Show more button should be pressed`, () => {
       filmToRenderDetails: null,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
-    }
+    },
+    "USER": {
+      authorizationStatus: AuthorizationStatus.AUTH,
+    },
   });
 
   const onButtonAction = jest.fn();

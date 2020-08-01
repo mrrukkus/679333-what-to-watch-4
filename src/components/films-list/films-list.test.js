@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import {FilmsListOnMain} from "../films-list/films-list.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const filmsMock = [
   {
@@ -46,7 +47,6 @@ const mockStore = configureStore([]);
 it(`Films list renders correctly`, () => {
   const store = mockStore({
     "DATA": {
-      authorizationStatus: `NO_AUTH`,
       films: filmsMock,
       previewFilm: filmsMock[0]
     },
@@ -55,7 +55,10 @@ it(`Films list renders correctly`, () => {
       filmToRenderDetails: null,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
-    }
+    },
+    "USER": {
+      authorizationStatus: AuthorizationStatus.AUTH,
+    },
   });
 
   const list = renderer

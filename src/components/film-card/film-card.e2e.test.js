@@ -4,6 +4,8 @@ import Adapter from "enzyme-adapter-react-16";
 import Main from "../main/main";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+
 
 const filmsMock = [
   {
@@ -50,7 +52,6 @@ const mockStore = configureStore([]);
 
 const store = mockStore({
   "DATA": {
-    authorizationStatus: `NO_AUTH`,
     films: filmsMock,
     previewFilm: filmsMock[0]
   },
@@ -59,7 +60,10 @@ const store = mockStore({
     filmToRenderDetails: null,
     filmToPlay: null,
     currentFilmsCardsCount: 8,
-  }
+  },
+  "USER": {
+    authorizationStatus: AuthorizationStatus.AUTH,
+  },
 });
 
 describe(`Film card test`, () => {
@@ -69,6 +73,7 @@ describe(`Film card test`, () => {
     const mainTemplate = mount(
         <Provider store={store}>
           <Main
+            authorizationStatus={`AUTH`}
             previewFilm={filmsMock[1]}
             genre={`All genres`}
             currentFilmsCardsCount={8}

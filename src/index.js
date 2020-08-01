@@ -1,3 +1,4 @@
+
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app.jsx";
@@ -6,7 +7,8 @@ import reducer from "./reducer/reducer.js";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 import createAPI from "./api.js";
-import {ActionCreator, AuthorizationStatus, Operation} from "./reducer/data/data.js";
+import {Operation as DataOperation} from "./reducer/data/data.js";
+import {AuthorizationStatus, ActionCreator, Operation as UserOperation} from "./reducer/user/user.js";
 
 const onUnauthorized = () => {
   store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
@@ -19,8 +21,9 @@ const store = createStore(
     applyMiddleware(thunk.withExtraArgument(api))
 );
 
-store.dispatch(Operation.loadFilms());
-store.dispatch(Operation.loadPromo());
+store.dispatch(DataOperation.loadFilms());
+store.dispatch(DataOperation.loadPromo());
+store.dispatch(UserOperation.checkAuthorizationStatus());
 
 ReactDOM.render(
     <Provider store={store}>

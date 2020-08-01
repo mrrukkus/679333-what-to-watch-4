@@ -4,6 +4,8 @@ import Adapter from "enzyme-adapter-react-16";
 import GenresList from "./genres-list.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+
 
 const filmsMock = [
   {
@@ -52,7 +54,6 @@ Enzyme.configure({
 it(`Genre buttons click check`, () => {
   const store = mockStore({
     "DATA": {
-      authorizationStatus: `NO_AUTH`,
       films: filmsMock,
       previewFilm: filmsMock[0]
     },
@@ -61,7 +62,10 @@ it(`Genre buttons click check`, () => {
       filmToRenderDetails: null,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
-    }
+    },
+    "USER": {
+      authorizationStatus: AuthorizationStatus.AUTH,
+    },
   });
 
   const clickAction = jest.fn();
