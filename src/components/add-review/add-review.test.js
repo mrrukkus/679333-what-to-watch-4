@@ -1,10 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import FilmDetails from "./film-details.jsx";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {Provider} from "react-redux";
 import {StaticRouter} from "react-router-dom";
+
+import AddReview from "./add-review.jsx";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const filmsMock = [
   {
@@ -45,7 +46,7 @@ const filmsMock = [
 
 const mockStore = configureStore([]);
 
-it(`Details renders correctly`, () => {
+it(`Add review page renders correctly`, () => {
   const store = mockStore({
     "DATA": {
       films: filmsMock,
@@ -56,29 +57,24 @@ it(`Details renders correctly`, () => {
       filmToRenderDetails: null,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
+      postCommentStatus: null,
     },
     "USER": {
       authorizationStatus: AuthorizationStatus.AUTH,
     },
   });
 
-  const details = renderer
+  const review = renderer
     .create(
         <StaticRouter>
           <Provider store={store}>
-            <FilmDetails
-              authorizationStatus={AuthorizationStatus.AUTH}
+            <AddReview
               film={filmsMock[0]}
-              filmsList={[]}
-              onImageAndTitleClick={() => {}}
-              onShowMoreClick={() => {}}
-              onGenreClick={() => {}}
-              onPlayClick={() => {}}
+              postComment={() => {}}
             />
           </Provider>
         </StaticRouter>
     ).toJSON();
 
-  expect(details).toMatchSnapshot();
+  expect(review).toMatchSnapshot();
 });
-

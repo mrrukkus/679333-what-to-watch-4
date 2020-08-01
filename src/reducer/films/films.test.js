@@ -41,6 +41,7 @@ it(`Reducer should return default state`, () => {
     filmToRenderDetails: null,
     currentFilmsCardsCount: 8,
     filmToPlay: null,
+    postCommentStatus: null,
   });
 });
 
@@ -53,6 +54,7 @@ it(`Reducer should return state with new genre`, () => {
     filmToRenderDetails: null,
     currentFilmsCardsCount: 8,
     filmToPlay: null,
+    postCommentStatus: null,
   });
 });
 
@@ -65,6 +67,7 @@ it(`Reducer should return state with default genre and new film details`, () => 
     filmToRenderDetails: filmsMock[0],
     currentFilmsCardsCount: 4,
     filmToPlay: null,
+    postCommentStatus: null,
   });
 });
 
