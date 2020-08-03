@@ -120,13 +120,13 @@ exports[`Add review page renders correctly 1`] = `
             defaultChecked={false}
             id="star-1"
             name="rating"
+            onChange={[Function]}
             type="radio"
             value={1}
           />
           <label
             className="rating__label"
             htmlFor="star-1"
-            onClick={[Function]}
           >
             Rating 1
           </label>
@@ -135,13 +135,13 @@ exports[`Add review page renders correctly 1`] = `
             defaultChecked={false}
             id="star-2"
             name="rating"
+            onChange={[Function]}
             type="radio"
             value={2}
           />
           <label
             className="rating__label"
             htmlFor="star-2"
-            onClick={[Function]}
           >
             Rating 2
           </label>
@@ -150,13 +150,13 @@ exports[`Add review page renders correctly 1`] = `
             defaultChecked={true}
             id="star-3"
             name="rating"
+            onChange={[Function]}
             type="radio"
             value={3}
           />
           <label
             className="rating__label"
             htmlFor="star-3"
-            onClick={[Function]}
           >
             Rating 3
           </label>
@@ -165,13 +165,13 @@ exports[`Add review page renders correctly 1`] = `
             defaultChecked={false}
             id="star-4"
             name="rating"
+            onChange={[Function]}
             type="radio"
             value={4}
           />
           <label
             className="rating__label"
             htmlFor="star-4"
-            onClick={[Function]}
           >
             Rating 4
           </label>
@@ -180,13 +180,13 @@ exports[`Add review page renders correctly 1`] = `
             defaultChecked={false}
             id="star-5"
             name="rating"
+            onChange={[Function]}
             type="radio"
             value={5}
           />
           <label
             className="rating__label"
             htmlFor="star-5"
-            onClick={[Function]}
           >
             Rating 5
           </label>
@@ -198,6 +198,8 @@ exports[`Add review page renders correctly 1`] = `
         <textarea
           className="add-review__textarea"
           id="review-text"
+          maxLength="400"
+          minLength="50"
           name="review-text"
           placeholder="Review text"
         />

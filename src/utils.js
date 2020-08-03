@@ -5,6 +5,7 @@ export const extend = (a, b) => {
 export const DEFAULT_CARDS_COUNT = 8;
 export const INCREASER_CARDS_COUNT = 8;
 export const MORE_LIKE_THIS_CARDS_COUNT = 4;
+export const DEFAULT_RATE = 3;
 
 export const getTimeLeft = (duration, currentTime) => {
   const timeLeft = duration - currentTime;
