@@ -70,6 +70,7 @@ it(`Sign in template renders correctly`, () => {
         <StaticRouter>
           <Provider store={store}>
             <SignIn
+              authorizationStatus={AuthorizationStatus.NO_AUTH}
               onSubmit={() => {}}
             />
           </Provider>

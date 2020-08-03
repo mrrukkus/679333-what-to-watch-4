@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import Tabs from "../tabs/tabs.jsx";
 import withActiveTabs from "../../hocs/with-active-tabs/with-active-tabs.js";
 import {FilmsListOnDetails} from "../films-list/films-list.jsx";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const TabsWrapped = withActiveTabs(Tabs);
 
 const FilmDetails = (props) => {
-  const {film, onImageAndTitleClick, onPlayClick} = props;
+  const {film, onImageAndTitleClick, onPlayClick, authorizationStatus} = props;
 
   return (
     <React.Fragment>
@@ -58,7 +60,10 @@ const FilmDetails = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                  <Link to="/add-review" className="btn movie-card__button">Add review</Link> :
+                  null
+                }
               </div>
             </div>
           </div>
@@ -102,6 +107,7 @@ const FilmDetails = (props) => {
 };
 
 FilmDetails.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
   film: PropTypes.object.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
   onPlayClick: PropTypes.func.isRequired

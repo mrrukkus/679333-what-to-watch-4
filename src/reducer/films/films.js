@@ -25,6 +25,7 @@ const initialState = {
   filmToRenderDetails: null,
   filmToPlay: null,
   currentFilmsCardsCount: DEFAULT_CARDS_COUNT,
+  postCommentStatus: null,
 };
 
 const ActionType = {
@@ -33,6 +34,7 @@ const ActionType = {
   CHANGE_CARDS_COUNT: `CHANGE_CARDS_COUNT`,
   PLAY_FILM: `PLAY_FILM`,
   EXIT_FILM: `EXIT_FILM`,
+  POST_COMMENT: `POST_COMMENT`
 };
 
 const ActionCreator = {
@@ -60,6 +62,23 @@ const ActionCreator = {
     type: ActionType.EXIT_FILM,
     filmToPlay: null
   }),
+
+  postComment: (status) => ({
+    type: ActionType.POST_COMMENT,
+    postCommentStatus: status
+  })
+};
+
+const Operation = {
+  postComment: (commentData) => (dispatch, getState, api) => {
+    return api.post(`/comments/${commentData.id}`, {
+      "rating": commentData.rating,
+      "comment": commentData.comment,
+    })
+      .then((response) => {
+        dispatch(ActionCreator.postComment(response.status));
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -85,8 +104,12 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         filmToPlay: action.exitFilm
       });
+    case ActionType.POST_COMMENT:
+      return extend(state, {
+        postCommentStatus: action.postCommentStatus
+      });
   }
   return state;
 };
 
-export {reducer, calculateNewCardsCount, getFilteredFilmsList, ActionType, ActionCreator};
+export {reducer, calculateNewCardsCount, getFilteredFilmsList, ActionType, ActionCreator, Operation};
