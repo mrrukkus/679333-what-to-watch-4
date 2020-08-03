@@ -5,7 +5,7 @@ import {DEFAULT_RATE} from "../../utils.js";
 const STARS_COUNT = 5;
 
 const Review = (props) => {
-  const {submitComment, commentRef, changeRating} = props;
+  const {submitComment, changeComment, changeRating} = props;
 
   const renderRatingStars = () => {
     const start = [];
@@ -33,7 +33,9 @@ const Review = (props) => {
       </div>
 
       <div className="add-review__text">
-        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength="50" maxLength="400" ref={commentRef}/>
+        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength="50" maxLength="400" onChange={(evt) => {
+          changeComment(evt.target.value);
+        }}/>
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit">Post</button>
         </div>
@@ -43,8 +45,8 @@ const Review = (props) => {
 };
 
 Review.propTypes = {
-  commentRef: PropTypes.object.isRequired,
   submitComment: PropTypes.func.isRequired,
+  changeComment: PropTypes.func.isRequired,
   changeRating: PropTypes.func.isRequired
 };
 

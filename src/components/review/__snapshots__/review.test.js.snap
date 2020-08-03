@@ -98,6 +98,7 @@ exports[`Review form renders correctly 1`] = `
       maxLength="400"
       minLength="50"
       name="review-text"
+      onChange={[Function]}
       placeholder="Review text"
     />
     <div

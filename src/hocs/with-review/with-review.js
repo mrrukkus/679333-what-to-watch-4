@@ -9,18 +9,31 @@ const withReview = (Component) => {
 
       this.state = {
         rating: DEFAULT_RATE,
+        comment: null
       };
 
       this.commentRef = createRef();
 
       this.handleSubmitComment = this.handleSubmitComment.bind(this);
       this._setRating = this._setRating.bind(this);
+      this._setComment = this._setComment.bind(this);
+
+      this._lastTimeout = null;
     }
 
     _setRating(rateValue) {
       this.setState({
         rating: rateValue
       });
+    }
+
+    _setComment(commentValue) {
+      clearTimeout(this._lastTimeout);
+      this._lastTimeout = setTimeout(() => {
+        this.setState({
+          comment: commentValue
+        });
+      }, 400);
     }
 
     handleSubmitComment(evt) {
@@ -31,16 +44,16 @@ const withReview = (Component) => {
       postComment({
         id: film.id,
         rating: this.state.rating,
-        comment: this.commentRef.current.value,
+        comment: this.state.comment,
       });
     }
 
     render() {
       return (
         <Component
-          commentRef={this.commentRef}
           submitComment={this.handleSubmitComment}
           changeRating={this._setRating}
+          changeComment={this._setComment}
         />
       );
     }

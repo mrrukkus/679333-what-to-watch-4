@@ -1,4 +1,4 @@
-import React, {createRef} from "react";
+import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
@@ -68,7 +68,7 @@ it(`Review form renders correctly`, () => {
     .create(
         <Provider store={store}>
           <Review
-            commentRef={createRef()}
+            changeComment={() => {}}
             submitComment={() => {}}
             changeRating={() => {}}
           />
