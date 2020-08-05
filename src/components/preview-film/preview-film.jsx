@@ -6,14 +6,16 @@ import {Link} from "react-router-dom";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {getPreviewFilm} from "../../reducer/data/selectors.js";
-import {ActionCreator} from "../../reducer/films/films.js";
+import {ActionCreator as ActionCreatorFilms} from "../../reducer/films/films.js";
+import {ActionCreator as ActionCreatorData} from "../../reducer/data/data.js";
 
 
 const PreviewFilm = (props) => {
   const {
     previewFilm,
     authorizationStatus,
-    onPlayClick
+    onPlayClick,
+    onMyListClick
   } = props;
 
   return (
@@ -36,7 +38,7 @@ const PreviewFilm = (props) => {
 
           <div className="user-block">
             {authorizationStatus === AuthorizationStatus.NO_AUTH ?
-              <Link to={`/sign-in`} className="user-block__link">Sign in</Link>
+              <Link to={`/login`} className="user-block__link">Sign in</Link>
               :
               <div className="user-block__avatar">
                 <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
@@ -67,10 +69,17 @@ const PreviewFilm = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+                  onMyListClick(previewFilm);
+                }}>
+                  {previewFilm.isFavorite ?
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use xlinkHref="#in-list"></use>
+                    </svg> :
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                  }                  
                   <span>My list</span>
                 </button>
               </div>
@@ -95,8 +104,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onPlayClick(film) {
-    dispatch(ActionCreator.playFilm(film));
+    dispatch(ActionCreatorFilms.playFilm(film));
   },
+  onMyListClick(film) {
+    dispatch(ActionCreatorData.changeFavoriteStatus(film));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PreviewFilm);

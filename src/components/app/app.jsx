@@ -66,24 +66,10 @@ const App = (props) => {
         <Route exact path="/">
           {_renderMain()}
         </Route>
-        <Route exact path="/film-details">
-          <FilmDetails
-            authorizationStatus={authorizationStatus}
-            film={previewFilm}
-            onImageAndTitleClick={onImageAndTitleClick}
-            onPlayClick={onPlayClick}
-          />
-        </Route>
-        <Route exact path="/sign-in">
+        <Route exact path="/login">
           <SignIn
             authorizationStatus={authorizationStatus}
             onSubmit={login}
-          />
-        </Route>
-        <Route exact path="/add-review">
-          <AddReview
-            film={previewFilm}
-            postComment={postComment}
           />
         </Route>
       </Switch>

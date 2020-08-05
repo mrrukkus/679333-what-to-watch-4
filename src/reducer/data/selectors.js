@@ -4,12 +4,16 @@ import {createSelector} from "reselect";
 
 const NAME_SPACE = NameSpace.DATA;
 
+const getFilms = (state) => {
+  return state[NAME_SPACE].films
+};
+
 const getAllFilms = (state) => {
-  return state[NAME_SPACE].films;
+  return state[NAME_SPACE].films.slice(0, getFilms(state).length - 1);
 };
 
 export const getPreviewFilm = (state) => {
-  return state[NAME_SPACE].previewFilm;
+  return getFilms(state)[getFilms(state).length - 1];
 };
 
 export const getFilmsList = createSelector(
