@@ -190,11 +190,10 @@ it(`Show more button should be pressed`, () => {
   const store = mockStore({
     "DATA": {
       films: filmsMock,
-      previewFilm: filmsMock[0]
     },
     "FILMS": {
       genre: `All genres`,
-      filmToRenderDetails: null,
+      filmToRenderDetails: -1,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
     },

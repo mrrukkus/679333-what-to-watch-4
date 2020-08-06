@@ -4,31 +4,36 @@ import {DEFAULT_RATE} from "../../utils.js";
 
 const STARS_COUNT = 5;
 
+const getStarItem = (iterator, ratingStarsContainer, changeRatingHandler) => {
+  let defaultCheck = iterator === DEFAULT_RATE ? true : false;
+
+  ratingStarsContainer.push(
+      <Fragment key={iterator}>
+        <input className="rating__input" id={`star-${iterator}`} type="radio" name="rating" value={iterator} defaultChecked={defaultCheck} onChange={() => {
+          changeRatingHandler(iterator);
+        }}/>
+        <label className="rating__label" htmlFor={`star-${iterator}`}>{`Rating ${iterator}`}</label>
+      </Fragment>
+  );
+};
+
+const renderRatingStars = (changeRatingHandler) => {
+  const ratingStarsItems = [];
+  for (let j = 1; j <= STARS_COUNT; j++) {
+    getStarItem(j, ratingStarsItems, changeRatingHandler);
+  }
+  return ratingStarsItems;
+};
+
+
 const Review = (props) => {
   const {submitComment, changeComment, changeRating} = props;
-
-  const renderRatingStars = () => {
-    const start = [];
-    for (let j = 1; j <= STARS_COUNT; j++) {
-      let defaultCheck = j === DEFAULT_RATE ? true : false;
-
-      start.push(
-          <Fragment key={j}>
-            <input className="rating__input" id={`star-${j}`} type="radio" name="rating" value={j} defaultChecked={defaultCheck} onChange={() => {
-              changeRating(j);
-            }}/>
-            <label className="rating__label" htmlFor={`star-${j}`}>{`Rating ${j}`}</label>
-          </Fragment>
-      );
-    }
-    return start;
-  };
 
   return (
     <form action="#" className="add-review__form" onSubmit={submitComment}>
       <div className="rating">
         <div className="rating__stars">
-          {renderRatingStars()}
+          {renderRatingStars(changeRating)}
         </div>
       </div>
 

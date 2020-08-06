@@ -19,7 +19,7 @@ const withVideoCard = (Component) => {
 
     _renderDetailsHandler(evt) {
       evt.preventDefault();
-      this.props.onImageAndTitleClick(this.props.film);
+      this.props.onImageAndTitleClick(this.props.filmIndex);
       clearTimeout(this._lastTimeout);
     }
 
@@ -50,6 +50,7 @@ const withVideoCard = (Component) => {
   WithVideoCard.propTypes = {
     film: PropTypes.object.isRequired,
     onImageAndTitleClick: PropTypes.func.isRequired,
+    filmIndex: PropTypes.number.isRequired
   };
 
   return WithVideoCard;

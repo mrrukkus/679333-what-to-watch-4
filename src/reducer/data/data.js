@@ -5,14 +5,26 @@ const returnAdaptedFilms = (films) => {
   return films.map((film) => createFilm(film));
 };
 
+const getUpdatedFilmsList = (currentList, film) => {
+  return currentList.map((currentFilm) => {
+    if (currentFilm === film) {
+      return extend(currentFilm, {
+        isFavorite: !currentFilm.isFavorite,
+      });
+    }
+
+    return currentFilm;
+  });
+};
+
 const initialState = {
   films: [],
-  previewFilm: {}
 };
 
 const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
-  LOAD_PROMO: `LOAD_PROMO`
+  LOAD_PROMO: `LOAD_PROMO`,
+  CHANGE_FAVORITE_STATUS: `CHANGE_FAVORITE_STATUS`
 };
 
 const ActionCreator = {
@@ -27,6 +39,13 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_PROMO,
       previewFilm: createFilm(film)
+    };
+  },
+
+  changeFavoriteStatus: (film) => {
+    return {
+      type: ActionType.CHANGE_FAVORITE_STATUS,
+      changedFilm: film
     };
   }
 };
@@ -50,11 +69,15 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_FILMS:
       return extend(state, {
-        films: action.films
+        films: action.films.concat(state.films)
       });
     case ActionType.LOAD_PROMO:
       return extend(state, {
-        previewFilm: action.previewFilm
+        films: state.films.concat(action.previewFilm)
+      });
+    case ActionType.CHANGE_FAVORITE_STATUS:
+      return extend(state, {
+        films: getUpdatedFilmsList(state.films, action.changedFilm)
       });
   }
   return state;

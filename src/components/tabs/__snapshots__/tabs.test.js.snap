@@ -94,7 +94,7 @@ exports[`Tabs renders correctly Details tab renders correctly 1`] = `
         <span
           className="movie-card__details-value"
         >
-          1h 28m
+          3h 10m
         </span>
       </p>
       <p
@@ -181,7 +181,7 @@ exports[`Tabs renders correctly Overview tab renders correctly 1`] = `
     <div
       className="movie-rating__score"
     >
-      2,0
+      1,0
     </div>
     <p
       className="movie-rating__meta"
