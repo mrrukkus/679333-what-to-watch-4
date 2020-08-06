@@ -5,7 +5,7 @@ import {createSelector} from "reselect";
 const NAME_SPACE = NameSpace.DATA;
 
 const getFilms = (state) => {
-  return state[NAME_SPACE].films
+  return state[NAME_SPACE].films;
 };
 
 const getAllFilms = (state) => {

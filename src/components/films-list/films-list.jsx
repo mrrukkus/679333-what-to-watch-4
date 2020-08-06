@@ -10,7 +10,11 @@ import {MORE_LIKE_THIS_CARDS_COUNT} from "../../utils.js";
 
 const FilmCardWrapped = withVideoCard(FilmCard);
 
-const getCards = (movies, onImageAndTitleClick) => {
+const getFilmAtDetails = (state) => {
+  return getFilmsList(state)[getFilmToRenderDetails(state)];
+};
+
+const getCards = (movies, onImageAndTitleClick, allFilms) => {
   return (
     movies.map((movie, i) =>
       <FilmCardWrapped
@@ -18,6 +22,7 @@ const getCards = (movies, onImageAndTitleClick) => {
         id={i}
         film={movie}
         onImageAndTitleClick={onImageAndTitleClick}
+        filmIndex={allFilms.indexOf(movie)}
       />
     )
   );
@@ -27,12 +32,13 @@ const FilmsList = (props) => {
   const {
     filmsList,
     onImageAndTitleClick,
+    allFilms
   } = props;
 
   return (
     <React.Fragment>
       <div className="catalog__movies-list">
-        {getCards(filmsList, onImageAndTitleClick)}
+        {getCards(filmsList, onImageAndTitleClick, allFilms)}
       </div>
     </React.Fragment>
   );
@@ -41,15 +47,18 @@ const FilmsList = (props) => {
 FilmsList.propTypes = {
   filmsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
+  allFilms: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToPropsOnMain = (state) => ({
   genre: getGenre(state),
   filmsList: getFilmsList(state).slice(0, getCurrentFilmsCardsCount(state)),
+  allFilms: getFilmsList(state)
 });
 
 const mapStateToPropsOnDetails = (state) => ({
-  filmsList: getFilteredFilmsList(getFilmToRenderDetails(state) && getFilmToRenderDetails(state).genre, getFilmsList(state)).slice(0, MORE_LIKE_THIS_CARDS_COUNT)
+  filmsList: getFilteredFilmsList(getFilmAtDetails(state).genre, getFilmsList(state)).slice(0, MORE_LIKE_THIS_CARDS_COUNT),
+  allFilms: getFilmsList(state)
 });
 
 const FilmsListOnMain = connect(mapStateToPropsOnMain)(FilmsList);

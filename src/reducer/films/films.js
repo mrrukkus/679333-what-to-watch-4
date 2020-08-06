@@ -22,7 +22,7 @@ const calculateNewCardsCount = (currentCardsCount, increaser, filmsCount) => {
 
 const initialState = {
   genre: `All genres`,
-  filmToRenderDetails: null,
+  filmToRenderDetails: -1,
   filmToPlay: null,
   currentFilmsCardsCount: DEFAULT_CARDS_COUNT,
   postCommentStatus: null,
@@ -34,7 +34,8 @@ const ActionType = {
   CHANGE_CARDS_COUNT: `CHANGE_CARDS_COUNT`,
   PLAY_FILM: `PLAY_FILM`,
   EXIT_FILM: `EXIT_FILM`,
-  POST_COMMENT: `POST_COMMENT`
+  POST_COMMENT: `POST_COMMENT`,
+  GET_CHANGED_IN_LIST_FILM: `GET_CHANGED_IN_LIST_FILM`
 };
 
 const ActionCreator = {
@@ -43,9 +44,9 @@ const ActionCreator = {
     genre: genreType,
   }),
 
-  showDetails: (film) => ({
+  showDetails: (index) => ({
     type: ActionType.SHOW_DETAILS,
-    filmToRenderDetails: film
+    filmToRenderDetails: index
   }),
 
   changeCardsCount: (count) => ({
@@ -66,7 +67,7 @@ const ActionCreator = {
   postComment: (status) => ({
     type: ActionType.POST_COMMENT,
     postCommentStatus: status
-  })
+  }),
 };
 
 const Operation = {
@@ -107,6 +108,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.POST_COMMENT:
       return extend(state, {
         postCommentStatus: action.postCommentStatus
+      });
+    case ActionType.GET_CHANGED_IN_LIST_FILM:
+      return extend(state, {
+        filmToRenderDetails: action.changedFilm
       });
   }
   return state;

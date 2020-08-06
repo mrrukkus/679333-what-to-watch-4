@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import ShowMore from "./show-more.jsx";
+import {ShowMore} from "./show-more.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
@@ -168,11 +168,10 @@ it(`Show more button renders correctly`, () => {
   const store = mockStore({
     "DATA": {
       films: filmsMock,
-      previewFilm: filmsMock[0]
     },
     "FILMS": {
-      genre: `All genres`,
-      filmToRenderDetails: null,
+      genre: `Dramas`,
+      filmToRenderDetails: -1,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
     },
@@ -185,6 +184,7 @@ it(`Show more button renders correctly`, () => {
     .create(
         <Provider store={store}>
           <ShowMore
+            currentFilmsCardsCount={8}
             nextFilmsCardsCount={16}
             onShowMoreClick={() => {}}
           />

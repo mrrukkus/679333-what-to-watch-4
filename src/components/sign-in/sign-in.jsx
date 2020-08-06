@@ -26,7 +26,7 @@ class SignIn extends React.PureComponent {
 
   render() {
     const {authorizationStatus} = this.props;
-    console.log(this.props);
+
     return (
       authorizationStatus === AuthorizationStatus.AUTH ?
         <Redirect to={`/`}/> :

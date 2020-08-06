@@ -6,11 +6,15 @@ const returnAdaptedFilms = (films) => {
 };
 
 const getUpdatedFilmsList = (currentList, film) => {
-  const filmIndex = currentList.indexOf(film);
-  const firstPartList = currentList.slice(0, filmIndex);
-  const secondPartList = currentList.slice(filmIndex + 1);
-  film.isFavorite = !film.isFavorite;
-  return [].concat(firstPartList, film, secondPartList);
+  return currentList.map((currentFilm) => {
+    if (currentFilm === film) {
+      return extend(currentFilm, {
+        isFavorite: !currentFilm.isFavorite,
+      });
+    }
+
+    return currentFilm;
+  });
 };
 
 const initialState = {
@@ -42,8 +46,8 @@ const ActionCreator = {
     return {
       type: ActionType.CHANGE_FAVORITE_STATUS,
       changedFilm: film
-    }
-  } 
+    };
+  }
 };
 
 const Operation = {
@@ -74,7 +78,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_FAVORITE_STATUS:
       return extend(state, {
         films: getUpdatedFilmsList(state.films, action.changedFilm)
-      })
+      });
   }
   return state;
 };

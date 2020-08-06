@@ -40,9 +40,11 @@ const PreviewFilm = (props) => {
             {authorizationStatus === AuthorizationStatus.NO_AUTH ?
               <Link to={`/login`} className="user-block__link">Sign in</Link>
               :
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
+              <Link to={`my-list`}>
+                <div className="user-block__avatar">
+                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </div>
+              </Link>
             }
           </div>
         </header>
@@ -69,19 +71,28 @@ const PreviewFilm = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                  onMyListClick(previewFilm);
-                }}>
-                  {previewFilm.isFavorite ?
-                    <svg viewBox="0 0 18 14" width="18" height="14">
-                      <use xlinkHref="#in-list"></use>
-                    </svg> :
+
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                  <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+                    onMyListClick(previewFilm);
+                  }}>
+                    {previewFilm.isFavorite ?
+                      <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use xlinkHref="#in-list"></use>
+                      </svg> :
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add"></use>
+                      </svg>
+                    }
+                    <span>My list</span>
+                  </button> :
+                  <Link to={`/login`} className="btn btn--list movie-card__button" type="button">
                     <svg viewBox="0 0 19 20" width="19" height="20">
                       <use xlinkHref="#add"></use>
                     </svg>
-                  }                  
-                  <span>My list</span>
-                </button>
+                    <span>My list</span>
+                  </Link>
+                }
               </div>
             </div>
           </div>
@@ -94,7 +105,8 @@ const PreviewFilm = (props) => {
 PreviewFilm.propTypes = {
   previewFilm: PropTypes.object,
   authorizationStatus: PropTypes.string.isRequired,
-  onPlayClick: PropTypes.func.isRequired
+  onPlayClick: PropTypes.func.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

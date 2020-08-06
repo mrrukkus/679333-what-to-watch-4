@@ -8,8 +8,7 @@ import FilmDetails from "../film-details/film-details.jsx";
 import Main from "../main/main.jsx";
 import VideoPlayerFilm from "../video-player-film/video-player-film.jsx";
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.js";
-import AddReview from "../add-review/add-review.jsx";
-import {ActionCreator, Operation as FilmOperation} from "../../reducer/films/films.js";
+import {ActionCreator as ActionCreatorFilms, Operation as FilmOperation} from "../../reducer/films/films.js";
 import {getFilmToRenderDetails, getFilmToPlay} from "../../reducer/films/selectors.js";
 import {getPreviewFilm} from "../../reducer/data/selectors.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
@@ -22,14 +21,12 @@ const App = (props) => {
     filmToRenderDetails,
     authorizationStatus,
     login,
-    postComment,
     previewFilm,
     filmToPlay,
     onImageAndTitleClick,
     onGenreClick,
     onShowMoreClick,
-    onPlayClick,
-    onExitFilmClick
+    onExitFilmClick,
   } = props;
 
   const _renderMain = () => {
@@ -39,13 +36,11 @@ const App = (props) => {
       );
     }
 
-    if (filmToRenderDetails) {
+    if (filmToRenderDetails >= 0) {
       return (
         <FilmDetails
           authorizationStatus={authorizationStatus}
-          film={filmToRenderDetails}
           onImageAndTitleClick={onImageAndTitleClick}
-          onPlayClick={onPlayClick}
         />
       );
     }
@@ -81,13 +76,12 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   postComment: PropTypes.func.isRequired,
-  filmToRenderDetails: PropTypes.object,
+  filmToRenderDetails: PropTypes.number,
   filmToPlay: PropTypes.object,
   previewFilm: PropTypes.object,
   onImageAndTitleClick: PropTypes.func.isRequired,
   onGenreClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
   onExitFilmClick: PropTypes.func.isRequired,
 };
 
@@ -106,19 +100,16 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(FilmOperation.postComment(commentData));
   },
   onImageAndTitleClick(film) {
-    dispatch(ActionCreator.showDetails(film));
+    dispatch(ActionCreatorFilms.showDetails(film));
   },
   onGenreClick(genre) {
-    dispatch(ActionCreator.filterChange(genre));
+    dispatch(ActionCreatorFilms.filterChange(genre));
   },
   onShowMoreClick(count) {
-    dispatch(ActionCreator.changeCardsCount(count));
-  },
-  onPlayClick(film) {
-    dispatch(ActionCreator.playFilm(film));
+    dispatch(ActionCreatorFilms.changeCardsCount(count));
   },
   onExitFilmClick() {
-    dispatch(ActionCreator.exitFilm());
+    dispatch(ActionCreatorFilms.exitFilm());
   },
 });
 
