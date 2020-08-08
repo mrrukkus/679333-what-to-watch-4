@@ -5,7 +5,7 @@ import {DEFAULT_RATE} from "../../utils.js";
 const STARS_COUNT = 5;
 
 const getStarItem = (iterator, ratingStarsContainer, changeRatingHandler) => {
-  let defaultCheck = iterator === DEFAULT_RATE ? true : false;
+  let defaultCheck = iterator === DEFAULT_RATE;
 
   ratingStarsContainer.push(
       <Fragment key={iterator}>

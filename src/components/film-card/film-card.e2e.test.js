@@ -202,6 +202,7 @@ describe(`Film card test`, () => {
               onImageAndTitleClick={onTitleAndImageAction}
               onShowMoreClick={() => {}}
               onPlayClick={() => {}}
+              loadFavorites={() => {}}
             />
           </Provider>
         </StaticRouter>

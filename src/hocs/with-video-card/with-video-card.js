@@ -17,8 +17,7 @@ const withVideoCard = (Component) => {
       this._changeVideoCardToCard = this._changeVideoCardToCard.bind(this);
     }
 
-    _renderDetailsHandler(evt) {
-      evt.preventDefault();
+    _renderDetailsHandler() {
       this.props.onImageAndTitleClick(this.props.filmIndex);
       clearTimeout(this._lastTimeout);
     }

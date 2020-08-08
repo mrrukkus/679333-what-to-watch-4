@@ -12,7 +12,7 @@ Array [
         className="movie-card__bg"
       >
         <img
-          alt="Fantastic Beasts: The Crimes of Grindelwald"
+          alt="Bohemian Rhapsody"
           src="img/bg-the-grand-budapest-hotel.jpg"
         />
       </div>
@@ -52,16 +52,21 @@ Array [
         <div
           className="user-block"
         >
-          <div
-            className="user-block__avatar"
+          <a
+            href="/mylist"
+            onClick={[Function]}
           >
-            <img
-              alt="User avatar"
-              height="63"
-              src="img/avatar.jpg"
-              width="63"
-            />
-          </div>
+            <div
+              className="user-block__avatar"
+            >
+              <img
+                alt="User avatar"
+                height="63"
+                src="/img/avatar.jpg"
+                width="63"
+              />
+            </div>
+          </a>
         </div>
       </header>
       <div
@@ -73,7 +78,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            Fantastic Beasts: The Crimes of Grindelwald
+            Bohemian Rhapsody
           </h2>
           <p
             className="movie-card__meta"
@@ -92,8 +97,9 @@ Array [
           <div
             className="movie-card__buttons"
           >
-            <button
+            <a
               className="btn btn--play movie-card__button"
+              href="/films/1/player"
               onClick={[Function]}
               type="button"
             >
@@ -109,7 +115,7 @@ Array [
               <span>
                 Play
               </span>
-            </button>
+            </a>
             <button
               className="btn btn--list movie-card__button"
               onClick={[Function]}
@@ -130,7 +136,7 @@ Array [
             </button>
             <a
               className="btn movie-card__button"
-              href="/add-review"
+              href="/films/1/review"
               onClick={[Function]}
             >
               Add review
@@ -149,7 +155,7 @@ Array [
           className="movie-card__poster movie-card__poster--big"
         >
           <img
-            alt="Fantastic Beasts: The Crimes of Grindelwald poster"
+            alt="Bohemian Rhapsody poster"
             height="327"
             src="img/the-grand-budapest-hotel-poster.jpg"
             width="218"
@@ -205,7 +211,7 @@ Array [
             <div
               className="movie-rating__score"
             >
-              1,0
+              2,0
             </div>
             <p
               className="movie-rating__meta"
@@ -263,8 +269,9 @@ Array [
       <div
         className="catalog__movies-list"
       >
-        <article
-          className="small-movie-card catalog__movies-card"
+        <a
+          className="small-movie-card catalog__movies-card small-movie-card__link"
+          href="/films/0"
           onClick={[Function]}
           onMouseOut={[Function]}
           onMouseOver={[Function]}
@@ -282,17 +289,16 @@ Array [
           <h3
             className="small-movie-card__title"
           >
-            <a
+            <div
               className="small-movie-card__link"
-              href="movie-page.html"
-              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
-            </a>
+            </div>
           </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
+        </a>
+        <a
+          className="small-movie-card catalog__movies-card small-movie-card__link"
+          href="/films/1"
           onClick={[Function]}
           onMouseOut={[Function]}
           onMouseOver={[Function]}
@@ -310,17 +316,16 @@ Array [
           <h3
             className="small-movie-card__title"
           >
-            <a
+            <div
               className="small-movie-card__link"
-              href="movie-page.html"
-              onClick={[Function]}
             >
               Bohemian Rhapsody
-            </a>
+            </div>
           </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
+        </a>
+        <a
+          className="small-movie-card catalog__movies-card small-movie-card__link"
+          href="/films/0"
           onClick={[Function]}
           onMouseOut={[Function]}
           onMouseOver={[Function]}
@@ -338,17 +343,16 @@ Array [
           <h3
             className="small-movie-card__title"
           >
-            <a
+            <div
               className="small-movie-card__link"
-              href="movie-page.html"
-              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
-            </a>
+            </div>
           </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
+        </a>
+        <a
+          className="small-movie-card catalog__movies-card small-movie-card__link"
+          href="/films/0"
           onClick={[Function]}
           onMouseOut={[Function]}
           onMouseOver={[Function]}
@@ -366,15 +370,13 @@ Array [
           <h3
             className="small-movie-card__title"
           >
-            <a
+            <div
               className="small-movie-card__link"
-              href="movie-page.html"
-              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
-            </a>
+            </div>
           </h3>
-        </article>
+        </a>
       </div>
     </section>
     <footer

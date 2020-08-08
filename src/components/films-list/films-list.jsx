@@ -5,6 +5,7 @@ import FilmCard from "../film-card/film-card.jsx";
 import withVideoCard from "../../hocs/with-video-card/with-video-card.js";
 import {getFilteredFilmsList} from "../../reducer/films/films.js";
 import {getGenre, getCurrentFilmsCardsCount, getFilmToRenderDetails} from "../../reducer/films/selectors.js";
+import {ActionCreator as ActionCreatorFilms} from "../../reducer/films/films.js";
 import {getFilmsList} from "../../reducer/data/selectors.js";
 import {MORE_LIKE_THIS_CARDS_COUNT} from "../../utils.js";
 
@@ -61,7 +62,14 @@ const mapStateToPropsOnDetails = (state) => ({
   allFilms: getFilmsList(state)
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onImageAndTitleClick(film) {
+    dispatch(ActionCreatorFilms.showDetails(film));
+  }
+});
+
 const FilmsListOnMain = connect(mapStateToPropsOnMain)(FilmsList);
 const FilmsListOnDetails = connect(mapStateToPropsOnDetails)(FilmsList);
+const FilmsListOnMyList = connect(null, mapDispatchToProps)(FilmsList);
 
-export {FilmsList, FilmsListOnMain, FilmsListOnDetails};
+export {FilmsList, FilmsListOnMain, FilmsListOnDetails, FilmsListOnMyList};

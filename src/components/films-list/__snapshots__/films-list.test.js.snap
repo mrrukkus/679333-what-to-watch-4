@@ -4,8 +4,9 @@ exports[`Films list renders correctly 1`] = `
 <div
   className="catalog__movies-list"
 >
-  <article
-    className="small-movie-card catalog__movies-card"
+  <a
+    className="small-movie-card catalog__movies-card small-movie-card__link"
+    href="/films/0"
     onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
@@ -23,17 +24,16 @@ exports[`Films list renders correctly 1`] = `
     <h3
       className="small-movie-card__title"
     >
-      <a
+      <div
         className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
       >
         Fantastic Beasts: The Crimes of Grindelwald
-      </a>
+      </div>
     </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
+  </a>
+  <a
+    className="small-movie-card catalog__movies-card small-movie-card__link"
+    href="/films/1"
     onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
@@ -51,17 +51,16 @@ exports[`Films list renders correctly 1`] = `
     <h3
       className="small-movie-card__title"
     >
-      <a
+      <div
         className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
       >
         Bohemian Rhapsody
-      </a>
+      </div>
     </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
+  </a>
+  <a
+    className="small-movie-card catalog__movies-card small-movie-card__link"
+    href="/films/0"
     onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
@@ -79,17 +78,16 @@ exports[`Films list renders correctly 1`] = `
     <h3
       className="small-movie-card__title"
     >
-      <a
+      <div
         className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
       >
         Fantastic Beasts: The Crimes of Grindelwald
-      </a>
+      </div>
     </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
+  </a>
+  <a
+    className="small-movie-card catalog__movies-card small-movie-card__link"
+    href="/films/0"
     onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
@@ -107,17 +105,16 @@ exports[`Films list renders correctly 1`] = `
     <h3
       className="small-movie-card__title"
     >
-      <a
+      <div
         className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
       >
         Fantastic Beasts: The Crimes of Grindelwald
-      </a>
+      </div>
     </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
+  </a>
+  <a
+    className="small-movie-card catalog__movies-card small-movie-card__link"
+    href="/films/0"
     onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
@@ -135,17 +132,16 @@ exports[`Films list renders correctly 1`] = `
     <h3
       className="small-movie-card__title"
     >
-      <a
+      <div
         className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
       >
         Fantastic Beasts: The Crimes of Grindelwald
-      </a>
+      </div>
     </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
+  </a>
+  <a
+    className="small-movie-card catalog__movies-card small-movie-card__link"
+    href="/films/0"
     onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
@@ -163,17 +159,16 @@ exports[`Films list renders correctly 1`] = `
     <h3
       className="small-movie-card__title"
     >
-      <a
+      <div
         className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
       >
         Fantastic Beasts: The Crimes of Grindelwald
-      </a>
+      </div>
     </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
+  </a>
+  <a
+    className="small-movie-card catalog__movies-card small-movie-card__link"
+    href="/films/0"
     onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
@@ -191,17 +186,16 @@ exports[`Films list renders correctly 1`] = `
     <h3
       className="small-movie-card__title"
     >
-      <a
+      <div
         className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
       >
         Fantastic Beasts: The Crimes of Grindelwald
-      </a>
+      </div>
     </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
+  </a>
+  <a
+    className="small-movie-card catalog__movies-card small-movie-card__link"
+    href="/films/0"
     onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
@@ -219,14 +213,12 @@ exports[`Films list renders correctly 1`] = `
     <h3
       className="small-movie-card__title"
     >
-      <a
+      <div
         className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
       >
         Fantastic Beasts: The Crimes of Grindelwald
-      </a>
+      </div>
     </h3>
-  </article>
+  </a>
 </div>
 `;

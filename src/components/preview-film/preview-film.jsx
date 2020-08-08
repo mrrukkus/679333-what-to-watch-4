@@ -7,7 +7,7 @@ import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {getPreviewFilm} from "../../reducer/data/selectors.js";
 import {ActionCreator as ActionCreatorFilms} from "../../reducer/films/films.js";
-import {ActionCreator as ActionCreatorData} from "../../reducer/data/data.js";
+import {ActionCreator as ActionCreatorData, Operation as OperationData} from "../../reducer/data/data.js";
 
 
 const PreviewFilm = (props) => {
@@ -15,7 +15,8 @@ const PreviewFilm = (props) => {
     previewFilm,
     authorizationStatus,
     onPlayClick,
-    onMyListClick
+    onMyListClick,
+    loadFavorites
   } = props;
 
   return (
@@ -38,10 +39,10 @@ const PreviewFilm = (props) => {
 
           <div className="user-block">
             {authorizationStatus === AuthorizationStatus.NO_AUTH ?
-              <Link to={`/login`} className="user-block__link">Sign in</Link>
+              <Link to="/login" className="user-block__link">Sign in</Link>
               :
-              <Link to={`my-list`}>
-                <div className="user-block__avatar">
+              <Link to="/mylist">
+                <div className="user-block__avatar" onClick={loadFavorites}>
                   <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
                 </div>
               </Link>
@@ -63,18 +64,19 @@ const PreviewFilm = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => {
+                <Link to={`/films/${previewFilm.id}/player`} className="btn btn--play movie-card__button" type="button" onClick={() => {
                   onPlayClick(previewFilm);
                 }}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
 
                 {authorizationStatus === AuthorizationStatus.AUTH ?
                   <button className="btn btn--list movie-card__button" type="button" onClick={() => {
                     onMyListClick(previewFilm);
+                    loadFavorites();
                   }}>
                     {previewFilm.isFavorite ?
                       <svg viewBox="0 0 18 14" width="18" height="14">
@@ -86,7 +88,7 @@ const PreviewFilm = (props) => {
                     }
                     <span>My list</span>
                   </button> :
-                  <Link to={`/login`} className="btn btn--list movie-card__button" type="button">
+                  <Link to="/login" className="btn btn--list movie-card__button" type="button">
                     <svg viewBox="0 0 19 20" width="19" height="20">
                       <use xlinkHref="#add"></use>
                     </svg>
@@ -107,6 +109,7 @@ PreviewFilm.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   onPlayClick: PropTypes.func.isRequired,
   onMyListClick: PropTypes.func.isRequired,
+  loadFavorites: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -119,6 +122,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreatorFilms.playFilm(film));
   },
   onMyListClick(film) {
+    dispatch(OperationData.postFavorite(film));
     dispatch(ActionCreatorData.changeFavoriteStatus(film));
   }
 });

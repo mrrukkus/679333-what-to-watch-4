@@ -1,10 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "../main/main";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {StaticRouter} from "react-router-dom";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+import MyList from "../my-list/my-list.jsx";
+import PrivateRoute from "./private-route.jsx";
 
 const filmsMock = [
   {
@@ -164,14 +165,15 @@ const filmsMock = [
 
 const mockStore = configureStore([]);
 
-it(`Main renders correctly`, () => {
+it(`Private component renders correctly`, () => {
   const store = mockStore({
     "DATA": {
       films: filmsMock,
+      favoriteFilms: filmsMock
     },
     "FILMS": {
       genre: `All genres`,
-      filmToRenderDetails: -1,
+      filmToRenderDetails: 0,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
     },
@@ -180,25 +182,21 @@ it(`Main renders correctly`, () => {
     },
   });
 
-  const tree = renderer
+  const privateComponent = renderer
     .create(
         <StaticRouter>
           <Provider store={store}>
-            <Main
-              authorizationStatus={`AUTH`}
-              genre={`All genres`}
-              currentFilmsCardsCount={8}
-              nextFilmsCardsCount={16}
-              onGenreClick={() => {}}
-              onImageAndTitleClick={() => {}}
-              onShowMoreClick={() => {}}
-              onPlayClick={() => {}}
-              previewFilm={filmsMock[0]}
-              loadFavorites={() => {}}
+            <PrivateRoute
+              exact path="/mylist"
+              render={() => {
+                return (
+                  <MyList/>
+                );
+              }}
             />
           </Provider>
         </StaticRouter>
     ).toJSON();
 
-  expect(tree).toMatchSnapshot();
+  expect(privateComponent).toMatchSnapshot();
 });

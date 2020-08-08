@@ -202,6 +202,7 @@ describe(`Main component`, () => {
               onImageAndTitleClick={onTitleAction}
               onShowMoreClick={() => {}}
               onPlayClick={() => {}}
+              loadFavorites={() => {}}
             />
           </Provider>
         </StaticRouter>
@@ -213,6 +214,6 @@ describe(`Main component`, () => {
       button.simulate(`click`, {preventDefault() {}});
     });
 
-    expect(onTitleAction.mock.calls.length).toBe(titleButtons.length * 2);
+    expect(onTitleAction.mock.calls.length).toBe(titleButtons.length);
   });
 });

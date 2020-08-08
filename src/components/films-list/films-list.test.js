@@ -1,8 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {FilmsListOnMain} from "../films-list/films-list.jsx";
+import {StaticRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {FilmsListOnMain} from "../films-list/films-list.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const filmsMock = [
@@ -181,14 +182,16 @@ it(`Films list renders correctly`, () => {
 
   const list = renderer
     .create(
-        <Provider store={store}>
-          <FilmsListOnMain
-            filmsList={filmsMock}
-            onImageAndTitleClick={() => {}}
-            onShowMoreClick={() => {}}
-            onGenreClick={() => {}}
-          />
-        </Provider>
+        <StaticRouter>
+          <Provider store={store}>
+            <FilmsListOnMain
+              filmsList={filmsMock}
+              onImageAndTitleClick={() => {}}
+              onShowMoreClick={() => {}}
+              onGenreClick={() => {}}
+            />
+          </Provider>
+        </StaticRouter>
     ).toJSON();
 
   expect(list).toMatchSnapshot();

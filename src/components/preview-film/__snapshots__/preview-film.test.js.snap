@@ -47,11 +47,12 @@ exports[`Preview films renders correctly 1`] = `
       className="user-block"
     >
       <a
-        href="/my-list"
+        href="/mylist"
         onClick={[Function]}
       >
         <div
           className="user-block__avatar"
+          onClick={[Function]}
         >
           <img
             alt="User avatar"
@@ -104,8 +105,9 @@ exports[`Preview films renders correctly 1`] = `
         <div
           className="movie-card__buttons"
         >
-          <button
+          <a
             className="btn btn--play movie-card__button"
+            href="/films/0/player"
             onClick={[Function]}
             type="button"
           >
@@ -121,7 +123,7 @@ exports[`Preview films renders correctly 1`] = `
             <span>
               Play
             </span>
-          </button>
+          </a>
           <button
             className="btn btn--list movie-card__button"
             onClick={[Function]}

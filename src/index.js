@@ -26,6 +26,7 @@ const store = createStore(
 
 store.dispatch(DataOperation.loadFilms());
 store.dispatch(DataOperation.loadPromo());
+store.dispatch(DataOperation.loadFavorites());
 store.dispatch(UserOperation.checkAuthorizationStatus());
 
 ReactDOM.render(
@@ -34,3 +35,5 @@ ReactDOM.render(
     </Provider>,
     document.querySelector(`#root`)
 );
+
+export {store};

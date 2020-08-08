@@ -189,6 +189,7 @@ it(`Preview films renders correctly`, () => {
               authorizationStatus={`AUTH`}
               previewFilm={filmsMock[0]}
               onPlayClick={() => {}}
+              loadFavorites={() => {}}
             />
           </Provider>
         </StaticRouter>
