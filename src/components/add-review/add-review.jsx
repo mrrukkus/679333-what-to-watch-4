@@ -10,7 +10,7 @@ import {getFilmsList, getFilmByRouter} from "../../reducer/data/selectors.js";
 const WrappedReview = withReview(Review);
 
 export const AddReview = (props) => {
-  const {film, postComment, loadFavorites} = props;
+  const {film, postComment, loadFavorites, history} = props;
 
   return (
     <React.Fragment>
@@ -60,6 +60,7 @@ export const AddReview = (props) => {
           <WrappedReview
             film={film}
             postComment={postComment}
+            historyProp={history}
           />
         </div>
       </section>
@@ -70,7 +71,8 @@ export const AddReview = (props) => {
 AddReview.propTypes = {
   postComment: PropTypes.func.isRequired,
   film: PropTypes.object.isRequired,
-  loadFavorites: PropTypes.func.isRequired
+  loadFavorites: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({

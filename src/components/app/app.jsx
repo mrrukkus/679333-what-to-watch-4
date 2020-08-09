@@ -98,6 +98,19 @@ const App = (props) => {
             );
           }}
         />
+        <Route exact path="/error"
+          render={
+            () => (
+              <Fragment>
+                <h1>
+                При отправке отзыва возникла ошибка.
+                  <br/>
+                  <small>Попробуйте снова, вдруг получится!</small>
+                </h1>
+                <Link to="/">Главная страница</Link>
+              </Fragment>
+            )}
+        />
         <Route render={
           () => (
             <Fragment>

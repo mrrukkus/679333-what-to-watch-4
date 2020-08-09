@@ -78,6 +78,13 @@ const Operation = {
     })
       .then((response) => {
         dispatch(ActionCreator.postComment(response.status));
+        commentData.target.disabled = false;
+
+        if (response.status === 200) {
+          commentData.history.go(-1);
+        } else {
+          commentData.history.push(`/error`);
+        }
       });
   },
 };

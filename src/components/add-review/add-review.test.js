@@ -29,6 +29,7 @@ it(`Review renders correctly`, () => {
             film={film}
             postComment={() => {}}
             loadFavorites={() => {}}
+            history={{}}
           />
         </StaticRouter>
     ).toJSON();
