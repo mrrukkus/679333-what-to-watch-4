@@ -3,9 +3,14 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {StaticRouter, BrowserRouter} from "react-router-dom";
+import thunk from "redux-thunk";
+
 import FilmDetails from "./film-details.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import createAPI from "../../api.js";
 
+
+const api = createAPI();
 const filmsMock = [
   {
     runTime: `1h 39m`,
@@ -162,7 +167,7 @@ const filmsMock = [
   },
 ];
 
-const mockStore = configureStore([]);
+const mockStore = configureStore([thunk.withExtraArgument(api)]);
 
 it(`Details renders correctly`, () => {
   const store = mockStore({

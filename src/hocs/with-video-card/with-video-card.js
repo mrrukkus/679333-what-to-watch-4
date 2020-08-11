@@ -19,6 +19,7 @@ const withVideoCard = (Component) => {
 
     _renderDetailsHandler() {
       this.props.onImageAndTitleClick(this.props.filmIndex, this.props.film);
+      this.props.loadComments(this.props.film);
       clearTimeout(this._lastTimeout);
     }
 

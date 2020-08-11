@@ -8,7 +8,7 @@ import withActiveTabs from "../../hocs/with-active-tabs/with-active-tabs.js";
 import {FilmsListOnDetails} from "../films-list/films-list.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {ActionCreator as ActionCreatorData, Operation as DataOperation} from "../../reducer/data/data.js";
-import {ActionCreator as ActionCreatorFilms} from "../../reducer/films/films.js";
+import {ActionCreator as ActionCreatorFilms, Operation as FilmsOperation} from "../../reducer/films/films.js";
 import {getFilmsList, getFilmByID} from "../../reducer/data/selectors.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 
@@ -16,7 +16,7 @@ import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 const TabsWrapped = withActiveTabs(Tabs);
 
 export const FilmDetails = (props) => {
-  const {film, authorizationStatus, onImageAndTitleClick, onPlayClick, onMyListClick, loadFavorites} = props;
+  const {film, authorizationStatus, onImageAndTitleClick, onPlayClick, onMyListClick, loadFavorites, loadComments} = props;
 
   return film ?
     <React.Fragment>
@@ -103,7 +103,7 @@ export const FilmDetails = (props) => {
               <img src={film.poster} alt={film.title + ` poster`} width="218" height="327" />
             </div>
 
-            <TabsWrapped defaultActiveTab={`Overview`} film={film} onTabAction={() => {}}/>
+            <TabsWrapped defaultActiveTab={`Overview`} loadComments={loadComments} film={film} onTabAction={() => {}}/>
           </div>
         </div>
       </section>
@@ -141,7 +141,8 @@ FilmDetails.propTypes = {
   onPlayClick: PropTypes.func.isRequired,
   onMyListClick: PropTypes.func.isRequired,
   onImageAndTitleClick: PropTypes.func.isRequired,
-  loadFavorites: PropTypes.func.isRequired
+  loadFavorites: PropTypes.func.isRequired,
+  loadComments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -163,6 +164,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   loadFavorites() {
     dispatch(DataOperation.loadFavorites());
+  },
+  loadComments(film) {
+    dispatch(FilmsOperation.getComments(film));
   }
 });
 

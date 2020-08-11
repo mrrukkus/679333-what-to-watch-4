@@ -19,6 +19,11 @@ const withActiveTabs = (Component) => {
       this.props.onTabAction();
     }
 
+    componentDidMount() {
+      const {loadComments} = this.props;
+      loadComments(this.props.film);
+    }
+
     render() {
       return (
         <Component
@@ -32,8 +37,9 @@ const withActiveTabs = (Component) => {
 
   WithActiveTabs.propTypes = {
     defaultActiveTab: PropTypes.string.isRequired,
-    onTabAction: PropTypes.func.isRequired,
     film: PropTypes.object.isRequired,
+    onTabAction: PropTypes.func.isRequired,
+    loadComments: PropTypes.func.isRequired
   };
 
   return WithActiveTabs;
