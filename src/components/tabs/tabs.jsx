@@ -8,7 +8,7 @@ const TabsTitlesMap = {
   REVIEWS: `Reviews`
 };
 
-const dateOptions = {
+const DateOptions = {
   year: `numeric`,
   month: `long`,
   day: `numeric`,
@@ -17,7 +17,7 @@ const dateOptions = {
 const getDate = (dateString) => {
   const dateInMS = Date.parse(dateString);
   const correctDate = new Date(dateInMS);
-  return correctDate.toLocaleString(`en-US`, dateOptions);
+  return correctDate.toLocaleString(`en-US`, DateOptions);
 };
 
 
