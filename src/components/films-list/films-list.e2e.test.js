@@ -1,11 +1,17 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import Enzyme, {mount} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 import {StaticRouter} from "react-router-dom";
 import {Provider} from "react-redux";
+import thunk from "redux-thunk";
+
 import configureStore from "redux-mock-store";
 import {FilmsListOnMain} from "../films-list/films-list.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import createAPI from "../../api.js";
 
+
+const api = createAPI();
 const filmsMock = [
   {
     runTime: `1h 39m`,
@@ -162,37 +168,51 @@ const filmsMock = [
   },
 ];
 
-const mockStore = configureStore([]);
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
-it(`Films list renders correctly`, () => {
-  const store = mockStore({
-    "DATA": {
-      films: filmsMock,
-    },
-    "FILMS": {
-      genre: `All genres`,
-      filmToRenderDetails: -1,
-      filmToPlay: null,
-      currentFilmsCardsCount: 8,
-    },
-    "USER": {
-      authorizationStatus: AuthorizationStatus.AUTH,
-    },
-  });
+const mockStore = configureStore([thunk.withExtraArgument(api)]);
 
-  const list = renderer
-    .create(
+describe(`Films list component`, () => {
+  it(`Film card should be pressed`, () => {
+    const onTitleAction = jest.fn();
+
+    const store = mockStore({
+      "DATA": {
+        films: filmsMock,
+      },
+      "FILMS": {
+        genre: `All genres`,
+        filmToRenderDetails: -1,
+        filmToPlay: null,
+        currentFilmsCardsCount: 8,
+      },
+      "USER": {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      },
+    });
+
+    const filmsList = mount(
         <StaticRouter>
           <Provider store={store}>
             <FilmsListOnMain
               filmsList={filmsMock}
-              onImageAndTitleClick={() => {}}
-              onShowMoreClick={() => {}}
-              onGenreClick={() => {}}
+              allFilms={filmsMock}
+              onImageAndTitleClick={onTitleAction}
+              film={filmsMock[1]}
+              loadComments={() => {}}
             />
           </Provider>
         </StaticRouter>
-    ).toJSON();
+    );
 
-  expect(list).toMatchSnapshot();
+    const titleButtons = filmsList.find(`span.small-movie-card`);
+
+    titleButtons.map((button) => {
+      button.simulate(`click`, {preventDefault() {}});
+    });
+
+    expect(onTitleAction.mock.calls.length).toBe(titleButtons.length);
+  });
 });

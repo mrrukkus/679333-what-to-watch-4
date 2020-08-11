@@ -17,9 +17,9 @@ const withVideoCard = (Component) => {
       this._changeVideoCardToCard = this._changeVideoCardToCard.bind(this);
     }
 
-    _renderDetailsHandler(evt) {
-      evt.preventDefault();
-      this.props.onImageAndTitleClick(this.props.filmIndex);
+    _renderDetailsHandler() {
+      this.props.onImageAndTitleClick(this.props.filmIndex, this.props.film);
+      this.props.loadComments(this.props.film);
       clearTimeout(this._lastTimeout);
     }
 
@@ -50,7 +50,8 @@ const withVideoCard = (Component) => {
   WithVideoCard.propTypes = {
     film: PropTypes.object.isRequired,
     onImageAndTitleClick: PropTypes.func.isRequired,
-    filmIndex: PropTypes.number.isRequired
+    filmIndex: PropTypes.number.isRequired,
+    loadComments: PropTypes.func.isRequired
   };
 
   return WithVideoCard;

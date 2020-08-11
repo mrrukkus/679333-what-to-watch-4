@@ -106,6 +106,7 @@ exports[`Review form renders correctly 1`] = `
     >
       <button
         className="add-review__btn"
+        onClick={[Function]}
         type="submit"
       >
         Post

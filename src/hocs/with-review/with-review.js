@@ -38,14 +38,19 @@ const withReview = (Component) => {
 
     handleSubmitComment(evt) {
       evt.preventDefault();
+      if (evt.target.tagName === `BUTTON`) {
+        evt.target.disabled = true;
+      }
 
-      const {postComment, film} = this.props;
+      const {postComment, film, historyProp} = this.props;
 
       postComment({
         id: film.id,
         rating: this.state.rating,
         comment: this.state.comment,
-      });
+        target: evt.target,
+        history: historyProp
+      }, film);
     }
 
     render() {
@@ -61,7 +66,8 @@ const withReview = (Component) => {
 
   WithReview.propTypes = {
     film: PropTypes.object.isRequired,
-    postComment: PropTypes.func.isRequired
+    postComment: PropTypes.func.isRequired,
+    historyProp: PropTypes.object.isRequired
   };
 
   return WithReview;

@@ -1,12 +1,11 @@
 import React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import Main from "../main/main";
+import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {StaticRouter} from "react-router-dom";
-
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+import MyList from "../my-list/my-list.jsx";
+import PrivateRoute from "./private-route.jsx";
 
 const filmsMock = [
   {
@@ -164,55 +163,41 @@ const filmsMock = [
   },
 ];
 
-Enzyme.configure({
-  adapter: new Adapter(),
-});
-
 const mockStore = configureStore([]);
 
-describe(`Main component`, () => {
-  it(`Film Title should be pressed`, () => {
-    const onTitleAction = jest.fn();
+it(`Private component renders correctly`, () => {
+  const store = mockStore({
+    "DATA": {
+      films: filmsMock,
+      favoriteFilms: filmsMock
+    },
+    "FILMS": {
+      genre: `All genres`,
+      filmToRenderDetails: 0,
+      filmToPlay: null,
+      currentFilmsCardsCount: 8,
+    },
+    "USER": {
+      authorizationStatus: AuthorizationStatus.AUTH,
+    },
+  });
 
-    const store = mockStore({
-      "DATA": {
-        films: filmsMock,
-      },
-      "FILMS": {
-        genre: `All genres`,
-        filmToRenderDetails: -1,
-        filmToPlay: null,
-        currentFilmsCardsCount: 8,
-      },
-      "USER": {
-        authorizationStatus: AuthorizationStatus.AUTH,
-      },
-    });
-
-    const mainTemplate = mount(
+  const privateComponent = renderer
+    .create(
         <StaticRouter>
           <Provider store={store}>
-            <Main
-              authorizationStatus={`AUTH`}
-              previewFilm={filmsMock[1]}
-              genre={`All genres`}
-              currentFilmsCardsCount={8}
-              nextFilmsCardsCount={16}
-              onGenreClick={() => {}}
-              onImageAndTitleClick={onTitleAction}
-              onShowMoreClick={() => {}}
-              onPlayClick={() => {}}
+            <PrivateRoute
+              exact path="/mylist"
+              authorizationStatus={AuthorizationStatus.AUTH}
+              render={() => {
+                return (
+                  <MyList/>
+                );
+              }}
             />
           </Provider>
         </StaticRouter>
-    );
+    ).toJSON();
 
-    const titleButtons = mainTemplate.find(`a.small-movie-card__link`);
-
-    titleButtons.map((button) => {
-      button.simulate(`click`, {preventDefault() {}});
-    });
-
-    expect(onTitleAction.mock.calls.length).toBe(titleButtons.length * 2);
-  });
+  expect(privateComponent).toMatchSnapshot();
 });

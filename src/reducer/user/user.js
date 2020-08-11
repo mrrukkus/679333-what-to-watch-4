@@ -1,3 +1,5 @@
+import {Operation as OperationData} from "../data/data.js";
+
 const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`
@@ -37,6 +39,7 @@ const Operation = {
     })
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(OperationData.loadFavorites());
       });
   },
 };

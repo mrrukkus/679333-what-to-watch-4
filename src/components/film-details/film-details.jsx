@@ -7,17 +7,18 @@ import {connect} from "react-redux";
 import withActiveTabs from "../../hocs/with-active-tabs/with-active-tabs.js";
 import {FilmsListOnDetails} from "../films-list/films-list.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {ActionCreator as ActionCreatorData} from "../../reducer/data/data.js";
-import {ActionCreator as ActionCreatorFilms} from "../../reducer/films/films.js";
-import {getFilmsList} from "../../reducer/data/selectors.js";
+import {ActionCreator as ActionCreatorData, Operation as DataOperation} from "../../reducer/data/data.js";
+import {ActionCreator as ActionCreatorFilms, Operation as FilmsOperation} from "../../reducer/films/films.js";
+import {getFilmsList, getFilmByID} from "../../reducer/data/selectors.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 
 
 const TabsWrapped = withActiveTabs(Tabs);
 
-const FilmDetails = (props) => {
-  const {film, authorizationStatus, onImageAndTitleClick, onPlayClick, onMyListClick} = props;
+export const FilmDetails = (props) => {
+  const {film, authorizationStatus, onImageAndTitleClick, onPlayClick, onMyListClick, loadFavorites, loadComments} = props;
 
-  return (
+  return film ?
     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
@@ -37,9 +38,15 @@ const FilmDetails = (props) => {
             </div>
 
             <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
+              {authorizationStatus === AuthorizationStatus.NO_AUTH ?
+                <Link to="/login" className="user-block__link">Sign in</Link>
+                :
+                <Link to="/mylist" onClick={loadFavorites}>
+                  <div className="user-block__avatar">
+                    <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                  </div>
+                </Link>
+              }
             </div>
           </header>
 
@@ -52,14 +59,14 @@ const FilmDetails = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => {
+                <Link to={`/films/${film.id}/player`} className="btn btn--play movie-card__button" type="button" onClick={() => {
                   onPlayClick(film);
                 }}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
                 {authorizationStatus === AuthorizationStatus.AUTH ?
                   <button className="btn btn--list movie-card__button" type="button" onClick={() => {
                     onMyListClick(film);
@@ -74,7 +81,7 @@ const FilmDetails = (props) => {
                     }
                     <span>My list</span>
                   </button> :
-                  <Link to={`/login`} className="btn btn--list movie-card__button" type="button">
+                  <Link to="/login" className="btn btn--list movie-card__button" type="button">
                     <svg viewBox="0 0 19 20" width="19" height="20">
                       <use xlinkHref="#add"></use>
                     </svg>
@@ -82,7 +89,7 @@ const FilmDetails = (props) => {
                   </Link>
                 }
                 {authorizationStatus === AuthorizationStatus.AUTH ?
-                  <Link to="/add-review" className="btn movie-card__button">Add review</Link> :
+                  <Link to={`/films/${film.id}/review`} className="btn movie-card__button">Add review</Link> :
                   null
                 }
               </div>
@@ -96,7 +103,7 @@ const FilmDetails = (props) => {
               <img src={film.poster} alt={film.title + ` poster`} width="218" height="327" />
             </div>
 
-            <TabsWrapped defaultActiveTab={`Overview`} film={film} onTabAction={() => {}}/>
+            <TabsWrapped defaultActiveTab={`Overview`} loadComments={loadComments} film={film} onTabAction={() => {}}/>
           </div>
         </div>
       </section>
@@ -106,6 +113,7 @@ const FilmDetails = (props) => {
           <h2 className="catalog__title">More like this</h2>
           <FilmsListOnDetails
             onImageAndTitleClick={onImageAndTitleClick}
+            film={film}
           />
         </section>
 
@@ -124,19 +132,22 @@ const FilmDetails = (props) => {
         </footer>
       </div>
     </React.Fragment>
-  );
+    : null;
 };
 
 FilmDetails.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  film: PropTypes.object.isRequired,
-  onImageAndTitleClick: PropTypes.func.isRequired,
+  film: PropTypes.object,
   onPlayClick: PropTypes.func.isRequired,
-  onMyListClick: PropTypes.func.isRequired
+  onMyListClick: PropTypes.func.isRequired,
+  onImageAndTitleClick: PropTypes.func.isRequired,
+  loadFavorites: PropTypes.func.isRequired,
+  loadComments: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  film: getFilmsList(state)[state.FILMS.filmToRenderDetails]
+const mapStateToProps = (state, ownProps) => ({
+  film: getFilmByID(getFilmsList(state), ownProps.match.params.id),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -145,6 +156,17 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onMyListClick(film) {
     dispatch(ActionCreatorData.changeFavoriteStatus(film));
+    dispatch(DataOperation.postFavorite(film));
+    dispatch(DataOperation.loadFavorites());
+  },
+  onImageAndTitleClick(film) {
+    dispatch(ActionCreatorFilms.showDetails(film));
+  },
+  loadFavorites() {
+    dispatch(DataOperation.loadFavorites());
+  },
+  loadComments(film) {
+    dispatch(FilmsOperation.getComments(film));
   }
 });
 

@@ -24,7 +24,8 @@ const initialState = {
 const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_PROMO: `LOAD_PROMO`,
-  CHANGE_FAVORITE_STATUS: `CHANGE_FAVORITE_STATUS`
+  LOAD_FAVORITES: `LOAD_FAVORITES`,
+  CHANGE_FAVORITE_STATUS: `CHANGE_FAVORITE_STATUS`,
 };
 
 const ActionCreator = {
@@ -39,6 +40,13 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_PROMO,
       previewFilm: createFilm(film)
+    };
+  },
+
+  loadFavorites: (movies) => {
+    return {
+      type: ActionType.LOAD_FAVORITES,
+      films: returnAdaptedFilms(movies),
     };
   },
 
@@ -63,6 +71,18 @@ const Operation = {
         dispatch(ActionCreator.loadPromo(response.data));
       });
   },
+  loadFavorites: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        dispatch(ActionCreator.loadFavorites(response.data));
+      });
+  },
+  postFavorite: (film) => (dispatch, getState, api) => {
+    const status = +!film.isFavorite;
+    return api.post(`/favorite/${film.id}/${status}`, {
+      film
+    });
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -78,6 +98,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_FAVORITE_STATUS:
       return extend(state, {
         films: getUpdatedFilmsList(state.films, action.changedFilm)
+      });
+    case ActionType.LOAD_FAVORITES:
+      return extend(state, {
+        favoriteFilms: action.films
       });
   }
   return state;

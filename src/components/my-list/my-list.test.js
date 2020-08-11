@@ -1,10 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {StaticRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {FilmsListOnMain} from "../films-list/films-list.jsx";
+import {StaticRouter} from "react-router-dom";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import MyList from "./my-list.jsx";
 
 const filmsMock = [
   {
@@ -164,14 +164,15 @@ const filmsMock = [
 
 const mockStore = configureStore([]);
 
-it(`Films list renders correctly`, () => {
+it(`Favorites list renders correctly`, () => {
   const store = mockStore({
     "DATA": {
       films: filmsMock,
+      favoriteFilms: filmsMock,
     },
     "FILMS": {
       genre: `All genres`,
-      filmToRenderDetails: -1,
+      filmToRenderDetails: 0,
       filmToPlay: null,
       currentFilmsCardsCount: 8,
     },
@@ -180,19 +181,14 @@ it(`Films list renders correctly`, () => {
     },
   });
 
-  const list = renderer
+  const favorites = renderer
     .create(
         <StaticRouter>
           <Provider store={store}>
-            <FilmsListOnMain
-              filmsList={filmsMock}
-              onImageAndTitleClick={() => {}}
-              onShowMoreClick={() => {}}
-              onGenreClick={() => {}}
-            />
+            <MyList />
           </Provider>
         </StaticRouter>
     ).toJSON();
 
-  expect(list).toMatchSnapshot();
+  expect(favorites).toMatchSnapshot();
 });

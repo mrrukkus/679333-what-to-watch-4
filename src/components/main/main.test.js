@@ -185,15 +185,11 @@ it(`Main renders correctly`, () => {
         <StaticRouter>
           <Provider store={store}>
             <Main
-              authorizationStatus={`AUTH`}
-              genre={`All genres`}
-              currentFilmsCardsCount={8}
-              nextFilmsCardsCount={16}
+              previewFilm={filmsMock[0]}
               onGenreClick={() => {}}
               onImageAndTitleClick={() => {}}
               onShowMoreClick={() => {}}
-              onPlayClick={() => {}}
-              previewFilm={filmsMock[0]}
+              loadFavorites={() => {}}
             />
           </Provider>
         </StaticRouter>

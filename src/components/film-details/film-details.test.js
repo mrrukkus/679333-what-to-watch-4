@@ -2,10 +2,15 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {StaticRouter, BrowserRouter} from "react-router-dom";
+import thunk from "redux-thunk";
+
 import FilmDetails from "./film-details.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {StaticRouter} from "react-router-dom";
+import createAPI from "../../api.js";
 
+
+const api = createAPI();
 const filmsMock = [
   {
     runTime: `1h 39m`,
@@ -162,7 +167,7 @@ const filmsMock = [
   },
 ];
 
-const mockStore = configureStore([]);
+const mockStore = configureStore([thunk.withExtraArgument(api)]);
 
 it(`Details renders correctly`, () => {
   const store = mockStore({
@@ -182,19 +187,24 @@ it(`Details renders correctly`, () => {
 
   const details = renderer
     .create(
-        <StaticRouter>
-          <Provider store={store}>
-            <FilmDetails
-              authorizationStatus={AuthorizationStatus.AUTH}
-              film={filmsMock[0]}
-              filmsList={[]}
-              onImageAndTitleClick={() => {}}
-              onShowMoreClick={() => {}}
-              onGenreClick={() => {}}
-              onPlayClick={() => {}}
-            />
-          </Provider>
-        </StaticRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <StaticRouter>
+              <FilmDetails
+                authorizationStatus={AuthorizationStatus.AUTH}
+                filmsList={[]}
+                onImageAndTitleClick={() => {}}
+                onShowMoreClick={() => {}}
+                onGenreClick={() => {}}
+                onPlayClick={() => {}}
+                match={{params: {
+                  id: 1
+                }}}
+                loadFavorites={() => {}}
+              />
+            </StaticRouter>
+          </BrowserRouter>
+        </Provider>
     ).toJSON();
 
   expect(details).toMatchSnapshot();

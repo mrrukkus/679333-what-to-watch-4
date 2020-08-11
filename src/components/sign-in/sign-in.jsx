@@ -1,7 +1,11 @@
 import React, {createRef} from "react";
 import PropTypes from "prop-types";
 import {Link, Redirect} from "react-router-dom";
+import {connect} from "react-redux";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
+
 
 class SignIn extends React.PureComponent {
   constructor(props) {
@@ -14,11 +18,11 @@ class SignIn extends React.PureComponent {
   }
 
   handleSubmit(evt) {
-    const {onSubmit} = this.props;
+    const {onLogin} = this.props;
 
     evt.preventDefault();
 
-    onSubmit({
+    onLogin({
       login: this.loginRef.current.value,
       password: this.passwordRef.current.value
     });
@@ -29,12 +33,12 @@ class SignIn extends React.PureComponent {
 
     return (
       authorizationStatus === AuthorizationStatus.AUTH ?
-        <Redirect to={`/`}/> :
+        <Redirect to="/"/> :
         <React.Fragment>
           <div className="user-page">
             <header className="page-header user-page__head">
               <div className="logo">
-                <Link to={`/`} className="logo__link">
+                <Link to="/" className="logo__link">
                   <span className="logo__letter logo__letter--1">W</span>
                   <span className="logo__letter logo__letter--2">T</span>
                   <span className="logo__letter logo__letter--3">W</span>
@@ -64,7 +68,7 @@ class SignIn extends React.PureComponent {
 
             <footer className="page-footer">
               <div className="logo">
-                <Link to={`/`} className="logo__link logo__link--light">
+                <Link to="/" className="logo__link logo__link--light">
                   <span className="logo__letter logo__letter--1">W</span>
                   <span className="logo__letter logo__letter--2">T</span>
                   <span className="logo__letter logo__letter--3">W</span>
@@ -83,7 +87,18 @@ class SignIn extends React.PureComponent {
 
 SignIn.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onLogin: PropTypes.func.isRequired
 };
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLogin(authData) {
+    dispatch(UserOperation.login(authData));
+  },
+});
+
+export {SignIn};
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

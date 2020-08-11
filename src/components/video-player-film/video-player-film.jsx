@@ -10,7 +10,7 @@ const onFullScreenClick = (evt) => {
 };
 
 const VideoPlayerFilm = (props) => {
-  const {videoRef, isPlaying, onPlayAndPauseClick, onExitFilmClick} = props;
+  const {videoRef, isPlaying, onPlayAndPauseClick, history} = props;
   let currentTime = null;
   let duration = null;
 
@@ -27,7 +27,9 @@ const VideoPlayerFilm = (props) => {
         <video style={{width: `100%`, height: `100%`}}
           ref={videoRef}
         />
-        <button type="button" className="player__exit" onClick={onExitFilmClick}>Exit</button>
+        <button type="button" className="player__exit" onClick={() => {
+          history.goBack();
+        }}>Exit</button>
 
         <div className="player__controls">
           <div className="player__controls-row">
@@ -78,7 +80,8 @@ VideoPlayerFilm.propTypes = {
   videoRef: PropTypes.object.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onPlayAndPauseClick: PropTypes.func.isRequired,
-  onExitFilmClick: PropTypes.func.isRequired
+  onExitFilmClick: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default VideoPlayerFilm;

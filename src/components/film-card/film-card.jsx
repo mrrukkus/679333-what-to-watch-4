@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.js";
+import {Link} from "react-router-dom";
 
 const VideoPlayerWrapped = withVideoPlayer(VideoPlayer);
 
@@ -17,7 +18,7 @@ const FilmCard = (props) => {
   const renderContentOfCard = () => {
     return (
       isMouseOvered ?
-        <VideoPlayerWrapped isPlaying={true} muted={true} src={film.preview} poster={film.img}/>
+        <VideoPlayerWrapped isPlaying={true} muted={true} film={film}/>
         :
         <img src={film.img} alt={film.title} width="280" height="175" />
     );
@@ -25,16 +26,16 @@ const FilmCard = (props) => {
 
   return (
     <React.Fragment>
-      <article className="small-movie-card catalog__movies-card" onMouseOver={onCardMouseOver}
+      <Link to={`/films/${film.id}`} className="small-movie-card catalog__movies-card small-movie-card__link" onMouseOver={onCardMouseOver}
         onClick={onCardClick}
         onMouseOut={onCardMouseOut}>
         <div className="small-movie-card__image">
           {renderContentOfCard()}
         </div>
         <h3 className="small-movie-card__title">
-          <a className="small-movie-card__link" href="movie-page.html" onClick={onCardClick}>{film.title}</a>
+          <span className="small-movie-card__link" onClick={onCardClick}>{film.title}</span>
         </h3>
-      </article>
+      </Link>
     </React.Fragment>
   );
 };

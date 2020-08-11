@@ -5,7 +5,7 @@ import {DEFAULT_RATE} from "../../utils.js";
 const STARS_COUNT = 5;
 
 const getStarItem = (iterator, ratingStarsContainer, changeRatingHandler) => {
-  let defaultCheck = iterator === DEFAULT_RATE ? true : false;
+  let defaultCheck = iterator === DEFAULT_RATE;
 
   ratingStarsContainer.push(
       <Fragment key={iterator}>
@@ -42,7 +42,7 @@ const Review = (props) => {
           changeComment(evt.target.value);
         }}/>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button className="add-review__btn" type="submit" onClick={submitComment}>Post</button>
         </div>
       </div>
     </form>

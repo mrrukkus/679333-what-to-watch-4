@@ -1,13 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import withReview from "../../hocs/with-review/with-review.js";
 import Review from "../review/review.jsx";
+import {getFilmsList, getFilmByID} from "../../reducer/data/selectors.js";
+import {Operation as FilmOperation} from "../../reducer/films/films.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
+
 
 const WrappedReview = withReview(Review);
 
-const AddReview = (props) => {
-  const {film, postComment} = props;
+export const AddReview = (props) => {
+  const {film, postComment, loadFavorites, history} = props;
+
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
@@ -20,7 +26,7 @@ const AddReview = (props) => {
 
           <header className="page-header">
             <div className="logo">
-              <Link to={`/`} className="logo__link">
+              <Link to="/" className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
@@ -39,9 +45,11 @@ const AddReview = (props) => {
             </nav>
 
             <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
+              <Link to="/mylist" onClick={loadFavorites}>
+                <div className="user-block__avatar">
+                  <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </div>
+              </Link>
             </div>
           </header>
 
@@ -54,6 +62,7 @@ const AddReview = (props) => {
           <WrappedReview
             film={film}
             postComment={postComment}
+            historyProp={history}
           />
         </div>
       </section>
@@ -63,7 +72,23 @@ const AddReview = (props) => {
 
 AddReview.propTypes = {
   film: PropTypes.object.isRequired,
-  postComment: PropTypes.func.isRequired
+  postComment: PropTypes.func.isRequired,
+  loadFavorites: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-export default AddReview;
+const mapStateToProps = (state, ownProps) => ({
+  film: getFilmByID(getFilmsList(state), ownProps.match.params.id)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  postComment(commentData, film) {
+    dispatch(FilmOperation.postComment(commentData));
+    dispatch(FilmOperation.getComments(film));
+  },
+  loadFavorites() {
+    dispatch(DataOperation.loadFavorites());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
