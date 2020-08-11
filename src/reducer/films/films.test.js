@@ -57,13 +57,6 @@ describe(`Action creators works correctly`, () => {
     });
   });
 
-  it(`Action creator for closing film player returns null for filmToPlay`, () => {
-    expect(ActionCreator.exitFilm()).toEqual({
-      type: ActionType.EXIT_FILM,
-      filmToPlay: null,
-    });
-  });
-
   it(`Action creator changes cards count correctly`, () => {
     expect(ActionCreator.changeCardsCount(15)).toEqual({
       type: ActionType.CHANGE_CARDS_COUNT,

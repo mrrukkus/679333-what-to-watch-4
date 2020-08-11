@@ -4,16 +4,19 @@ import VideoPlayerFilm from "../video-player-film/video-player-film.jsx";
 
 it(`Video-player renders correctly`, () => {
   const player = renderer
-    .create(<VideoPlayerFilm
-      videoRef={createRef()}
-      isPlaying={true}
-      onPlayAndPauseClick={() => {}}
-      onExitFilmClick={() => {}}
-    ></VideoPlayerFilm>, {
-      createNodeMock: () => {
-        return {};
-      }
-    }).toJSON();
+    .create(
+        <VideoPlayerFilm
+          videoRef={createRef()}
+          isPlaying={true}
+          onPlayAndPauseClick={() => {}}
+          onExitFilmClick={() => {}}
+          history={{}}
+        />
+        , {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
 
   expect(player).toMatchSnapshot();
 });

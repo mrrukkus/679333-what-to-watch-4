@@ -21,11 +21,12 @@ exports[`Film card renders correctly 1`] = `
   <h3
     className="small-movie-card__title"
   >
-    <div
+    <span
       className="small-movie-card__link"
+      onClick={[Function]}
     >
       Fantastic Beasts: The Crimes of Grindelwald
-    </div>
+    </span>
   </h3>
 </a>
 `;

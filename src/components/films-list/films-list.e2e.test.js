@@ -1,13 +1,17 @@
 import React from "react";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import Main from "../main/main";
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {StaticRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import thunk from "redux-thunk";
+
+import configureStore from "redux-mock-store";
+import {FilmsListOnMain} from "../films-list/films-list.jsx";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+import createAPI from "../../api.js";
 
 
+const api = createAPI();
 const filmsMock = [
   {
     runTime: `1h 39m`,
@@ -168,10 +172,10 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-const mockStore = configureStore([]);
+const mockStore = configureStore([thunk.withExtraArgument(api)]);
 
-describe(`Main component`, () => {
-  it(`Film Title should be pressed`, () => {
+describe(`Films list component`, () => {
+  it(`Film card should be pressed`, () => {
     const onTitleAction = jest.fn();
 
     const store = mockStore({
@@ -189,26 +193,21 @@ describe(`Main component`, () => {
       },
     });
 
-    const mainTemplate = mount(
+    const filmsList = mount(
         <StaticRouter>
           <Provider store={store}>
-            <Main
-              authorizationStatus={`AUTH`}
-              previewFilm={filmsMock[1]}
-              genre={`All genres`}
-              currentFilmsCardsCount={8}
-              nextFilmsCardsCount={16}
-              onGenreClick={() => {}}
+            <FilmsListOnMain
+              filmsList={filmsMock}
+              allFilms={filmsMock}
               onImageAndTitleClick={onTitleAction}
-              onShowMoreClick={() => {}}
-              onPlayClick={() => {}}
-              loadFavorites={() => {}}
+              film={filmsMock[1]}
+              loadComments={() => {}}
             />
           </Provider>
         </StaticRouter>
     );
 
-    const titleButtons = mainTemplate.find(`a.small-movie-card__link`);
+    const titleButtons = filmsList.find(`span.small-movie-card`);
 
     titleButtons.map((button) => {
       button.simulate(`click`, {preventDefault() {}});

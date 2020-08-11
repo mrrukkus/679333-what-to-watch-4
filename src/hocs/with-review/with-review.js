@@ -50,7 +50,7 @@ const withReview = (Component) => {
         comment: this.state.comment,
         target: evt.target,
         history: historyProp
-      });
+      }, film);
     }
 
     render() {

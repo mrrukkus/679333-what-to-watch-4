@@ -289,11 +289,12 @@ Array [
           <h3
             className="small-movie-card__title"
           >
-            <div
+            <span
               className="small-movie-card__link"
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
-            </div>
+            </span>
           </h3>
         </a>
         <a
@@ -316,11 +317,12 @@ Array [
           <h3
             className="small-movie-card__title"
           >
-            <div
+            <span
               className="small-movie-card__link"
+              onClick={[Function]}
             >
               Bohemian Rhapsody
-            </div>
+            </span>
           </h3>
         </a>
         <a
@@ -343,11 +345,12 @@ Array [
           <h3
             className="small-movie-card__title"
           >
-            <div
+            <span
               className="small-movie-card__link"
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
-            </div>
+            </span>
           </h3>
         </a>
         <a
@@ -370,11 +373,12 @@ Array [
           <h3
             className="small-movie-card__title"
           >
-            <div
+            <span
               className="small-movie-card__link"
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
-            </div>
+            </span>
           </h3>
         </a>
       </div>

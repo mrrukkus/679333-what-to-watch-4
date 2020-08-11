@@ -1,5 +1,9 @@
 import React, {createRef} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
+import {getFilmsList, getFilmByID} from "../../reducer/data/selectors.js";
+
 
 const withVideoPlayer = (Component) => {
   class WithVideoPlayer extends React.PureComponent {
@@ -17,11 +21,11 @@ const withVideoPlayer = (Component) => {
     }
 
     componentDidMount() {
-      const {src, poster, muted} = this.props;
+      const {film, muted} = this.props;
       const video = this._videoRef.current;
 
-      video.src = src;
-      video.poster = poster;
+      video.src = film.video;
+      video.poster = film.poster;
       video.muted = muted;
 
       video.oncanplaythrough = () => {
@@ -59,6 +63,7 @@ const withVideoPlayer = (Component) => {
       const video = this._videoRef.current;
 
       if (this.state.isPlaying) {
+        video.muted = false;
         video.play();
       } else {
         video.pause();
@@ -82,14 +87,17 @@ const withVideoPlayer = (Component) => {
   }
 
   WithVideoPlayer.propTypes = {
+    film: PropTypes.object.isRequired,
     isPlaying: PropTypes.bool.isRequired,
     muted: PropTypes.bool.isRequired,
-    src: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
     onExitFilmClick: PropTypes.func
   };
 
-  return WithVideoPlayer;
+  const mapStateToProps = (state, ownProps) => ({
+    film: ownProps.film || getFilmByID(getFilmsList(state), ownProps.match.params.id),
+  });
+
+  return connect(mapStateToProps)(WithVideoPlayer);
 };
 
 export default withVideoPlayer;

@@ -12,8 +12,9 @@ const createFilm = (data) => {
     paragraphs: data.description,
     director: data.director,
     starring: data.starring,
-    preview: data.video_link,
+    preview: data.preview_video_link,
     isFavorite: data.is_favorite,
+    video: data.video_link,
     id: data.id
   };
 };

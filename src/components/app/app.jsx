@@ -13,7 +13,7 @@ import MyList from "../my-list/my-list.jsx";
 import PrivateRoute from "../private-route/private-route.jsx";
 import {ActionCreator as ActionCreatorFilms, Operation as FilmOperation} from "../../reducer/films/films.js";
 import {getFilmToRenderDetails, getFilmToPlay} from "../../reducer/films/selectors.js";
-import {getPreviewFilm} from "../../reducer/data/selectors.js";
+import {getPreviewFilm, getFilmsList} from "../../reducer/data/selectors.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
@@ -22,50 +22,20 @@ const VideoPlayerWrapped = withVideoPlayer(VideoPlayerFilm);
 
 const App = (props) => {
   const {
-    authorizationStatus,
-    login,
-    previewFilm,
-    filmToPlay,
-    postComment,
-    loadFavorites,
-    onImageAndTitleClick,
-    onGenreClick,
-    onShowMoreClick,
+    allFilms,
     onExitFilmClick,
+    authorizationStatus
   } = props;
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <Main
-            previewFilm={previewFilm}
-            onGenreClick={onGenreClick}
-            onImageAndTitleClick={onImageAndTitleClick}
-            onShowMoreClick={onShowMoreClick}
-            loadFavorites={loadFavorites}
-          />
-        </Route>
-        <Route exact path="/login">
-          <SignIn
-            authorizationStatus={authorizationStatus}
-            onSubmit={login}
-          />
-        </Route>
-        <Route exact path="/films/:id"
-          render={(otherProps) => {
-            return (
-              <FilmDetails
-                {...otherProps}
-                authorizationStatus={authorizationStatus}
-                onImageAndTitleClick={onImageAndTitleClick}
-                loadFavorites={loadFavorites}
-              />
-            );
-          }}
-        />
+        <Route exact path="/" component={Main} />
+        <Route exact path="/login" component={SignIn} />
+        <Route exact path="/films/:id" component={FilmDetails} />
         <PrivateRoute
           exact path="/mylist"
+          authorizationStatus={authorizationStatus}
           render={() => {
             return (
               <MyList/>
@@ -74,28 +44,27 @@ const App = (props) => {
         />
         <PrivateRoute
           exact path="/films/:id/review"
+          authorizationStatus={authorizationStatus}
           render={(otherProps) => {
             return (
               <AddReview
                 {...otherProps}
-                postComment={postComment}
-                loadFavorites={loadFavorites}
               />
             );
           }}
         />
         <Route exact path="/films/:id/player"
           render={(otherProps) => {
-            return (
-              <VideoPlayerWrapped
-                {...otherProps}
-                isPlaying={true}
-                muted={false}
-                src={filmToPlay.preview}
-                poster={filmToPlay.img}
-                onExitFilmClick={onExitFilmClick}
-              />
-            );
+            return allFilms.length > 0 ?
+              (
+                <VideoPlayerWrapped
+                  {...otherProps}
+                  isPlaying={true}
+                  muted={true}
+                  onExitFilmClick={onExitFilmClick}
+                />
+              ) :
+              null;
           }}
         />
         <Route exact path="/error"
@@ -130,16 +99,8 @@ const App = (props) => {
 
 App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  login: PropTypes.func.isRequired,
-  postComment: PropTypes.func.isRequired,
-  filmToRenderDetails: PropTypes.number,
-  filmToPlay: PropTypes.object,
-  previewFilm: PropTypes.object,
-  onImageAndTitleClick: PropTypes.func.isRequired,
-  onGenreClick: PropTypes.func.isRequired,
-  onShowMoreClick: PropTypes.func.isRequired,
   onExitFilmClick: PropTypes.func.isRequired,
-  loadFavorites: PropTypes.func.isRequired
+  allFilms: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -147,6 +108,7 @@ const mapStateToProps = (state) => ({
   filmToRenderDetails: getFilmToRenderDetails(state),
   previewFilm: getPreviewFilm(state),
   filmToPlay: getFilmToPlay(state),
+  allFilms: getFilmsList(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

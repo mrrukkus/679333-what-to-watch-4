@@ -35,6 +35,7 @@ const ActionType = {
   PLAY_FILM: `PLAY_FILM`,
   EXIT_FILM: `EXIT_FILM`,
   POST_COMMENT: `POST_COMMENT`,
+  LOAD_COMMENTS: `LOAD_COMMENTS`,
   GET_CHANGED_IN_LIST_FILM: `GET_CHANGED_IN_LIST_FILM`
 };
 
@@ -57,11 +58,6 @@ const ActionCreator = {
   playFilm: (film) => ({
     type: ActionType.PLAY_FILM,
     filmToPlay: film
-  }),
-
-  exitFilm: () => ({
-    type: ActionType.EXIT_FILM,
-    filmToPlay: null
   }),
 
   postComment: (status) => ({
@@ -87,6 +83,12 @@ const Operation = {
         }
       });
   },
+  getComments: (film) => (dispatch, getState, api) => {
+    return api.get(`/comments/${film.id}`)
+      .then((response) => {
+        film.comments = response.data;
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -107,10 +109,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.PLAY_FILM:
       return extend(state, {
         filmToPlay: action.filmToPlay,
-      });
-    case ActionType.EXIT_FILM:
-      return extend(state, {
-        filmToPlay: action.exitFilm
       });
     case ActionType.POST_COMMENT:
       return extend(state, {

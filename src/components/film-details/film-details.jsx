@@ -7,9 +7,10 @@ import {connect} from "react-redux";
 import withActiveTabs from "../../hocs/with-active-tabs/with-active-tabs.js";
 import {FilmsListOnDetails} from "../films-list/films-list.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {ActionCreator as ActionCreatorData, Operation as OperationData} from "../../reducer/data/data.js";
+import {ActionCreator as ActionCreatorData, Operation as DataOperation} from "../../reducer/data/data.js";
 import {ActionCreator as ActionCreatorFilms} from "../../reducer/films/films.js";
-import {getFilmsList, getFilmByRouter} from "../../reducer/data/selectors.js";
+import {getFilmsList, getFilmByID} from "../../reducer/data/selectors.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 
 
 const TabsWrapped = withActiveTabs(Tabs);
@@ -17,7 +18,7 @@ const TabsWrapped = withActiveTabs(Tabs);
 export const FilmDetails = (props) => {
   const {film, authorizationStatus, onImageAndTitleClick, onPlayClick, onMyListClick, loadFavorites} = props;
 
-  return (
+  return film ?
     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
@@ -112,6 +113,7 @@ export const FilmDetails = (props) => {
           <h2 className="catalog__title">More like this</h2>
           <FilmsListOnDetails
             onImageAndTitleClick={onImageAndTitleClick}
+            film={film}
           />
         </section>
 
@@ -130,20 +132,21 @@ export const FilmDetails = (props) => {
         </footer>
       </div>
     </React.Fragment>
-  );
+    : null;
 };
 
 FilmDetails.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  film: PropTypes.object.isRequired,
-  onImageAndTitleClick: PropTypes.func.isRequired,
+  film: PropTypes.object,
   onPlayClick: PropTypes.func.isRequired,
   onMyListClick: PropTypes.func.isRequired,
+  onImageAndTitleClick: PropTypes.func.isRequired,
   loadFavorites: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  film: getFilmByRouter(getFilmsList(state), ownProps.match.params.id)
+  film: getFilmByID(getFilmsList(state), ownProps.match.params.id),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -152,8 +155,14 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onMyListClick(film) {
     dispatch(ActionCreatorData.changeFavoriteStatus(film));
-    dispatch(OperationData.postFavorite(film));
-    dispatch(OperationData.loadFavorites());
+    dispatch(DataOperation.postFavorite(film));
+    dispatch(DataOperation.loadFavorites());
+  },
+  onImageAndTitleClick(film) {
+    dispatch(ActionCreatorFilms.showDetails(film));
+  },
+  loadFavorites() {
+    dispatch(DataOperation.loadFavorites());
   }
 });
 

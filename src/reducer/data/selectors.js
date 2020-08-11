@@ -16,7 +16,7 @@ export const getFavoriteFilms = (state) => {
   return state[NAME_SPACE].favoriteFilms;
 };
 
-export const getFilmByRouter = (films, index) => {
+export const getFilmByID = (films, index) => {
   const intIndex = parseInt(index, 10);
   return (films.find((elem) => {
     return elem.id === intIndex ? elem : null;

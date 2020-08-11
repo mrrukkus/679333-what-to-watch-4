@@ -188,6 +188,7 @@ it(`Private component renders correctly`, () => {
           <Provider store={store}>
             <PrivateRoute
               exact path="/mylist"
+              authorizationStatus={AuthorizationStatus.AUTH}
               render={() => {
                 return (
                   <MyList/>

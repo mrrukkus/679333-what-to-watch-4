@@ -24,10 +24,20 @@ const store = createStore(
     )
 );
 
-store.dispatch(DataOperation.loadFilms());
-store.dispatch(DataOperation.loadPromo());
-store.dispatch(DataOperation.loadFavorites());
-store.dispatch(UserOperation.checkAuthorizationStatus());
+const loadData = () => (dispatch) => {
+  dispatch(DataOperation.loadPromo())
+    .then(() => {
+      dispatch(DataOperation.loadFilms());
+    })
+    .then(() => {
+      dispatch(UserOperation.checkAuthorizationStatus());
+    })
+    .then(() => {
+      dispatch(DataOperation.loadFavorites());
+    });
+};
+
+store.dispatch(loadData());
 
 ReactDOM.render(
     <Provider store={store}>

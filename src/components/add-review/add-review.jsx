@@ -4,7 +4,9 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import withReview from "../../hocs/with-review/with-review.js";
 import Review from "../review/review.jsx";
-import {getFilmsList, getFilmByRouter} from "../../reducer/data/selectors.js";
+import {getFilmsList, getFilmByID} from "../../reducer/data/selectors.js";
+import {Operation as FilmOperation} from "../../reducer/films/films.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 
 
 const WrappedReview = withReview(Review);
@@ -69,14 +71,24 @@ export const AddReview = (props) => {
 };
 
 AddReview.propTypes = {
-  postComment: PropTypes.func.isRequired,
   film: PropTypes.object.isRequired,
+  postComment: PropTypes.func.isRequired,
   loadFavorites: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  film: getFilmByRouter(getFilmsList(state), ownProps.match.params.id)
+  film: getFilmByID(getFilmsList(state), ownProps.match.params.id)
 });
 
-export default connect(mapStateToProps)(AddReview);
+const mapDispatchToProps = (dispatch) => ({
+  postComment(commentData, film) {
+    dispatch(FilmOperation.postComment(commentData));
+    dispatch(FilmOperation.getComments(film));
+  },
+  loadFavorites() {
+    dispatch(DataOperation.loadFavorites());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);

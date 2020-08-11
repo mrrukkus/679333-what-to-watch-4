@@ -18,7 +18,7 @@ const FilmCard = (props) => {
   const renderContentOfCard = () => {
     return (
       isMouseOvered ?
-        <VideoPlayerWrapped isPlaying={true} muted={true} src={film.preview} poster={film.img}/>
+        <VideoPlayerWrapped isPlaying={true} muted={true} film={film}/>
         :
         <img src={film.img} alt={film.title} width="280" height="175" />
     );
@@ -33,7 +33,7 @@ const FilmCard = (props) => {
           {renderContentOfCard()}
         </div>
         <h3 className="small-movie-card__title">
-          <div className="small-movie-card__link">{film.title}</div>
+          <span className="small-movie-card__link" onClick={onCardClick}>{film.title}</span>
         </h3>
       </Link>
     </React.Fragment>
