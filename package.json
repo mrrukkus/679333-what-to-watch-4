@@ -2,6 +2,7 @@
   "name": "what-to-watch",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://mrrukkus.github.io/wtw/",
   "description": "Личный проект «Что посмотреть» от HTML Academy",
   "scripts": {
     "eslint": "eslint --ext .jsx --ext .js src/",
@@ -45,5 +46,4 @@
     "redux-thunk": "2.3.0",
     "reselect": "4.0.0"
   }
-  "homepage": "https://mrrukkus.github.io/wtw/"
 }
