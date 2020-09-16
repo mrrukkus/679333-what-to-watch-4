@@ -4,10 +4,11 @@
     "outDir": "./dist",
     "sourceMap": true,
     "module": "commonjs",
-    "target": "es5",
+    "target": "es2016",
     "jsx": "react",
     "allowSyntheticDefaultImports": false
   },
+  "include": ["src/index.tsx"],
   "exclude": [
     "node_modules",
     "dist"
