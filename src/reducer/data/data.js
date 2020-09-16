@@ -1,5 +1,5 @@
 import {extend} from "../../utils.js";
-import createFilm from "../../adapters/films.js";
+import createFilm from "../../adapters/films.tsx";
 
 const returnAdaptedFilms = (films) => {
   return films.map((film) => createFilm(film));
